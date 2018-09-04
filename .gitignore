@@ -1,0 +1,13 @@
+### Java ###
+build/
+classes/
+
+### Maven ###
+target/
+
+### IntelliJ IDEA ###
+.idea
+*.iml
+*/target/*
+### Idea-created folder for resources ###
+out/
