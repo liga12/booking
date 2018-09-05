@@ -16,6 +16,7 @@ public class OrganizationCreateDto {
     private String location;
 
     @Size(min = 10, max = 10)
+    @NotBlank
     private String phone;
 
     @Email

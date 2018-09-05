@@ -1,12 +1,15 @@
 package com.booking.event.transport.dto.event;
 
 import com.booking.event.persistence.entity.event.EventType;
+import com.booking.event.transport.dto.ArtistOutcomeDto;
 import com.booking.event.transport.dto.OrganizationOutcomeDto;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -35,6 +38,8 @@ public abstract class AbstractEventOutcomeDto {
     private String photoUrl;
 
     private OrganizationOutcomeDto organization;
+
+    private Set<ArtistOutcomeDto> artists;
 
     public AbstractEventOutcomeDto(EventType type) {
         this.type = type;

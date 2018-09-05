@@ -4,7 +4,10 @@ import com.booking.event.persistence.entity.event.*;
 import com.booking.event.transport.dto.event.*;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring", uses = OrganizationMapper.class)
+@Mapper(componentModel = "spring",
+        uses = {
+        OrganizationMapper.class,
+        ArtistMapper.class})
 public interface AbstractEventMapper {
 
     default AbstractEvent toEntity(AbstractEventCreateDto dto) {

@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -18,7 +17,7 @@ import javax.validation.constraints.Size;
         @JsonSubTypes.Type(value = CinemaEventCreateDto.class, name = "CINEMA"),
         @JsonSubTypes.Type(value = TheatreEventCreateDto.class, name = "THEATRE")
 })
-public abstract class  AbstractEventCreateDto {
+public abstract class AbstractEventCreateDto {
 
     @NotBlank
     private String name;
@@ -28,7 +27,6 @@ public abstract class  AbstractEventCreateDto {
     @NotBlank
     private String description;
 
-    @Size(min = 6)
     private Long date;
 
     @NotBlank
