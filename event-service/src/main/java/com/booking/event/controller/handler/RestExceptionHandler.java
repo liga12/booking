@@ -31,4 +31,9 @@ public class RestExceptionHandler {
     private String artistNotFoundException(ArtistNotFoundException e) {
         return String.format("{\"error\":\"%s\"}", e.getMessage());
     }
+
+    @ExceptionHandler(value = PlaceNotFoundException.class)
+    private String placeNotFoundException(PlaceNotFoundException e) {
+        return String.format("{\"error\":\"%s\"}", e.getMessage());
+    }
 }

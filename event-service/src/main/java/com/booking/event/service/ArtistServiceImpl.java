@@ -39,7 +39,7 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public Set<Artist> getArtistsByIds(Set<Long> ids) {
+    public Set<Artist> getById(Set<Long> ids) {
         Set<Artist> artist = new HashSet<>();
         for (Long id : ids) {
             artist.add(
@@ -48,18 +48,19 @@ public class ArtistServiceImpl implements ArtistService {
         return artist;
     }
 
+    @Override
+    public Set<Long> getIdFromEntity(Set<Artist> artists) {
+        Set<Long> ids = new HashSet<>();
+        for (Artist artist : artists) {
+            ids.add(artist.getId());
+        }
+        return ids;
+    }
+
     private void validateArtist(ArtistCreateDto dto) {
         boolean exist = artistRepository.existsByName(dto.getName());
         if (exist) {
             throw new ArtistExistException();
         }
     }
-
-    //    @Override
-//    private void validateByIds(Set<Long> ids) {
-//        ids.stream().map(artistRepository::existsById)
-//                .filter(exist -> !exist)
-//                .findFirst()
-//                .orElseThrow(ArtistNotFoundException::new);
-//    }
 }

@@ -12,7 +12,9 @@ public interface ArtistService {
 
     Long create(ArtistCreateDto dto);
 
-    Set<Artist> getArtistsByIds(Set<Long> ids);
+    Set<Artist> getById(Set<Long> ids);
+
+    Set<Long> getIdFromEntity(Set<Artist> artists);
 
 //    void validateByIds(Set<Long> ids);
 }

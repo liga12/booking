@@ -8,35 +8,67 @@ import com.booking.event.transport.dto.event.AbstractEventCreateDto;
 import com.booking.event.transport.dto.event.AbstractEventOutcomeDto;
 import com.booking.event.transport.mapper.AbstractEventMapper;
 import com.booking.event.transport.mapper.OrganizationMapper;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
+@Getter
 public class AbstractEventServiceImpl implements AbstractEventService {
 
     private final AbstractEventRepository abstractEventRepository;
 
-    private final AbstractEventMapper abstractEventMapper;
+    private  AbstractEventMapper abstractEventMapper;
 
-    private final OrganizationService organizationService;
+    private OrganizationService organizationService;
 
-    private final OrganizationMapper organizationMapper;
+    private OrganizationMapper organizationMapper;
 
-    private final ArtistService artistService;
+    private  ArtistService artistService;
+
+    private  PlaceService placeService;
+
+    @Autowired
+    public void setPlaceService(PlaceService placeService){
+        this.placeService = placeService;
+    }
+
+    @Autowired
+    public void setArtistService( ArtistService artistService){
+        this.artistService = artistService;
+    }
+
+    @Autowired
+    public void setAbstractEventMapper( AbstractEventMapper abstractEventMapper){
+        this.abstractEventMapper = abstractEventMapper;
+    }
+
+    @Autowired
+    public void setOrganizationService(OrganizationService organizationService) {
+        this.organizationService = organizationService;
+    }
+
+    @Autowired
+    public void setOrganizationMapper(OrganizationMapper organizationMapper) {
+        this.organizationMapper = organizationMapper;
+    }
 
     @Override
     @Transactional
-    public Long create(Long organizationId, AbstractEventCreateDto dto, Set<Long> artistIds) {
+    public Long create(Long organizationId, AbstractEventCreateDto dto) {
         Organization organization = organizationMapper.toEntity(
                 organizationService.getById(organizationId)
         );
         AbstractEvent abstractEvent = abstractEventMapper.toEntity(dto);
         abstractEvent.setOrganization(organization);
-        abstractEvent.setArtists(artistService.getArtistsByIds(artistIds));
+        abstractEvent.setArtists(artistService.getById(dto.getArtists()));
+        abstractEvent.setPlaces(placeService.getById(dto.getPlaces()));
         return abstractEventRepository.save(abstractEvent).getId();
     }
 
@@ -48,5 +80,23 @@ public class AbstractEventServiceImpl implements AbstractEventService {
                         .findById(id)
                         .orElseThrow(AbstractEventNotFoundException::new)
         );
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Set<AbstractEvent> getById(Set<Long> ids) {
+        return new HashSet<>(
+                abstractEventRepository
+                        .findAllById(ids)
+        );
+    }
+
+    @Override
+    public Set<Long> getIdFromEntity(Set<AbstractEvent> abstractEvents) {
+        Set<Long> eventIds = new HashSet<>();
+        for (AbstractEvent abstractEvent : abstractEvents) {
+            eventIds.add(abstractEvent.getId());
+        }
+        return eventIds;
     }
 }

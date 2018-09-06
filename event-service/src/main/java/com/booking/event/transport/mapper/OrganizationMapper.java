@@ -1,18 +1,35 @@
 package com.booking.event.transport.mapper;
 
 import com.booking.event.persistence.entity.Organization;
-import com.booking.event.persistence.entity.event.AbstractEvent;
+import com.booking.event.service.AbstractEventService;
 import com.booking.event.transport.dto.OrganizationCreateDto;
 import com.booking.event.transport.dto.OrganizationOutcomeDto;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.springframework.beans.factory.annotation.Autowired;
 
-//@Mapper(componentModel = "spring", uses = AbstractEventMapper.class)
 @Mapper(componentModel = "spring")
-public interface OrganizationMapper {
+@NoArgsConstructor
+public abstract class OrganizationMapper {
 
-    OrganizationOutcomeDto toDto(Organization organization);
+    @Getter
+    AbstractEventService abstractEventService;
 
-    Organization toEntity(OrganizationCreateDto dto);
+    @Autowired
+    public void setAbstractEventService(AbstractEventService abstractEventService) {
+        this.abstractEventService = abstractEventService;
+    }
 
-    Organization toEntity(OrganizationOutcomeDto dto);
+    @Mapping(target = "abstractEvents",
+            expression = "java(abstractEventService.getIdFromEntity(organization.getAbstractEvents()))")
+    public abstract OrganizationOutcomeDto toDto(Organization organization);
+
+    public abstract Organization toEntity(OrganizationCreateDto dto);
+
+    @Mapping(target = "abstractEvents",
+            expression = "java(abstractEventService.getById(dto.getAbstractEvents()))")
+    public abstract Organization toEntity(OrganizationOutcomeDto dto);
+
 }

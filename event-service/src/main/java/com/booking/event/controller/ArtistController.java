@@ -1,4 +1,4 @@
-package com.booking.event.controller.handler;
+package com.booking.event.controller;
 
 import com.booking.event.service.ArtistService;
 import com.booking.event.transport.dto.ArtistCreateDto;

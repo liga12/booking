@@ -26,6 +26,5 @@ public class Place {
     private Set<AbstractEvent> abstractEvents;
 
     @Enumerated(EnumType.STRING)
-    @Setter(AccessLevel.NONE)
     private PlaceType type;
 }

@@ -6,17 +6,25 @@ import com.booking.event.persistence.repository.OrganizationRepository;
 import com.booking.event.transport.dto.OrganizationCreateDto;
 import com.booking.event.transport.dto.OrganizationOutcomeDto;
 import com.booking.event.transport.mapper.OrganizationMapper;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class OrganizationServiceImpl implements OrganizationService {
 
-    private final OrganizationRepository organizationRepository;
+    @Autowired
+    private OrganizationRepository organizationRepository;
 
-    private final OrganizationMapper organizationMapper;
+    @Getter
+    private OrganizationMapper organizationMapper;
+
+    @Autowired
+    public void setOrganizationMapper(OrganizationMapper organizationMapper) {
+        this.organizationMapper = organizationMapper;
+    }
 
     @Override
     public Long create(OrganizationCreateDto dto) {
@@ -40,6 +48,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         boolean existName = organizationRepository.existsByName(name);
         if (existName) {
             throw new OrganizationNameExistException();
+
         }
     }
 }

@@ -3,6 +3,8 @@ package com.booking.event.transport.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 public class OrganizationOutcomeDto {
@@ -19,5 +21,5 @@ public class OrganizationOutcomeDto {
 
     private Boolean visible = false;
 
-//    private Set<AbstractEventOutcomeDto> abstractEvents;
+    private Set<Long> abstractEvents;
 }
