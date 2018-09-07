@@ -1,9 +1,8 @@
 package com.booking.event.transport.mapper;
 
 import com.booking.event.persistence.entity.event.*;
-import com.booking.event.service.ArtistService;
-import com.booking.event.service.OrganizationService;
-import com.booking.event.service.PlaceService;
+import com.booking.event.service.organization.OrganizationService;
+import com.booking.event.service.place.PlaceService;
 import com.booking.event.transport.dto.event.*;
 import lombok.Getter;
 import org.mapstruct.Mapper;
@@ -19,18 +18,11 @@ public abstract class AbstractEventMapper {
 
     OrganizationService organizationService;
 
-    ArtistService artistService;
-
     PlaceService placeService;
 
     @Autowired
-    public void setPlaceService(PlaceService placeService){
+    public void setPlaceService(PlaceService placeService) {
         this.placeService = placeService;
-    }
-
-    @Autowired
-    public void setArtistService(ArtistService artistService) {
-        this.artistService = artistService;
     }
 
     @Autowired
@@ -93,8 +85,6 @@ public abstract class AbstractEventMapper {
     @Mappings({
             @Mapping(target = "organization",
                     expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))"),
-            @Mapping(target = "artists",
-                    expression = "java(artistService.getById(dto.getArtists()))"),
             @Mapping(target = "places",
                     expression = "java(placeService.getById(dto.getPlaces()))")
     })
@@ -103,8 +93,6 @@ public abstract class AbstractEventMapper {
     @Mappings({
             @Mapping(target = "organization",
                     expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))"),
-            @Mapping(target = "artists",
-                    expression = "java(artistService.getById(dto.getArtists()))"),
             @Mapping(target = "places",
                     expression = "java(placeService.getById(dto.getPlaces()))")
     })
@@ -113,8 +101,6 @@ public abstract class AbstractEventMapper {
     @Mappings({
             @Mapping(target = "organization",
                     expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))"),
-            @Mapping(target = "artists",
-                    expression = "java(artistService.getById(dto.getArtists()))"),
             @Mapping(target = "places",
                     expression = "java(placeService.getById(dto.getPlaces()))")
     })
@@ -123,8 +109,6 @@ public abstract class AbstractEventMapper {
     @Mappings({
             @Mapping(target = "organization",
                     expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))"),
-            @Mapping(target = "artists",
-                    expression = "java(artistService.getById(dto.getArtists()))"),
             @Mapping(target = "places",
                     expression = "java(placeService.getById(dto.getPlaces()))")
     })
@@ -133,8 +117,6 @@ public abstract class AbstractEventMapper {
     @Mappings({
             @Mapping(target = "organization",
                     expression = "java(originalConcertEvent.getOrganization().getId())"),
-            @Mapping(target = "artists",
-                    expression = "java(artistService.getIdFromEntity(originalConcertEvent.getArtists()))"),
             @Mapping(target = "places",
                     expression = "java(placeService.getIdFromEntity(originalConcertEvent.getPlaces()))")
     })
@@ -143,8 +125,6 @@ public abstract class AbstractEventMapper {
     @Mappings({
             @Mapping(target = "organization",
                     expression = "java(coverConcertEvent.getOrganization().getId())"),
-            @Mapping(target = "artists",
-                    expression = "java(artistService.getIdFromEntity(coverConcertEvent.getArtists()))"),
             @Mapping(target = "places",
                     expression = "java(placeService.getIdFromEntity(coverConcertEvent.getPlaces()))")
     })
@@ -153,8 +133,6 @@ public abstract class AbstractEventMapper {
     @Mappings({
             @Mapping(target = "organization",
                     expression = "java(cinemaEvent.getOrganization().getId())"),
-            @Mapping(target = "artists",
-                    expression = "java(artistService.getIdFromEntity(cinemaEvent.getArtists()))"),
             @Mapping(target = "places",
                     expression = "java(placeService.getIdFromEntity(cinemaEvent.getPlaces()))")
     })
@@ -163,8 +141,6 @@ public abstract class AbstractEventMapper {
     @Mappings({
             @Mapping(target = "organization",
                     expression = "java(theatreEvent.getOrganization().getId())"),
-            @Mapping(target = "artists",
-                    expression = "java(artistService.getIdFromEntity(theatreEvent.getArtists()))"),
             @Mapping(target = "places",
                     expression = "java(placeService.getIdFromEntity(theatreEvent.getPlaces()))")
     })

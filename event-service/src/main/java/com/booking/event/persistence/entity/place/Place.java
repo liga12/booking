@@ -1,9 +1,7 @@
-package com.booking.event.persistence.entity;
+package com.booking.event.persistence.entity.place;
 
 import com.booking.event.persistence.entity.event.AbstractEvent;
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -22,9 +20,16 @@ public class Place {
     @Column(nullable = false)
     private Double price;
 
+    @Column(nullable = false)
+    private Integer number;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private PlaceStatusType status;
+
     @ManyToMany(mappedBy = "places")
     private Set<AbstractEvent> abstractEvents;
 
     @Enumerated(EnumType.STRING)
-    private PlaceType type;
+    private PlaceRowType rowType;
 }

@@ -1,8 +1,8 @@
-package com.booking.event.service;
+package com.booking.event.service.place;
 
-import com.booking.event.persistence.entity.Place;
-import com.booking.event.transport.dto.PlaceCreateDto;
-import com.booking.event.transport.dto.PlaceOutcomeDto;
+import com.booking.event.persistence.entity.place.Place;
+import com.booking.event.transport.dto.place.PlaceCreateDto;
+import com.booking.event.transport.dto.place.PlaceOutcomeDto;
 
 import java.util.Set;
 

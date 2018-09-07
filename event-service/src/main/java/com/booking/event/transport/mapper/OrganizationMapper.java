@@ -1,9 +1,10 @@
 package com.booking.event.transport.mapper;
 
 import com.booking.event.persistence.entity.Organization;
-import com.booking.event.service.AbstractEventService;
-import com.booking.event.transport.dto.OrganizationCreateDto;
-import com.booking.event.transport.dto.OrganizationOutcomeDto;
+import com.booking.event.service.event.AbstractEventService;
+import com.booking.event.transport.dto.organization.OrganizationCreateDto;
+import com.booking.event.transport.dto.organization.OrganizationOutcomeDto;
+import com.booking.event.transport.dto.organization.OrganizationUpdateDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.mapstruct.Mapper;
@@ -27,6 +28,8 @@ public abstract class OrganizationMapper {
     public abstract OrganizationOutcomeDto toDto(Organization organization);
 
     public abstract Organization toEntity(OrganizationCreateDto dto);
+
+    public abstract Organization toEntity(OrganizationUpdateDto dto);
 
     @Mapping(target = "abstractEvents",
             expression = "java(abstractEventService.getById(dto.getAbstractEvents()))")

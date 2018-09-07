@@ -1,9 +1,11 @@
-package com.booking.event.service;
+package com.booking.event.service.event;
 
 import com.booking.event.exception.AbstractEventNotFoundException;
 import com.booking.event.persistence.entity.Organization;
 import com.booking.event.persistence.entity.event.AbstractEvent;
 import com.booking.event.persistence.repository.AbstractEventRepository;
+import com.booking.event.service.organization.OrganizationService;
+import com.booking.event.service.place.PlaceService;
 import com.booking.event.transport.dto.event.AbstractEventCreateDto;
 import com.booking.event.transport.dto.event.AbstractEventOutcomeDto;
 import com.booking.event.transport.mapper.AbstractEventMapper;
@@ -24,28 +26,21 @@ public class AbstractEventServiceImpl implements AbstractEventService {
 
     private final AbstractEventRepository abstractEventRepository;
 
-    private  AbstractEventMapper abstractEventMapper;
+    private AbstractEventMapper abstractEventMapper;
 
     private OrganizationService organizationService;
 
     private OrganizationMapper organizationMapper;
 
-    private  ArtistService artistService;
-
-    private  PlaceService placeService;
+    private PlaceService placeService;
 
     @Autowired
-    public void setPlaceService(PlaceService placeService){
+    public void setPlaceService(PlaceService placeService) {
         this.placeService = placeService;
     }
 
     @Autowired
-    public void setArtistService( ArtistService artistService){
-        this.artistService = artistService;
-    }
-
-    @Autowired
-    public void setAbstractEventMapper( AbstractEventMapper abstractEventMapper){
+    public void setAbstractEventMapper(AbstractEventMapper abstractEventMapper) {
         this.abstractEventMapper = abstractEventMapper;
     }
 
@@ -67,8 +62,6 @@ public class AbstractEventServiceImpl implements AbstractEventService {
         );
         AbstractEvent abstractEvent = abstractEventMapper.toEntity(dto);
         abstractEvent.setOrganization(organization);
-        abstractEvent.setArtists(artistService.getById(dto.getArtists()));
-        abstractEvent.setPlaces(placeService.getById(dto.getPlaces()));
         return abstractEventRepository.save(abstractEvent).getId();
     }
 

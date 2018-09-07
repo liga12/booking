@@ -1,6 +1,6 @@
 package com.booking.event.controller;
 
-import com.booking.event.service.AbstractEventService;
+import com.booking.event.service.event.AbstractEventService;
 import com.booking.event.transport.dto.event.AbstractEventCreateDto;
 import com.booking.event.transport.dto.event.AbstractEventOutcomeDto;
 import lombok.Getter;

@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -37,11 +35,8 @@ public abstract class AbstractEventCreateDto {
     @NotBlank
     private String photoUrl;
 
-    @NotNull
-    private Set<Long> artists;
-
-    @NotNull
-    private Set<Long> places;
+    @NotBlank
+    private String artists;
 
     public AbstractEventCreateDto(EventType type) {
         this.type = type;

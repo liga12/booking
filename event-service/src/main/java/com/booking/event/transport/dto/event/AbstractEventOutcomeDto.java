@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "rowType")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = OriginalConcertEventCreateDto.class, name = "ORIGINAL_CONCERT"),
         @JsonSubTypes.Type(value = CoverConcertEventCreateDto.class, name = "COVER_CONCERT"),
@@ -37,7 +37,7 @@ public abstract class AbstractEventOutcomeDto {
 
     private Long organization;
 
-    private Set<Long> artists;
+    private String artists;
 
     private Set<Long> places;
 

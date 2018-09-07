@@ -1,6 +1,6 @@
-package com.booking.event.persistence.entity;
+package com.booking.event.persistence.entity.place;
 
-public enum  PlaceType {
+public enum PlaceRowType {
 
     VIP(Values.VIP),
     FREE(Values.FREE),
@@ -10,7 +10,7 @@ public enum  PlaceType {
 
     private final String value;
 
-    PlaceType(String value) {
+    PlaceRowType(String value) {
         this.value = value;
     }
 

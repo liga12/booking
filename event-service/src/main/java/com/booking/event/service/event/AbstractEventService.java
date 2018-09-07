@@ -1,4 +1,4 @@
-package com.booking.event.service;
+package com.booking.event.service.event;
 
 import com.booking.event.persistence.entity.event.AbstractEvent;
 import com.booking.event.transport.dto.event.AbstractEventCreateDto;

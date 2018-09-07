@@ -1,4 +1,4 @@
-package com.booking.event.transport.dto;
+package com.booking.event.transport.dto.organization;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class OrganizationOutcomeDto {
+public class OrganizationFindDto {
 
     private Long id;
 
@@ -19,7 +19,7 @@ public class OrganizationOutcomeDto {
 
     private String email;
 
-    private Boolean visible = false;
+    private Boolean visible;
 
     private Set<Long> abstractEvents;
 }

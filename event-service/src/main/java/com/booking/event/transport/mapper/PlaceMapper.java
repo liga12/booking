@@ -1,9 +1,9 @@
 package com.booking.event.transport.mapper;
 
-import com.booking.event.persistence.entity.Place;
-import com.booking.event.service.AbstractEventService;
-import com.booking.event.transport.dto.PlaceCreateDto;
-import com.booking.event.transport.dto.PlaceOutcomeDto;
+import com.booking.event.persistence.entity.place.Place;
+import com.booking.event.service.event.AbstractEventService;
+import com.booking.event.transport.dto.place.PlaceCreateDto;
+import com.booking.event.transport.dto.place.PlaceOutcomeDto;
 import lombok.Getter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -23,7 +23,7 @@ public abstract class PlaceMapper {
     @Mapping(target = "abstractEvents", expression = "java(abstractEventService.getById(dto.getAbstractEvents()))")
     public abstract Place toEntity(PlaceOutcomeDto dto);
 
-    @Mapping(target = "type", source = "type")
+    @Mapping(target = "rowType", source = "rowType")
     public abstract Place toEntity(PlaceCreateDto dto);
 
     @Mapping(target = "abstractEvents", expression = "java(abstractEventService.getIdFromEntity(place.getAbstractEvents()))")

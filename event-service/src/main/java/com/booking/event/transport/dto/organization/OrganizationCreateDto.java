@@ -1,4 +1,4 @@
-package com.booking.event.transport.dto;
+package com.booking.event.transport.dto.organization;
 
 import lombok.Getter;
 import lombok.Setter;

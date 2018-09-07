@@ -1,11 +1,10 @@
-package com.booking.event.service;
+package com.booking.event.service.place;
 
 import com.booking.event.exception.OrganizationNotFoundException;
-import com.booking.event.persistence.entity.Artist;
-import com.booking.event.persistence.entity.Place;
+import com.booking.event.persistence.entity.place.Place;
 import com.booking.event.persistence.repository.PlaceRepository;
-import com.booking.event.transport.dto.PlaceCreateDto;
-import com.booking.event.transport.dto.PlaceOutcomeDto;
+import com.booking.event.transport.dto.place.PlaceCreateDto;
+import com.booking.event.transport.dto.place.PlaceOutcomeDto;
 import com.booking.event.transport.mapper.PlaceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

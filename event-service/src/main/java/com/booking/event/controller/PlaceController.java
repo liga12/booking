@@ -1,8 +1,8 @@
 package com.booking.event.controller;
 
-import com.booking.event.service.PlaceService;
-import com.booking.event.transport.dto.PlaceCreateDto;
-import com.booking.event.transport.dto.PlaceOutcomeDto;
+import com.booking.event.service.place.PlaceService;
+import com.booking.event.transport.dto.place.PlaceCreateDto;
+import com.booking.event.transport.dto.place.PlaceOutcomeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

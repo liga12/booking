@@ -1,8 +1,7 @@
 package com.booking.event.persistence.entity.event;
 
-import com.booking.event.persistence.entity.Artist;
 import com.booking.event.persistence.entity.Organization;
-import com.booking.event.persistence.entity.Place;
+import com.booking.event.persistence.entity.place.Place;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -43,11 +42,7 @@ public abstract class AbstractEvent {
     @JoinColumn(name = "organization_id")
     private Organization organization;
 
-    @ManyToMany
-    @JoinTable(name = "events_artists",
-            joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "artist_id"))
-    private Set<Artist> artists;
+    private String artists;
 
     @ManyToMany
     @JoinTable(name = "events_places",
