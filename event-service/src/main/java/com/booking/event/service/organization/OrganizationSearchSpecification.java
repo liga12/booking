@@ -5,6 +5,7 @@ import com.booking.event.transport.dto.organization.OrganizationFindDto;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.*;
@@ -19,7 +20,7 @@ interface OrganizationSearchSpecification {
             predicates.add(toLikePredicate(root, criteriaBuilder, "phone", dto.getPhone()));
             predicates.add(toLikePredicate(root, criteriaBuilder, "email", dto.getEmail()));
             predicates.add(toEqualsPredicate(root, criteriaBuilder, "visible", dto.getVisible()));
-            predicates.add(toEqualsPredicate(root, "abstractEvents", dto.getAbstractEvents()));
+            predicates.add(toEqualsPredicate(root, "events", dto.getEvents()));
             Object[] rawPredicates = predicates.stream().filter(Objects::nonNull).toArray();
             return criteriaBuilder.and(Arrays.copyOf(rawPredicates, rawPredicates.length, Predicate[].class));
         };
@@ -34,6 +35,6 @@ interface OrganizationSearchSpecification {
     }
 
     static Predicate toEqualsPredicate(Root<Organization> root, String param, Set<Long> paramValue) {
-        return paramValue != null ? root.join(param).in(paramValue) : null;
+        return paramValue != null ? root.join(param).get("id").in(paramValue) : null;
     }
 }

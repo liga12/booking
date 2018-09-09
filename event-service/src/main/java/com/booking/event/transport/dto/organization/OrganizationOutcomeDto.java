@@ -21,5 +21,5 @@ public class OrganizationOutcomeDto {
 
     private Boolean visible = false;
 
-    private Set<Long> abstractEvents;
+    private Set<Long> events;
 }

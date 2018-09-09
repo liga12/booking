@@ -3,14 +3,29 @@ package com.booking.event.transport.mapper;
 import com.booking.event.persistence.entity.event.*;
 import com.booking.event.service.organization.OrganizationService;
 import com.booking.event.service.place.PlaceService;
-import com.booking.event.transport.dto.event.*;
+import com.booking.event.transport.dto.event.AbstractEventCreateDto;
+import com.booking.event.transport.dto.event.AbstractEventOutcomeDto;
+import com.booking.event.transport.dto.event.AbstractEventUpdateDto;
+import com.booking.event.transport.dto.event.ageConstrain.cinema.CinemaEventCreateDto;
+import com.booking.event.transport.dto.event.ageConstrain.cinema.CinemaEventOutcomeDto;
+import com.booking.event.transport.dto.event.ageConstrain.cinema.CinemaEventUpdateDto;
+import com.booking.event.transport.dto.event.ageConstrain.theatre.TheatreEventCreateDto;
+import com.booking.event.transport.dto.event.ageConstrain.theatre.TheatreEventOutcomeDto;
+import com.booking.event.transport.dto.event.ageConstrain.theatre.TheatreEventUpdateDto;
+import com.booking.event.transport.dto.event.coverConcert.CoverConcertEventCreateDto;
+import com.booking.event.transport.dto.event.coverConcert.CoverConcertEventOutcomeDto;
+import com.booking.event.transport.dto.event.coverConcert.CoverConcertEventUpdateDto;
+import com.booking.event.transport.dto.event.originalConcert.OriginalConcertEventCreateDto;
+import com.booking.event.transport.dto.event.originalConcert.OriginalConcertEventOutcomeDto;
+import com.booking.event.transport.dto.event.originalConcert.OriginalConcertEventUpdateDto;
 import lombok.Getter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 @Getter
 public abstract class AbstractEventMapper {
 
@@ -61,6 +76,19 @@ public abstract class AbstractEventMapper {
         return toEntity((TheatreEventOutcomeDto) dto);
     }
 
+    public AbstractEvent toEntity(AbstractEventUpdateDto dto) {
+        if (dto instanceof OriginalConcertEventUpdateDto) {
+            return toEntity((OriginalConcertEventUpdateDto) dto);
+        }
+        if (dto instanceof CoverConcertEventUpdateDto) {
+            return toEntity((CoverConcertEventUpdateDto) dto);
+        }
+        if (dto instanceof CinemaEventUpdateDto) {
+            return toEntity((CinemaEventUpdateDto) dto);
+        }
+        return toEntity((TheatreEventUpdateDto) dto);
+    }
+
     public AbstractEventOutcomeDto toDto(AbstractEvent abstractEvent) {
         if (abstractEvent instanceof OriginalConcertEvent) {
             return toDto((OriginalConcertEvent) abstractEvent);
@@ -74,12 +102,20 @@ public abstract class AbstractEventMapper {
         return toDto((TheatreEvent) abstractEvent);
     }
 
+    @Mapping(target = "organization",
+            expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))")
     abstract OriginalConcertEvent toEntity(OriginalConcertEventCreateDto dto);
 
+    @Mapping(target = "organization",
+            expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))")
     abstract CoverConcertEvent toEntity(CoverConcertEventCreateDto dto);
 
+    @Mapping(target = "organization",
+            expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))")
     abstract CinemaEvent toEntity(CinemaEventCreateDto dto);
 
+    @Mapping(target = "organization",
+            expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))")
     abstract TheatreEvent toEntity(TheatreEventCreateDto dto);
 
     @Mappings({
@@ -113,6 +149,38 @@ public abstract class AbstractEventMapper {
                     expression = "java(placeService.getById(dto.getPlaces()))")
     })
     abstract TheatreEvent toEntity(TheatreEventOutcomeDto dto);
+
+    @Mappings({
+            @Mapping(target = "organization",
+                    expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))"),
+            @Mapping(target = "places",
+                    expression = "java(placeService.getById(dto.getPlaces()))")
+    })
+    abstract OriginalConcertEvent toEntity(OriginalConcertEventUpdateDto dto);
+
+    @Mappings({
+            @Mapping(target = "organization",
+                    expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))"),
+            @Mapping(target = "places",
+                    expression = "java(placeService.getById(dto.getPlaces()))")
+    })
+    abstract CoverConcertEvent toEntity(CoverConcertEventUpdateDto dto);
+
+    @Mappings({
+            @Mapping(target = "organization",
+                    expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))"),
+            @Mapping(target = "places",
+                    expression = "java(placeService.getById(dto.getPlaces()))")
+    })
+    abstract CinemaEvent toEntity(CinemaEventUpdateDto dto);
+
+    @Mappings({
+            @Mapping(target = "organization",
+                    expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))"),
+            @Mapping(target = "places",
+                    expression = "java(placeService.getById(dto.getPlaces()))")
+    })
+    abstract TheatreEvent toEntity(TheatreEventUpdateDto dto);
 
     @Mappings({
             @Mapping(target = "organization",

@@ -32,5 +32,5 @@ public class Organization {
     private Boolean visible = false;
 
     @OneToMany(mappedBy = "organization")
-    private Set<AbstractEvent> abstractEvents;
+    private Set<AbstractEvent> events;
 }

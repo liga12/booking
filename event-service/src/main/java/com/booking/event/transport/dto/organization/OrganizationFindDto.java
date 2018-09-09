@@ -21,5 +21,5 @@ public class OrganizationFindDto {
 
     private Boolean visible;
 
-    private Set<Long> abstractEvents;
+    private Set<Long> events;
 }

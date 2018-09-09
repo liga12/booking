@@ -1,10 +1,13 @@
 package com.booking.event.transport.dto.event;
 
 import com.booking.event.persistence.entity.event.EventType;
+import com.booking.event.transport.dto.event.ageConstrain.cinema.CinemaEventCreateDto;
+import com.booking.event.transport.dto.event.ageConstrain.theatre.TheatreEventCreateDto;
+import com.booking.event.transport.dto.event.coverConcert.CoverConcertEventCreateDto;
+import com.booking.event.transport.dto.event.originalConcert.OriginalConcertEventCreateDto;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
@@ -18,7 +21,6 @@ import java.util.Set;
         @JsonSubTypes.Type(value = CinemaEventCreateDto.class, name = "CINEMA"),
         @JsonSubTypes.Type(value = TheatreEventCreateDto.class, name = "THEATRE")
 })
-@NoArgsConstructor
 public abstract class AbstractEventOutcomeDto {
 
     private Long id;
@@ -40,6 +42,8 @@ public abstract class AbstractEventOutcomeDto {
     private String artists;
 
     private Set<Long> places;
+
+    private Boolean visible;
 
     public AbstractEventOutcomeDto(EventType type) {
         this.type = type;

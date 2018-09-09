@@ -42,7 +42,11 @@ public abstract class AbstractEvent {
     @JoinColumn(name = "organization_id")
     private Organization organization;
 
+    @Column(nullable = false)
     private String artists;
+
+    @Column(nullable = false)
+    private Boolean visible;
 
     @ManyToMany
     @JoinTable(name = "events_places",

@@ -1,11 +1,11 @@
-package com.booking.event.transport.dto.event;
+package com.booking.event.transport.dto.event.ageConstrain;
 
 import com.booking.event.persistence.entity.event.EventType;
+import com.booking.event.transport.dto.event.AbstractEventCreateDto;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Getter
 @Setter

@@ -23,16 +23,18 @@ public abstract class OrganizationMapper {
         this.abstractEventService = abstractEventService;
     }
 
-    @Mapping(target = "abstractEvents",
-            expression = "java(abstractEventService.getIdFromEntity(organization.getAbstractEvents()))")
+    @Mapping(target = "events",
+            expression = "java(abstractEventService.getIdFromEntity(organization.getEvents()))")
     public abstract OrganizationOutcomeDto toDto(Organization organization);
 
     public abstract Organization toEntity(OrganizationCreateDto dto);
 
+    @Mapping(target = "events",
+            expression = "java(abstractEventService.getById(dto.getEvents()))")
     public abstract Organization toEntity(OrganizationUpdateDto dto);
 
-    @Mapping(target = "abstractEvents",
-            expression = "java(abstractEventService.getById(dto.getAbstractEvents()))")
+    @Mapping(target = "events",
+            expression = "java(abstractEventService.getById(dto.getEvents()))")
     public abstract Organization toEntity(OrganizationOutcomeDto dto);
 
 }

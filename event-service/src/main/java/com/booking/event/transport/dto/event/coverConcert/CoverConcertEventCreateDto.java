@@ -1,6 +1,7 @@
-package com.booking.event.transport.dto.event;
+package com.booking.event.transport.dto.event.coverConcert;
 
 import com.booking.event.persistence.entity.event.EventType;
+import com.booking.event.transport.dto.event.AbstractEventCreateDto;
 import lombok.Getter;
 import lombok.Setter;
 
