@@ -1,6 +1,5 @@
 package com.booking.event.transport.dto.event;
 
-import com.booking.event.persistence.entity.Organization;
 import com.booking.event.persistence.entity.event.EventType;
 import com.booking.event.transport.dto.event.ageConstrain.cinema.CinemaEventCreateDto;
 import com.booking.event.transport.dto.event.ageConstrain.theatre.TheatreEventCreateDto;
@@ -45,9 +44,6 @@ public abstract class AbstractEventCreateDto {
 
     @NotBlank
     private String artists;
-
-    @NotNull
-    private Boolean visible;
 
     @NotNull
     private Long organization;

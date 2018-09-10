@@ -2,6 +2,7 @@ package com.booking.event.transport.mapper;
 
 import com.booking.event.persistence.entity.Organization;
 import com.booking.event.service.event.AbstractEventService;
+import com.booking.event.service.organization.OrganizationService;
 import com.booking.event.transport.dto.organization.OrganizationCreateDto;
 import com.booking.event.transport.dto.organization.OrganizationOutcomeDto;
 import com.booking.event.transport.dto.organization.OrganizationUpdateDto;
@@ -18,6 +19,14 @@ public abstract class OrganizationMapper {
     @Getter
     AbstractEventService abstractEventService;
 
+    @Getter
+    OrganizationService organizationService;
+
+    @Autowired
+    public void setOrganizationService(OrganizationService organizationService) {
+        this.organizationService = organizationService;
+    }
+
     @Autowired
     public void setAbstractEventService(AbstractEventService abstractEventService) {
         this.abstractEventService = abstractEventService;
@@ -30,7 +39,7 @@ public abstract class OrganizationMapper {
     public abstract Organization toEntity(OrganizationCreateDto dto);
 
     @Mapping(target = "events",
-            expression = "java(abstractEventService.getById(dto.getEvents()))")
+            expression = "java(abstractEventService.getById(organizationService.getById(dto.getId()).getEvents()))")
     public abstract Organization toEntity(OrganizationUpdateDto dto);
 
     @Mapping(target = "events",

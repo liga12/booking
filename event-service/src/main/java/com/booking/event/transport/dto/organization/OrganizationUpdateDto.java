@@ -28,10 +28,4 @@ public class OrganizationUpdateDto {
 
     @Email
     private String email;
-
-    @NotNull
-    private Boolean visible;
-
-    @NotNull
-    private Set<Long> events;
 }

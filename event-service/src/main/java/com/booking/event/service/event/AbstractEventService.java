@@ -11,22 +11,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
+@Transactional
 public interface AbstractEventService {
 
     @Transactional(readOnly = true)
     Page<AbstractEventOutcomeDto> getAll(AbstractEventFindDto dto, Pageable pageable);
 
-    Long create(Long organizationId, AbstractEventCreateDto dto);
-
+    @Transactional(readOnly = true)
     AbstractEventOutcomeDto getById(Long id);
 
+    @Transactional(readOnly = true)
     Set<AbstractEvent> getById(Set<Long> ids);
 
-    @Transactional
-    Long update(Long id, AbstractEventUpdateDto dto);
+    Long create(AbstractEventCreateDto dto);
 
-    @Transactional
+    Long update(AbstractEventUpdateDto dto);
+
     void delete(Long id);
 
     Set<Long> getIdFromEntity(Set<AbstractEvent> abstractEvents);
+
+    void validateEventByActive(Long id);
 }

@@ -21,7 +21,4 @@ public class OrganizationCreateDto {
 
     @Email
     private String email;
-
-    @NotNull
-    private Boolean visible;
 }

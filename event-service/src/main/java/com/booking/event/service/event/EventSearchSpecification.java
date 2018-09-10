@@ -16,7 +16,7 @@ interface EventSearchSpecification {
             predicates.add(toEqualsPredicate(root, criteriaBuilder, "id", dto.getId()));
             predicates.add(toLikePredicate(root, criteriaBuilder, "name", dto.getName()));
             predicates.add(toEqualsPredicate(root, criteriaBuilder, "type", dto.getType()));
-            //TODO create for date
+            predicates.add(toBetweenLongPredicate(root, criteriaBuilder, "date", dto.getStarDate(), dto.getEndDate()));
             predicates.add(toLikePredicate(root, criteriaBuilder, "description", dto.getDescription()));
             predicates.add(toLikePredicate(root, criteriaBuilder, "location", dto.getLocation()));
             predicates.add(toLikePredicate(root, criteriaBuilder, "photoUrl", dto.getPhotoUrl()));
@@ -52,5 +52,16 @@ interface EventSearchSpecification {
 
     static Predicate toEqualsPredicate(Root<AbstractEvent> root, String param, Set<Long> paramValue) {
         return paramValue != null ? root.join(param).get("id").in(paramValue) : null;
+    }
+
+     static Predicate toBetweenLongPredicate(Root<AbstractEvent> root, CriteriaBuilder criteriaBuilder, String param,
+                                                    Long paramValueFrom, Long paramValueTo) {
+        if (paramValueFrom == null && paramValueTo == null)
+            return null;
+        if (null == paramValueFrom)
+            paramValueFrom = 0L;
+        if (null == paramValueTo)
+            paramValueTo = Long.MAX_VALUE;
+        return criteriaBuilder.between(root.get(param), paramValueFrom, paramValueTo);
     }
 }

@@ -1,8 +1,10 @@
 package com.booking.event.service.event;
 
 import com.booking.event.exception.AbstractEventNotFoundException;
-import com.booking.event.persistence.entity.Organization;
+import com.booking.event.exception.EventNotActiveException;
+import com.booking.event.exception.NotCorrectDateException;
 import com.booking.event.persistence.entity.event.AbstractEvent;
+import com.booking.event.persistence.entity.place.Place;
 import com.booking.event.persistence.repository.AbstractEventRepository;
 import com.booking.event.service.organization.OrganizationService;
 import com.booking.event.service.place.PlaceService;
@@ -60,7 +62,6 @@ public class AbstractEventServiceImpl implements AbstractEventService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Page<AbstractEventOutcomeDto> getAll(AbstractEventFindDto dto, Pageable pageable) {
         Page<AbstractEvent> result = abstractEventRepository.findAll(
                 EventSearchSpecification.eventFilter(dto),
@@ -70,7 +71,6 @@ public class AbstractEventServiceImpl implements AbstractEventService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public AbstractEventOutcomeDto getById(Long id) {
         return abstractEventMapper.toDto(
                 abstractEventRepository
@@ -80,39 +80,33 @@ public class AbstractEventServiceImpl implements AbstractEventService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Set<AbstractEvent> getById(Set<Long> ids) {
         List<AbstractEvent> events = abstractEventRepository.findAllById(ids);
-        if (events.size()!=ids.size()){
-            throw  new AbstractEventNotFoundException();
+        if (events.size() != ids.size()) {
+            throw new AbstractEventNotFoundException();
         }
         return new HashSet<>(events);
     }
 
     @Override
-    @Transactional
-    public Long create(Long organizationId, AbstractEventCreateDto dto) {
-        Organization organization = organizationMapper.toEntity(
-                organizationService.getById(organizationId)
+    public Long create(AbstractEventCreateDto dto) {
+        validateDate(dto.getDate());
+        organizationService.validateOrganizationByActive(
+                dto.getOrganization()
         );
-        AbstractEvent abstractEvent = abstractEventMapper.toEntity(dto);
-        abstractEvent.setOrganization(organization);
-        return abstractEventRepository.save(abstractEvent).getId();
+        return abstractEventRepository.save(
+                abstractEventMapper.toEntity(dto)).getId();
     }
 
     @Override
-    @Transactional
-    public Long update(Long id, AbstractEventUpdateDto dto) {
-        validateExistById(id);
-        Organization organization = organizationMapper.toEntity(
-                organizationService.getById(
-                        dto.getOrganization()
-                )
+    public Long update(AbstractEventUpdateDto dto) {
+        validateDate(dto.getDate());
+        validateExistById(dto.getId());
+        organizationService.validateOrganizationByActive(
+                dto.getOrganization()
         );
-        AbstractEvent abstractEvent = abstractEventMapper.toEntity(dto);
-        abstractEvent.setOrganization(organization);
         return abstractEventRepository.save(
-                abstractEvent
+                abstractEventMapper.toEntity(dto)
         ).getId();
     }
 
@@ -120,6 +114,9 @@ public class AbstractEventServiceImpl implements AbstractEventService {
     @Transactional
     public void delete(Long id) {
         AbstractEvent abstractEvent = abstractEventMapper.toEntity(getById(id));
+        for (Place place : abstractEvent.getPlaces()) {
+            placeService.delete(place.getId());
+        }
         abstractEvent.setVisible(false);
         abstractEventRepository.save(abstractEvent);
     }
@@ -133,9 +130,28 @@ public class AbstractEventServiceImpl implements AbstractEventService {
         return eventIds;
     }
 
+    @Override
+    public void validateEventByActive(Long id) {
+        AbstractEventOutcomeDto abstractEventOutcomeDto = getById(id);
+        long timestamp = System.currentTimeMillis() / 1000;
+        if (abstractEventOutcomeDto.getDate() <= timestamp) {
+            delete(id);
+        }
+        if (!abstractEventOutcomeDto.getVisible()) {
+            throw new EventNotActiveException();
+        }
+    }
+
     private void validateExistById(Long id) {
         if (id == null || !abstractEventRepository.existsById(id)) {
             throw new AbstractEventNotFoundException();
+        }
+    }
+
+    private void validateDate(Long date) {
+        long timestamp = System.currentTimeMillis() / 1000;
+        if (date <= timestamp) {
+            throw new NotCorrectDateException();
         }
     }
 }

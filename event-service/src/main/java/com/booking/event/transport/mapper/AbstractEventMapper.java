@@ -150,36 +150,20 @@ public abstract class AbstractEventMapper {
     })
     abstract TheatreEvent toEntity(TheatreEventOutcomeDto dto);
 
-    @Mappings({
             @Mapping(target = "organization",
-                    expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))"),
-            @Mapping(target = "places",
-                    expression = "java(placeService.getById(dto.getPlaces()))")
-    })
+                    expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))")
     abstract OriginalConcertEvent toEntity(OriginalConcertEventUpdateDto dto);
 
-    @Mappings({
             @Mapping(target = "organization",
-                    expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))"),
-            @Mapping(target = "places",
-                    expression = "java(placeService.getById(dto.getPlaces()))")
-    })
+                    expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))")
     abstract CoverConcertEvent toEntity(CoverConcertEventUpdateDto dto);
 
-    @Mappings({
             @Mapping(target = "organization",
-                    expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))"),
-            @Mapping(target = "places",
-                    expression = "java(placeService.getById(dto.getPlaces()))")
-    })
+                    expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))")
     abstract CinemaEvent toEntity(CinemaEventUpdateDto dto);
 
-    @Mappings({
             @Mapping(target = "organization",
-                    expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))"),
-            @Mapping(target = "places",
-                    expression = "java(placeService.getById(dto.getPlaces()))")
-    })
+                    expression = "java(organizationMapper.toEntity(organizationService.getById(dto.getOrganization())))")
     abstract TheatreEvent toEntity(TheatreEventUpdateDto dto);
 
     @Mappings({

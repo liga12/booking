@@ -7,15 +7,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PlaceOutcomeDto {
+public class PlaceFindDto {
 
     private Long id;
 
     private Double price;
 
-    private Integer number;
-
     private Integer row;
+
+    private Integer number;
 
     private PlaceStatusType status;
 

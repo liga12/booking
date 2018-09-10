@@ -29,7 +29,7 @@ public class Organization {
     private String email;
 
     @Column(nullable = false)
-    private Boolean visible = false;
+    private Boolean visible = true;
 
     @OneToMany(mappedBy = "organization")
     private Set<AbstractEvent> events;

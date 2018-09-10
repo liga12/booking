@@ -4,7 +4,6 @@ import com.booking.event.persistence.entity.event.AbstractEvent;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Data
@@ -15,21 +14,22 @@ public class Place {
     private Long id;
 
     @Column(nullable = false)
-    private Integer amount;
-
-    @Column(nullable = false)
     private Double price;
 
     @Column(nullable = false)
     private Integer number;
 
+    @Column(nullable = false)
+    private Integer row;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private PlaceStatusType status;
+    private PlaceStatusType status = PlaceStatusType.ACTIVE;
 
-    @ManyToMany(mappedBy = "places")
-    private Set<AbstractEvent> abstractEvents;
+    @ManyToOne
+    @JoinColumn(name = "event_id")
+    private AbstractEvent event;
 
     @Enumerated(EnumType.STRING)
-    private PlaceRowType rowType;
+    private SectionType sectionType;
 }

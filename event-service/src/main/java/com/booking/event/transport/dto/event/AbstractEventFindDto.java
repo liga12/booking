@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public abstract class AbstractEventFindDto {
+public class AbstractEventFindDto {
 
     private Long id;
 
@@ -18,7 +18,9 @@ public abstract class AbstractEventFindDto {
 
     private String description;
 
-    private Long date;
+    private Long starDate;
+
+    private Long endDate;
 
     private String location;
 

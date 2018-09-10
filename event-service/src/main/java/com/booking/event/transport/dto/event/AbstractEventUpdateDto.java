@@ -56,12 +56,6 @@ public abstract class AbstractEventUpdateDto {
     @NotBlank
     private String artists;
 
-    @NotNull
-    private Set<Long> places;
-
-    @NotNull
-    private Boolean visible;
-
     public AbstractEventUpdateDto(EventType type) {
         this.type = type;
     }
