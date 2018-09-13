@@ -7,7 +7,6 @@ import com.booking.payment.persistence.entity.OrderClient;
 import com.booking.payment.persistence.repository.OrderClientRepository;
 import com.booking.payment.service.EventService;
 import com.booking.payment.service.UserService;
-import com.booking.payment.service.payment.PaymentService;
 import com.booking.payment.transpor.dto.OrderClientCreateDto;
 import com.booking.payment.transpor.mapper.OrderClientMapper;
 import lombok.RequiredArgsConstructor;

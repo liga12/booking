@@ -34,12 +34,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean existsCustomerByPaymentId(Long paymentId){
-       return userRepository.existsByPaymentIdAndType(paymentId, UserType.CUSTOMER);
+    public boolean existsCustomerByPaymentId(Long paymentId) {
+        return userRepository.existsByPaymentIdAndType(paymentId, UserType.CUSTOMER);
     }
 
     @Override
-    public boolean existsClientByPaymentId(Long paymentId){
+    public boolean existsClientByPaymentId(Long paymentId) {
         return userRepository.existsByPaymentIdAndType(paymentId, UserType.CLIENT);
     }
 
