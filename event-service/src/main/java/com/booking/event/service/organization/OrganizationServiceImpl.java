@@ -1,12 +1,13 @@
 package com.booking.event.service.organization;
 
+import com.booking.event.exception.CustomerNotFoundException;
 import com.booking.event.exception.OrganizationNameExistException;
 import com.booking.event.exception.OrganizationNotActiveException;
 import com.booking.event.exception.OrganizationNotFoundException;
 import com.booking.event.persistence.entity.Organization;
 import com.booking.event.persistence.entity.event.AbstractEvent;
-import com.booking.event.persistence.repository.AbstractEventRepository;
 import com.booking.event.persistence.repository.OrganizationRepository;
+import com.booking.event.service.UserService;
 import com.booking.event.service.event.AbstractEventService;
 import com.booking.event.transport.dto.organization.OrganizationCreateDto;
 import com.booking.event.transport.dto.organization.OrganizationFindDto;
@@ -14,22 +15,21 @@ import com.booking.event.transport.dto.organization.OrganizationOutcomeDto;
 import com.booking.event.transport.dto.organization.OrganizationUpdateDto;
 import com.booking.event.transport.mapper.OrganizationMapper;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class OrganizationServiceImpl implements OrganizationService {
 
-    @Autowired
-    private OrganizationRepository organizationRepository;
+    private final OrganizationRepository organizationRepository;
 
-    @Autowired
-    private AbstractEventService abstractEventService;
+    private final AbstractEventService abstractEventService;
 
-    @Autowired
-    private AbstractEventRepository abstractEventRepository;
+    private final UserService userService;
 
     @Getter
     private OrganizationMapper organizationMapper;
@@ -59,6 +59,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     public Long create(OrganizationCreateDto dto) {
+        validateCustomer(dto.getCustomerId());
         validateExistsName(dto.getName());
         return organizationRepository.save(
                 organizationMapper.toEntity(dto)
@@ -84,8 +85,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public void validateOrganizationByActive(Long id){
-        if (!getById(id).getVisible()){
+    public void validateOrganizationByActive(Long id) {
+        if (id == null || !getById(id).getVisible()) {
             throw new OrganizationNotActiveException();
         }
     }
@@ -99,6 +100,13 @@ public class OrganizationServiceImpl implements OrganizationService {
     private void validateExistsName(String name) {
         if (name == null || organizationRepository.existsByName(name)) {
             throw new OrganizationNameExistException();
+
+        }
+    }
+
+    private void validateCustomer(String id) {
+        if (id == null ||  !userService.existsCustomer(id)) {
+            throw new CustomerNotFoundException();
 
         }
     }

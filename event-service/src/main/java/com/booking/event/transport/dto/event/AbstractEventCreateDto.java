@@ -9,8 +9,9 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.NotBlank;
+
 import javax.validation.constraints.NotNull;
 
 @Getter

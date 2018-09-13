@@ -7,10 +7,16 @@
     <groupId>com.booking</groupId>
     <artifactId>root-module</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <modules>
         <module>discovery-service</module>
         <module>event-service</module>
+        <module>payment-service</module>
+        <module>user-service</module>
+        <module>payment-api</module>
+        <module>client-api</module>
+        <module>event-api</module>
     </modules>
 
 </project>

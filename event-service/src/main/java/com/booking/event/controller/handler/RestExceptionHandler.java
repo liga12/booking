@@ -46,4 +46,9 @@ public class RestExceptionHandler {
     private String eventNotActiveException(EventNotActiveException e) {
         return String.format("{\"error\":\"%s\"}", e.getMessage());
     }
+
+    @ExceptionHandler(value = CustomerNotFoundException.class)
+    private String userNotFoundException(CustomerNotFoundException e) {
+        return String.format("{\"error\":\"%s\"}", e.getMessage());
+    }
 }

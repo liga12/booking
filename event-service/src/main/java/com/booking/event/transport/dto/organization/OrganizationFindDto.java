@@ -22,4 +22,6 @@ public class OrganizationFindDto {
     private Boolean visible;
 
     private Set<Long> events;
+
+    private String customerId;
 }

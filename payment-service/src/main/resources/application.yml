@@ -1,5 +1,5 @@
 server:
-  port: 9090
+  port: 8081
 
 eureka:
   instance:
@@ -14,9 +14,9 @@ eureka:
 
 spring:
   application:
-    name: event-service
+    name: payment-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/event
+    url: jdbc:postgresql://localhost:5432/payment
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver

@@ -17,8 +17,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/events")
-@RequiredArgsConstructor
-public class AbstractEventController {
+public class EventController {
 
     @Getter
     private AbstractEventService abstractEventService;

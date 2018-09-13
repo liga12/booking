@@ -33,4 +33,7 @@ public class Organization {
 
     @OneToMany(mappedBy = "organization")
     private Set<AbstractEvent> events;
+
+    @Column(nullable = false)
+    private String customerId;
 }

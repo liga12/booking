@@ -18,7 +18,7 @@ interface PlaceSearchSpecification {
             predicates.add(toEqualsPredicate(root, criteriaBuilder, "number", dto.getNumber()));
             predicates.add(toEqualsPredicate(root, criteriaBuilder, "row", dto.getRow()));
             predicates.add(toEqualsPredicate(root, criteriaBuilder, "status", dto.getStatus()));
-            predicates.add(toEqualsPredicateId(root, criteriaBuilder,"events", dto.getEvent()));
+            predicates.add(toEqualsPredicateId(root, criteriaBuilder,"event", dto.getEvent()));
             predicates.add(toEqualsPredicate(root, criteriaBuilder, "sectionType", dto.getSectionType()));
             Object[] rawPredicates = predicates.stream().filter(Objects::nonNull).toArray();
             return criteriaBuilder.and(Arrays.copyOf(rawPredicates, rawPredicates.length, Predicate[].class));

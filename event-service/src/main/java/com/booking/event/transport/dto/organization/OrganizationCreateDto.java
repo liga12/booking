@@ -2,6 +2,8 @@ package com.booking.event.transport.dto.organization;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.*;
 
@@ -21,4 +23,7 @@ public class OrganizationCreateDto {
 
     @Email
     private String email;
+
+    @NotBlank
+    private String customerId;
 }

@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring")
@@ -38,8 +39,13 @@ public abstract class OrganizationMapper {
 
     public abstract Organization toEntity(OrganizationCreateDto dto);
 
-    @Mapping(target = "events",
-            expression = "java(abstractEventService.getById(organizationService.getById(dto.getId()).getEvents()))")
+    @Mappings({
+            @Mapping(target = "events",
+                    expression = "java(abstractEventService.getById(organizationService.getById(dto.getId()).getEvents()))"),
+            @Mapping(target = "customerId",
+                    expression = "java( organizationService.getById(dto.getId()).getCustomerId())")
+    })
+
     public abstract Organization toEntity(OrganizationUpdateDto dto);
 
     @Mapping(target = "events",

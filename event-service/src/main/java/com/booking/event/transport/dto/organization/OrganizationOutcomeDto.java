@@ -22,4 +22,6 @@ public class OrganizationOutcomeDto {
     private Boolean visible = false;
 
     private Set<Long> events;
+
+    private String customerId;
 }
