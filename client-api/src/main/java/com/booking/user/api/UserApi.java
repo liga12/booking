@@ -9,4 +9,10 @@ public interface UserApi {
 
     @GetMapping("/{customerId}")
     boolean existsCustomer(@PathVariable("customerId") String customerId);
+
+    @GetMapping("customer/{paymentId}")
+    boolean existCustomerByPaymentId(@PathVariable("paymentId") Long paymentId);
+
+    @GetMapping("client/{paymentId}")
+    boolean existClientByPaymentId(@PathVariable("paymentId") Long paymentId);
 }

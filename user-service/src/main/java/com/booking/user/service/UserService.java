@@ -7,4 +7,8 @@ public interface UserService {
     String create(UserCreateDto dto);
 
     boolean existsCustomer(String id);
+
+    boolean existsCustomerByPaymentId(Long paymentId);
+
+    boolean existsClientByPaymentId(Long paymentId);
 }

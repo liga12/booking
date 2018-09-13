@@ -89,6 +89,13 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
+    public void buyPlace(Long id){
+        Place place = placeMapper.toEntity(getById(id));
+        place.setStatus(PlaceStatusType.BYU);
+        placeRepository.save(place);
+    }
+
+    @Override
     public void delete(Long id) {
         PlaceOutcomeDto placeOutcomeDto = getById(id);
         placeOutcomeDto.setStatus(PlaceStatusType.NOT_ACTIVE);
@@ -102,6 +109,12 @@ public class PlaceServiceImpl implements PlaceService {
             ids.add(place.getId());
         }
         return ids;
+    }
+
+    @Override
+    public boolean existPlace(Long id) {
+        return id != null && placeRepository.existsByIdAndStatus(id, PlaceStatusType.ACTIVE);
+
     }
 
     private void validatePlace(Integer number, Integer row, SectionType type, AbstractEvent event) {

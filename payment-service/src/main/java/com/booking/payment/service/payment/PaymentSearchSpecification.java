@@ -1,4 +1,4 @@
-package com.booking.payment.service;
+package com.booking.payment.service.payment;
 
 import com.booking.payment.persistence.entity.Payment;
 import com.booking.payment.transpor.dto.PaymentFindDto;

@@ -27,7 +27,12 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private final OrganizationRepository organizationRepository;
 
-    private final AbstractEventService abstractEventService;
+    private AbstractEventService abstractEventService;
+
+    @Autowired
+    private void setAbstractEventService(AbstractEventService abstractEventService) {
+        this.abstractEventService = abstractEventService;
+    }
 
     private final UserService userService;
 
@@ -105,7 +110,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     private void validateCustomer(String id) {
-        if (id == null ||  !userService.existsCustomer(id)) {
+        if (id == null || !userService.existsCustomer(id)) {
             throw new CustomerNotFoundException();
 
         }

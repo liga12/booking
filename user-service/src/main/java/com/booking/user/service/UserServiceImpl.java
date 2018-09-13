@@ -33,6 +33,16 @@ public class UserServiceImpl implements UserService {
         return userRepository.existsByIdAndType(id, UserType.CUSTOMER);
     }
 
+    @Override
+    public boolean existsCustomerByPaymentId(Long paymentId){
+       return userRepository.existsByPaymentIdAndType(paymentId, UserType.CUSTOMER);
+    }
+
+    @Override
+    public boolean existsClientByPaymentId(Long paymentId){
+        return userRepository.existsByPaymentIdAndType(paymentId, UserType.CLIENT);
+    }
+
     private void validateEmail(String email) {
         if (userRepository.existsByEmail(email)) {
             throw new EmailExistException();

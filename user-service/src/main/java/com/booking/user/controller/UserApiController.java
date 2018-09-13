@@ -16,4 +16,14 @@ public class UserApiController implements UserApi {
     public boolean existsCustomer(@PathVariable String customerId) {
         return userService.existsCustomer(customerId);
     }
+
+    @Override
+    public boolean existCustomerByPaymentId(@PathVariable Long paymentId) {
+        return userService.existsCustomerByPaymentId(paymentId);
+    }
+
+    @Override
+    public boolean existClientByPaymentId(@PathVariable Long paymentId) {
+        return userService.existsClientByPaymentId(paymentId);
+    }
 }

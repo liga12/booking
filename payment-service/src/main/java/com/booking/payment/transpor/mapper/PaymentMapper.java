@@ -1,7 +1,7 @@
 package com.booking.payment.transpor.mapper;
 
 import com.booking.payment.persistence.entity.Payment;
-import com.booking.payment.service.PaymentService;
+import com.booking.payment.service.payment.PaymentService;
 import com.booking.payment.transpor.dto.PaymentCreateDto;
 import com.booking.payment.transpor.dto.PaymentOutcomeDto;
 import lombok.Getter;

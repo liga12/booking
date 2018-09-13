@@ -1,14 +1,17 @@
-package com.booking.payment.service;
+package com.booking.payment.service.payment;
 
+import com.booking.payment.exception.ExistTokenException;
+import com.booking.payment.exception.PaymentNotFoundException;
 import com.booking.payment.persistence.entity.OrderClient;
 import com.booking.payment.persistence.entity.Payment;
+import com.booking.payment.persistence.repository.PaymentRepository;
+import com.booking.payment.transpor.dto.PaymentCreateDto;
 import com.booking.payment.transpor.dto.PaymentFindDto;
 import com.booking.payment.transpor.dto.PaymentOutcomeDto;
 import com.booking.payment.transpor.mapper.PaymentMapper;
-import com.booking.payment.exception.ExistTokenException;
-import com.booking.payment.persistence.repository.PaymentRepository;
-import com.booking.payment.transpor.dto.PaymentCreateDto;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,11 +21,17 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
+@Getter
 public class PaymentServiceImpl implements PaymentService {
 
     private final PaymentRepository paymentRepository;
 
-    private final PaymentMapper paymentMapper;
+    private PaymentMapper paymentMapper;
+
+    @Autowired
+    public void setPaymentMapper(PaymentMapper paymentMapper) {
+        this.paymentMapper = paymentMapper;
+    }
 
     @Override
     public Page<PaymentOutcomeDto> getAll(PaymentFindDto dto, Pageable pageable) {
@@ -34,6 +43,13 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
+    public Payment getById(Long id) {
+       return paymentRepository.findById(id)
+                .orElseThrow(PaymentNotFoundException::new);
+    }
+
+    @Override
+
     public Long create(PaymentCreateDto dto) {
         validateToken(dto.getToken());
         return paymentRepository.save(
@@ -44,6 +60,13 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public boolean existTokenId(Long id) {
         return paymentRepository.existsById(id);
+    }
+
+    @Override
+    public void validateById(Long id){
+        if (!paymentRepository.existsById(id)){
+            throw  new PaymentNotFoundException();
+        }
     }
 
     @Override
@@ -60,5 +83,7 @@ public class PaymentServiceImpl implements PaymentService {
             throw new ExistTokenException();
         }
     }
+
+
 
 }

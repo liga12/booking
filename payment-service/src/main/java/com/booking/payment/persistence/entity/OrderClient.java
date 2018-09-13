@@ -26,5 +26,5 @@ public class OrderClient {
     private Payment paymentCustomer;
 
     @Column(nullable = false)
-    private int amount;
+    private double amount;
 }

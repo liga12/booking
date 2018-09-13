@@ -1,7 +1,7 @@
 package com.booking.payment.controller;
 
 import com.booking.payment.transpor.dto.PaymentCreateDto;
-import com.booking.payment.service.PaymentService;
+import com.booking.payment.service.payment.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

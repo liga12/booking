@@ -27,7 +27,11 @@ public interface PlaceService {
 
     Long update(PlaceUpdateDto dto);
 
+    void buyPlace(Long id);
+
     void delete(Long id);
 
     Set<Long> getIdFromEntity(Set<Place> places);
+
+    boolean existPlace(Long id);
 }
