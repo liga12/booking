@@ -1,8 +1,15 @@
 package com.booking.user.service;
 
 import com.booking.user.transpor.dto.UserCreateDto;
+import com.booking.user.transpor.dto.UserFindDto;
+import com.booking.user.transpor.dto.UserOutcomeDto;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface UserService {
+
+    List<UserOutcomeDto> getAll(UserFindDto dto, Pageable pageable);
 
     String create(UserCreateDto dto);
 
@@ -11,4 +18,6 @@ public interface UserService {
     boolean existsCustomerByPaymentId(Long paymentId);
 
     boolean existsClientByPaymentId(Long paymentId);
+
+    String getTicketUrl(Long placeId, Long paymentClientId, Double cost);
 }

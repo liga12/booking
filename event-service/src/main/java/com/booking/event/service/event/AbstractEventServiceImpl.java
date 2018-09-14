@@ -10,7 +10,7 @@ import com.booking.event.service.organization.OrganizationService;
 import com.booking.event.service.place.PlaceService;
 import com.booking.event.transport.dto.event.AbstractEventCreateDto;
 import com.booking.event.transport.dto.event.AbstractEventFindDto;
-import com.booking.event.transport.dto.event.AbstractEventOutcomeDto;
+import com.booking.event.dto.AbstractEventOutcomeDto;
 import com.booking.event.transport.dto.event.AbstractEventUpdateDto;
 import com.booking.event.transport.mapper.AbstractEventMapper;
 import com.booking.event.transport.mapper.OrganizationMapper;
@@ -140,6 +140,12 @@ public class AbstractEventServiceImpl implements AbstractEventService {
         if (!abstractEventOutcomeDto.getVisible()) {
             throw new EventNotActiveException();
         }
+    }
+
+    @Override
+    public boolean existById(Long id){
+        return abstractEventRepository.existsById(id);
+
     }
 
     private void validateExistById(Long id) {

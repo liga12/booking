@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 public interface AbstractEventRepository extends
         JpaRepository<AbstractEvent, Long>,
         JpaSpecificationExecutor<AbstractEvent> {
+
+    boolean existsById(Long id);
 }

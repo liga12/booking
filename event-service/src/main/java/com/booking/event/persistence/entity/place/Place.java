@@ -1,6 +1,8 @@
 package com.booking.event.persistence.entity.place;
 
 import com.booking.event.persistence.entity.event.AbstractEvent;
+import com.booking.event.type.PlaceStatusType;
+import com.booking.event.type.SectionType;
 import lombok.Data;
 
 import javax.persistence.*;

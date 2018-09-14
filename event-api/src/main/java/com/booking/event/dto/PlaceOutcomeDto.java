@@ -1,7 +1,7 @@
-package com.booking.event.transport.dto.place;
+package com.booking.event.dto;
 
-import com.booking.event.persistence.entity.place.SectionType;
-import com.booking.event.persistence.entity.place.PlaceStatusType;
+import com.booking.event.type.PlaceStatusType;
+import com.booking.event.type.SectionType;
 import lombok.Getter;
 import lombok.Setter;
 

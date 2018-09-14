@@ -90,6 +90,12 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
+    public boolean exists(Long id){
+       return organizationRepository.existsById(id);
+
+    }
+
+    @Override
     public void validateOrganizationByActive(Long id) {
         if (id == null || !getById(id).getVisible()) {
             throw new OrganizationNotActiveException();

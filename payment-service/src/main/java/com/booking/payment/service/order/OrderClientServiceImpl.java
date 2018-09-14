@@ -8,8 +8,12 @@ import com.booking.payment.persistence.repository.OrderClientRepository;
 import com.booking.payment.service.EventService;
 import com.booking.payment.service.UserService;
 import com.booking.payment.transpor.dto.OrderClientCreateDto;
+import com.booking.payment.transpor.dto.OrderClientFindDto;
+import com.booking.payment.transpor.dto.OrderClientOutcomeDto;
 import com.booking.payment.transpor.mapper.OrderClientMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,6 +29,13 @@ public class OrderClientServiceImpl implements OrderClientService {
     private final UserService userService;
 
     @Override
+    public Page<OrderClientOutcomeDto> getAll(OrderClientFindDto dto, Pageable pageable){
+       return orderClientRepository.findAll(
+                OrderClientSearchSpecification.orderFilter(dto),
+                pageable).map(orderClientMapper::toDto);
+    }
+
+    @Override
     public Long create(OrderClientCreateDto dto) {
         validatePlace(dto.getPlaceId());
         validateCustomer(dto.getPaymentCustomer());
@@ -38,7 +49,7 @@ public class OrderClientServiceImpl implements OrderClientService {
     }
 
     private void validatePlace(Long placeId) {
-        if (placeId == null || !eventService.existsPlace(placeId)) {
+        if (placeId == null || !eventService.existsActivePlace(placeId)) {
             throw new PlaceNotFoundException();
         }
     }

@@ -15,5 +15,5 @@ public class OrderClientFindDto {
 
     private Long paymentCustomer;
 
-    private Integer amount;
+    private Double amount;
 }

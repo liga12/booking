@@ -1,10 +1,10 @@
 package com.booking.event.transport.dto.event;
 
-import com.booking.event.persistence.entity.event.EventType;
+import com.booking.event.type.EventType;
 import com.booking.event.transport.dto.event.ageConstrain.cinema.CinemaEventUpdateDto;
 import com.booking.event.transport.dto.event.ageConstrain.theatre.TheatreEventUpdateDto;
 import com.booking.event.transport.dto.event.coverConcert.CoverConcertEventUpdateDto;
-import com.booking.event.transport.dto.event.originalConcert.OriginalConcertEventOutcomeDto;
+import com.booking.event.dto.OriginalConcertEventOutcomeDto;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;

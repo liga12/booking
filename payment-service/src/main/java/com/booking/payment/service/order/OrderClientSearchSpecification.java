@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 
 interface OrderClientSearchSpecification {
-    static Specification<OrderClient> eventFilter(OrderClientFindDto dto) {
+    static Specification<OrderClient> orderFilter(OrderClientFindDto dto) {
         return (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             predicates.add(toEqualsPredicate(root, criteriaBuilder, "id", dto.getId()));

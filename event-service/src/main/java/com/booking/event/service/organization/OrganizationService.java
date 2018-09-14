@@ -23,5 +23,7 @@ public interface OrganizationService {
 
     void delete(Long id);
 
+    boolean exists(Long id);
+
     void validateOrganizationByActive(Long id);
 }

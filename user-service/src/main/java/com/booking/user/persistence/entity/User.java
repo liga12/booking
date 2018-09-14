@@ -20,17 +20,13 @@ public class User {
 
     private Long paymentId;
 
-    @TextIndexed
     private String name;
 
-    @TextIndexed
     private String surname;
 
     private UserType type;
 
-    @TextIndexed
     private String email;
 
-    @TextIndexed
     private String phone;
 }

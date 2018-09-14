@@ -2,6 +2,7 @@ package com.booking.event.persistence.entity.event;
 
 import com.booking.event.persistence.entity.Organization;
 import com.booking.event.persistence.entity.place.Place;
+import com.booking.event.type.EventType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

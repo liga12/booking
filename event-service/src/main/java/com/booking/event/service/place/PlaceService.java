@@ -1,9 +1,9 @@
 package com.booking.event.service.place;
 
+import com.booking.event.dto.PlaceOutcomeDto;
 import com.booking.event.persistence.entity.place.Place;
 import com.booking.event.transport.dto.place.PlaceCreateDto;
 import com.booking.event.transport.dto.place.PlaceFindDto;
-import com.booking.event.transport.dto.place.PlaceOutcomeDto;
 import com.booking.event.transport.dto.place.PlaceUpdateDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,5 +33,7 @@ public interface PlaceService {
 
     Set<Long> getIdFromEntity(Set<Place> places);
 
-    boolean existPlace(Long id);
+    boolean existActivePlace(Long id);
+
+    boolean existBuyPlace(Long id);
 }

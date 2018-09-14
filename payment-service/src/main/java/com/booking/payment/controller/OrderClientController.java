@@ -2,22 +2,28 @@ package com.booking.payment.controller;
 
 import com.booking.payment.service.order.OrderClientService;
 import com.booking.payment.transpor.dto.OrderClientCreateDto;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.booking.payment.transpor.dto.OrderClientFindDto;
+import com.booking.payment.transpor.dto.OrderClientOutcomeDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/orders")
+@RequiredArgsConstructor
 public class OrderClientController {
 
-    @Autowired
-    private OrderClientService orderClientService;
+    private final OrderClientService orderClientService;
+
+    @GetMapping
+    public Page<OrderClientOutcomeDto> getAll(OrderClientFindDto dto, Pageable pageable) {
+        return orderClientService.getAll(dto, pageable);
+    }
 
     @PutMapping
-    public Long buy(@RequestBody OrderClientCreateDto dto){
-       return orderClientService.create(dto);
+    public Long buy(@RequestBody OrderClientCreateDto dto) {
+        return orderClientService.create(dto);
 
     }
 }

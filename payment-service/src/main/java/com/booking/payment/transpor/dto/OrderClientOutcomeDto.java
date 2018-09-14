@@ -15,5 +15,5 @@ public class OrderClientOutcomeDto {
 
     private Long paymentCustomer;
 
-    private Integer amount;
+    private Double amount;
 }

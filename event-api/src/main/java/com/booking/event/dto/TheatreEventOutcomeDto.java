@@ -1,7 +1,7 @@
-package com.booking.event.transport.dto.event.ageConstrain.theatre;
+package com.booking.event.dto;
 
-import com.booking.event.persistence.entity.event.EventType;
-import com.booking.event.transport.dto.event.ageConstrain.AgeConstrainEventOutcomeDto;
+import com.booking.event.type.EventType;
+import com.booking.event.dto.AgeConstrainEventOutcomeDto;
 import lombok.Getter;
 import lombok.Setter;
 

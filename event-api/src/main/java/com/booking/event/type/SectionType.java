@@ -1,4 +1,4 @@
-package com.booking.event.persistence.entity.place;
+package com.booking.event.type;
 
 public enum SectionType {
 

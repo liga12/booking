@@ -1,6 +1,6 @@
 package com.booking.event.transport.dto.event;
 
-import com.booking.event.persistence.entity.event.EventType;
+import com.booking.event.type.EventType;
 import com.booking.event.transport.dto.event.ageConstrain.cinema.CinemaEventCreateDto;
 import com.booking.event.transport.dto.event.ageConstrain.theatre.TheatreEventCreateDto;
 import com.booking.event.transport.dto.event.coverConcert.CoverConcertEventCreateDto;

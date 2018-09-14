@@ -1,6 +1,10 @@
 package com.booking.event.controller;
 
-import com.booking.event.EventApi;
+import com.booking.event.api.EventApi;
+import com.booking.event.dto.AbstractEventOutcomeDto;
+import com.booking.event.dto.PlaceOutcomeDto;
+import com.booking.event.service.event.AbstractEventService;
+import com.booking.event.service.organization.OrganizationService;
 import com.booking.event.service.place.PlaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,9 +16,18 @@ public class EventApiController implements EventApi {
 
     private final PlaceService placeService;
 
+    private final AbstractEventService abstractEventService;
+
+    private final OrganizationService organizationService;
+
     @Override
-    public boolean existsPlace(@PathVariable Long placeId) {
-        return placeService.existPlace(placeId);
+    public boolean existsActivePlace(@PathVariable Long placeId) {
+        return placeService.existActivePlace(placeId);
+    }
+
+    @Override
+    public boolean existsBuyPlace(@PathVariable Long placeId) {
+        return placeService.existBuyPlace(placeId);
     }
 
     @Override
@@ -25,5 +38,30 @@ public class EventApiController implements EventApi {
     @Override
     public void buyPlace(@PathVariable Long placeId) {
         placeService.buyPlace(placeId);
+    }
+
+    @Override
+    public PlaceOutcomeDto getPlace(@PathVariable Long placeId) {
+        return placeService.getById(placeId);
+    }
+
+    @Override
+    public boolean existsEvent(@PathVariable Long eventId) {
+        return abstractEventService.existById(eventId);
+    }
+
+    @Override
+    public AbstractEventOutcomeDto getEvent(@PathVariable Long eventId) {
+        return abstractEventService.getById(eventId);
+    }
+
+    @Override
+    public boolean existsOrganization(@PathVariable Long organizationId) {
+        return organizationService.exists(organizationId);
+    }
+
+    @Override
+    public String getOrganizationPhone(@PathVariable Long organizationId) {
+        return organizationService.getById(organizationId).getPhone();
     }
 }

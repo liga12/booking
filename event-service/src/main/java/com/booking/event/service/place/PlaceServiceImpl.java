@@ -1,16 +1,16 @@
 package com.booking.event.service.place;
 
+import com.booking.event.dto.PlaceOutcomeDto;
 import com.booking.event.exception.PlaceExistException;
 import com.booking.event.exception.PlaceNotFoundException;
 import com.booking.event.persistence.entity.event.AbstractEvent;
 import com.booking.event.persistence.entity.place.Place;
-import com.booking.event.persistence.entity.place.PlaceStatusType;
-import com.booking.event.persistence.entity.place.SectionType;
+import com.booking.event.type.PlaceStatusType;
+import com.booking.event.type.SectionType;
 import com.booking.event.persistence.repository.PlaceRepository;
 import com.booking.event.service.event.AbstractEventService;
 import com.booking.event.transport.dto.place.PlaceCreateDto;
 import com.booking.event.transport.dto.place.PlaceFindDto;
-import com.booking.event.transport.dto.place.PlaceOutcomeDto;
 import com.booking.event.transport.dto.place.PlaceUpdateDto;
 import com.booking.event.transport.mapper.AbstractEventMapper;
 import com.booking.event.transport.mapper.PlaceMapper;
@@ -112,8 +112,14 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public boolean existPlace(Long id) {
+    public boolean existActivePlace(Long id) {
         return id != null && placeRepository.existsByIdAndStatus(id, PlaceStatusType.ACTIVE);
+
+    }
+
+    @Override
+    public boolean existBuyPlace(Long id) {
+        return id != null && placeRepository.existsByIdAndStatus(id, PlaceStatusType.BYU);
 
     }
 
