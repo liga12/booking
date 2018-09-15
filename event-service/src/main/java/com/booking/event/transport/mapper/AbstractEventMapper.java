@@ -25,11 +25,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Getter
 public abstract class AbstractEventMapper {
 
-    protected OrganizationMapper organizationMapper;
+    OrganizationMapper organizationMapper;
 
-    protected OrganizationService organizationService;
+    OrganizationService organizationService;
 
-    protected PlaceService placeService;
+    PlaceService placeService;
 
     @Autowired
     public void setPlaceService(PlaceService placeService) {

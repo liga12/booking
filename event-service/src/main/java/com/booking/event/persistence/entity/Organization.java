@@ -1,6 +1,7 @@
 package com.booking.event.persistence.entity;
 
 import com.booking.event.persistence.entity.event.AbstractEvent;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@EqualsAndHashCode
 public class Organization {
 
     @Id

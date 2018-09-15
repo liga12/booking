@@ -44,7 +44,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Payment getById(Long id) {
-       return paymentRepository.findById(id)
+        return paymentRepository.findById(id)
                 .orElseThrow(PaymentNotFoundException::new);
     }
 
@@ -63,13 +63,6 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public void validateById(Long id){
-        if (!paymentRepository.existsById(id)){
-            throw  new PaymentNotFoundException();
-        }
-    }
-
-    @Override
     public Set<Long> entityToId(Set<OrderClient> clients) {
         Set<Long> ids = new HashSet<>();
         for (OrderClient client : clients) {
@@ -83,7 +76,6 @@ public class PaymentServiceImpl implements PaymentService {
             throw new ExistTokenException();
         }
     }
-
 
 
 }

@@ -43,9 +43,4 @@ public class RestExceptionHandler {
     private String fileNotFoundException(FileNotFoundException e) {
         return String.format("{\"error\":\"%s\"}", e.getMessage());
     }
-
-    @ExceptionHandler(value = FolderNotFoundException.class)
-    private String folderNotFoundException(FolderNotFoundException e) {
-        return String.format("{\"error\":\"%s\"}", e.getMessage());
-    }
 }

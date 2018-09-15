@@ -1,7 +1,7 @@
 package com.booking.user.service;
 
-import com.booking.event.dto.event.AbstractEventOutcomeDto;
 import com.booking.event.dto.PlaceOutcomeDto;
+import com.booking.event.dto.event.AbstractEventOutcomeDto;
 import com.booking.user.exception.OrganizationNotFoundException;
 import com.booking.user.exception.PlaceNotFoundException;
 import com.booking.user.service.feign.EventService;
@@ -19,7 +19,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -49,14 +52,8 @@ public class TicketServiceImpl implements TicketService {
     private String rules;
 
     @Override
-    public InputStreamResource getFile(String path) {
-        InputStreamResource inputStreamResource = null;
-        try {
-            inputStreamResource = new InputStreamResource(new FileInputStream(path));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return inputStreamResource;
+    public InputStreamResource getFile(String path) throws FileNotFoundException {
+        return new InputStreamResource(new FileInputStream(path));
     }
 
     @Override

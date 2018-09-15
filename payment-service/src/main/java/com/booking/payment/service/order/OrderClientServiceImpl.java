@@ -5,8 +5,8 @@ import com.booking.payment.exception.CustomerNotFoundException;
 import com.booking.payment.exception.PlaceNotFoundException;
 import com.booking.payment.persistence.entity.OrderClient;
 import com.booking.payment.persistence.repository.OrderClientRepository;
-import com.booking.payment.service.EventService;
-import com.booking.payment.service.UserService;
+import com.booking.payment.service.feign.EventService;
+import com.booking.payment.service.feign.UserService;
 import com.booking.payment.transpor.dto.OrderClientCreateDto;
 import com.booking.payment.transpor.dto.OrderClientFindDto;
 import com.booking.payment.transpor.dto.OrderClientOutcomeDto;
@@ -29,8 +29,8 @@ public class OrderClientServiceImpl implements OrderClientService {
     private final UserService userService;
 
     @Override
-    public Page<OrderClientOutcomeDto> getAll(OrderClientFindDto dto, Pageable pageable){
-       return orderClientRepository.findAll(
+    public Page<OrderClientOutcomeDto> getAll(OrderClientFindDto dto, Pageable pageable) {
+        return orderClientRepository.findAll(
                 OrderClientSearchSpecification.orderFilter(dto),
                 pageable).map(orderClientMapper::toDto);
     }

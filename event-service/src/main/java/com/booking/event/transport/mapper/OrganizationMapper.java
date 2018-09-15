@@ -19,9 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Getter
 public abstract class OrganizationMapper {
 
-    protected AbstractEventService abstractEventService;
+    AbstractEventService abstractEventService;
 
-    protected OrganizationService organizationService;
+    OrganizationService organizationService;
 
     @Autowired
     public void setOrganizationService(OrganizationService organizationService) {

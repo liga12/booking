@@ -7,6 +7,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
 
 @RestController
 @RequestMapping("tickets")
@@ -19,7 +20,7 @@ public class TicketController {
 
     @GetMapping(value = "/getPdf", produces = "application/pdf")
     public InputStreamResource FileSystemResource(@RequestParam("path") String path,
-                                                  HttpServletResponse response) {
+                                                  HttpServletResponse response) throws FileNotFoundException {
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=\"demo.pdf\"");
         return ticketServiceImpl.getFile(path);

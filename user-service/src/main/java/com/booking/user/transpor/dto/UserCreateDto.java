@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 public class UserCreateDto {
+
     @NotBlank
     private String name;
 

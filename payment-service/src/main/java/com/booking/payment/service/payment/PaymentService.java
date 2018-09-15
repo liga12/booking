@@ -25,8 +25,5 @@ public interface PaymentService {
     @Transactional(readOnly = true)
     boolean existTokenId(Long tokenId);
 
-    @Transactional(readOnly = true)
-    void validateById(Long id);
-
     Set<Long> entityToId(Set<OrderClient> clients);
 }

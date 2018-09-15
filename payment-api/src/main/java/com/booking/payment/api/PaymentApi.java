@@ -1,4 +1,4 @@
-package com.booking.payment;
+package com.booking.payment.api;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
