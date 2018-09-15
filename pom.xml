@@ -15,7 +15,7 @@
         <module>payment-service</module>
         <module>user-service</module>
         <module>payment-api</module>
-        <module>client-api</module>
+        <module>user-api</module>
         <module>event-api</module>
     </modules>
 

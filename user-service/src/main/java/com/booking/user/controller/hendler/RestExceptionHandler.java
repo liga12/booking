@@ -1,11 +1,10 @@
 package com.booking.user.controller.hendler;
 
-import com.booking.user.exception.EmailExistException;
-import com.booking.user.exception.EventNotFoundException;
-import com.booking.user.exception.TokenNotExistException;
-import com.booking.user.exception.UserNotFoundException;
+import com.booking.user.exception.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.io.FileNotFoundException;
 
 @RestControllerAdvice
 public class RestExceptionHandler {
@@ -27,6 +26,26 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(value = EventNotFoundException.class)
     private String eventNotFoundException(EventNotFoundException e) {
+        return String.format("{\"error\":\"%s\"}", e.getMessage());
+    }
+
+    @ExceptionHandler(value = PlaceNotFoundException.class)
+    private String placeNotFoundException(PlaceNotFoundException e) {
+        return String.format("{\"error\":\"%s\"}", e.getMessage());
+    }
+
+    @ExceptionHandler(value = OrganizationNotFoundException.class)
+    private String organizationNotFoundException(OrganizationNotFoundException e) {
+        return String.format("{\"error\":\"%s\"}", e.getMessage());
+    }
+
+    @ExceptionHandler(value = FileNotFoundException.class)
+    private String fileNotFoundException(FileNotFoundException e) {
+        return String.format("{\"error\":\"%s\"}", e.getMessage());
+    }
+
+    @ExceptionHandler(value = FolderNotFoundException.class)
+    private String folderNotFoundException(FolderNotFoundException e) {
         return String.format("{\"error\":\"%s\"}", e.getMessage());
     }
 }

@@ -19,5 +19,5 @@ public interface UserService {
 
     boolean existsClientByPaymentId(Long paymentId);
 
-    String getTicketUrl(Long placeId, Long paymentClientId, Double cost);
+    UserOutcomeDto getUserByPaymentId(Long paymentClientId);
 }

@@ -1,33 +1,34 @@
 package com.booking.user.controller;
 
-import com.booking.user.service.UserService;
+import com.booking.user.service.TicketService;
+import com.booking.user.service.TicketServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 @RestController
 @RequestMapping("tickets")
 @RequiredArgsConstructor
 public class TicketController {
 
-    private final UserService userService;
+    private final TicketService ticketService;
+
+    private final TicketServiceImpl ticketServiceImpl;
 
     @GetMapping(value = "/getPdf", produces = "application/pdf")
     public InputStreamResource FileSystemResource(@RequestParam("path") String path,
-                                                  HttpServletResponse response) throws IOException {
+                                                  HttpServletResponse response) {
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=\"demo.pdf\"");
-        return new InputStreamResource(new FileInputStream(path));
+        return ticketServiceImpl.getFile(path);
     }
 
     @GetMapping("/{placeId}/{paymentClientId}/{cost}")
     public String getTicket(@PathVariable("placeId") Long placeId,
                             @PathVariable("paymentClientId") Long paymentClientId,
                             @PathVariable("cost") Double cost) {
-        return userService.getTicketUrl(placeId, paymentClientId, cost);
+        return ticketService.getTicketUrl(placeId, paymentClientId, cost);
     }
 }
