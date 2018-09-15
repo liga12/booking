@@ -5,7 +5,7 @@ import com.booking.event.service.place.PlaceService;
 import com.booking.event.transport.dto.place.PlaceCreateDto;
 import com.booking.event.transport.dto.place.PlaceFindDto;
 import com.booking.event.transport.dto.place.PlaceUpdateDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -15,10 +15,10 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/places")
+@RequiredArgsConstructor
 public class PlaceController {
 
-    @Autowired
-    PlaceService placeService;
+    private final PlaceService placeService;
 
     @GetMapping
     public Page<PlaceOutcomeDto> getSchools(PlaceFindDto dto,

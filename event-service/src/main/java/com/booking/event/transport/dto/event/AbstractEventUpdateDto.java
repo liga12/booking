@@ -1,16 +1,16 @@
 package com.booking.event.transport.dto.event;
 
-import com.booking.event.type.EventType;
+import com.booking.event.dto.event.OriginalConcertEventOutcomeDto;
 import com.booking.event.transport.dto.event.ageConstrain.cinema.CinemaEventUpdateDto;
 import com.booking.event.transport.dto.event.ageConstrain.theatre.TheatreEventUpdateDto;
 import com.booking.event.transport.dto.event.coverConcert.CoverConcertEventUpdateDto;
-import com.booking.event.dto.OriginalConcertEventOutcomeDto;
+import com.booking.event.type.EventType;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter

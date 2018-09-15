@@ -7,7 +7,10 @@ import org.springframework.data.jpa.domain.Specification;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 interface PlaceSearchSpecification {
     static Specification<Place> placeFilter(PlaceFindDto dto) {
@@ -18,7 +21,7 @@ interface PlaceSearchSpecification {
             predicates.add(toEqualsPredicate(root, criteriaBuilder, "number", dto.getNumber()));
             predicates.add(toEqualsPredicate(root, criteriaBuilder, "row", dto.getRow()));
             predicates.add(toEqualsPredicate(root, criteriaBuilder, "status", dto.getStatus()));
-            predicates.add(toEqualsPredicateId(root, criteriaBuilder,"event", dto.getEvent()));
+            predicates.add(toEqualsPredicateId(root, criteriaBuilder, "event", dto.getEvent()));
             predicates.add(toEqualsPredicate(root, criteriaBuilder, "sectionType", dto.getSectionType()));
             Object[] rawPredicates = predicates.stream().filter(Objects::nonNull).toArray();
             return criteriaBuilder.and(Arrays.copyOf(rawPredicates, rawPredicates.length, Predicate[].class));
@@ -33,9 +36,9 @@ interface PlaceSearchSpecification {
     }
 
     static Predicate toEqualsPredicateId(Root<Place> root,
-                                       CriteriaBuilder criteriaBuilder,
-                                       String param,
-                                       Long paramValue) {
+                                         CriteriaBuilder criteriaBuilder,
+                                         String param,
+                                         Long paramValue) {
         return paramValue != null ? criteriaBuilder.equal(root.get(param).get("id"), paramValue) : null;
     }
 }

@@ -1,6 +1,6 @@
 package com.booking.user.service;
 
-import com.booking.event.dto.AbstractEventOutcomeDto;
+import com.booking.event.dto.event.AbstractEventOutcomeDto;
 import com.booking.event.dto.PlaceOutcomeDto;
 import com.booking.user.exception.OrganizationNotFoundException;
 import com.booking.user.exception.PlaceNotFoundException;

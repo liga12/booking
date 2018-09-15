@@ -23,6 +23,7 @@ public interface OrganizationService {
 
     void delete(Long id);
 
+    @Transactional(readOnly = true)
     boolean exists(Long id);
 
     void validateOrganizationByActive(Long id);

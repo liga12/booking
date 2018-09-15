@@ -11,17 +11,17 @@ import lombok.NoArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 @NoArgsConstructor
+@Getter
 public abstract class OrganizationMapper {
 
-    @Getter
-    AbstractEventService abstractEventService;
+    protected AbstractEventService abstractEventService;
 
-    @Getter
-    OrganizationService organizationService;
+    protected OrganizationService organizationService;
 
     @Autowired
     public void setOrganizationService(OrganizationService organizationService) {

@@ -1,4 +1,4 @@
-package com.booking.event.dto;
+package com.booking.event.dto.event;
 
 import com.booking.event.type.EventType;
 import lombok.Getter;

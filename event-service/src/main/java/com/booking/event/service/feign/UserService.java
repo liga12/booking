@@ -1,4 +1,4 @@
-package com.booking.event.service;
+package com.booking.event.service.feign;
 
 import com.booking.user.api.UserApi;
 import org.springframework.cloud.openfeign.FeignClient;

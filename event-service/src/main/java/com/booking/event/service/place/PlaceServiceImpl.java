@@ -5,8 +5,6 @@ import com.booking.event.exception.PlaceExistException;
 import com.booking.event.exception.PlaceNotFoundException;
 import com.booking.event.persistence.entity.event.AbstractEvent;
 import com.booking.event.persistence.entity.place.Place;
-import com.booking.event.type.PlaceStatusType;
-import com.booking.event.type.SectionType;
 import com.booking.event.persistence.repository.PlaceRepository;
 import com.booking.event.service.event.AbstractEventService;
 import com.booking.event.transport.dto.place.PlaceCreateDto;
@@ -14,6 +12,10 @@ import com.booking.event.transport.dto.place.PlaceFindDto;
 import com.booking.event.transport.dto.place.PlaceUpdateDto;
 import com.booking.event.transport.mapper.AbstractEventMapper;
 import com.booking.event.transport.mapper.PlaceMapper;
+import com.booking.event.type.PlaceStatusType;
+import com.booking.event.type.SectionType;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,19 +25,32 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
+@Getter
 public class PlaceServiceImpl implements PlaceService {
 
-    @Autowired
-    PlaceRepository placeRepository;
+    private final PlaceRepository placeRepository;
+
+    private PlaceMapper placeMapper;
+
+    private AbstractEventMapper abstractEventMapper;
+
+    private AbstractEventService abstractEventService;
 
     @Autowired
-    PlaceMapper placeMapper;
+    public void setPlaceMapper(PlaceMapper placeMapper) {
+        this.placeMapper = placeMapper;
+    }
 
     @Autowired
-    AbstractEventMapper abstractEventMapper;
+    public void setAbstractEventMapper(AbstractEventMapper abstractEventMapper) {
+        this.abstractEventMapper = abstractEventMapper;
+    }
 
     @Autowired
-    AbstractEventService abstractEventService;
+    public void setAbstractEventService(AbstractEventService abstractEventService) {
+        this.abstractEventService = abstractEventService;
+    }
 
     @Override
     public Page<PlaceOutcomeDto> getAll(PlaceFindDto dto, Pageable pageable) {
@@ -89,7 +104,7 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public void buyPlace(Long id){
+    public void buyPlace(Long id) {
         Place place = placeMapper.toEntity(getById(id));
         place.setStatus(PlaceStatusType.BYU);
         placeRepository.save(place);

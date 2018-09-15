@@ -1,4 +1,4 @@
-package com.booking.event.dto;
+package com.booking.event.dto.event;
 
 import com.booking.event.type.EventType;
 import com.fasterxml.jackson.annotation.JsonSubTypes;

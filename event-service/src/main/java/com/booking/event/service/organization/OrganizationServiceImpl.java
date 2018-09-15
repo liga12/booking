@@ -7,7 +7,7 @@ import com.booking.event.exception.OrganizationNotFoundException;
 import com.booking.event.persistence.entity.Organization;
 import com.booking.event.persistence.entity.event.AbstractEvent;
 import com.booking.event.persistence.repository.OrganizationRepository;
-import com.booking.event.service.UserService;
+import com.booking.event.service.feign.UserService;
 import com.booking.event.service.event.AbstractEventService;
 import com.booking.event.transport.dto.organization.OrganizationCreateDto;
 import com.booking.event.transport.dto.organization.OrganizationFindDto;
@@ -90,8 +90,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public boolean exists(Long id){
-       return organizationRepository.existsById(id);
+    public boolean exists(Long id) {
+        return organizationRepository.existsById(id);
 
     }
 
@@ -111,14 +111,12 @@ public class OrganizationServiceImpl implements OrganizationService {
     private void validateExistsName(String name) {
         if (name == null || organizationRepository.existsByName(name)) {
             throw new OrganizationNameExistException();
-
         }
     }
 
     private void validateCustomer(String id) {
         if (id == null || !userService.existsCustomer(id)) {
             throw new CustomerNotFoundException();
-
         }
     }
 }

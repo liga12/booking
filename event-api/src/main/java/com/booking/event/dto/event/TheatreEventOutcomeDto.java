@@ -1,7 +1,6 @@
-package com.booking.event.dto;
+package com.booking.event.dto.event;
 
 import com.booking.event.type.EventType;
-import com.booking.event.dto.AgeConstrainEventOutcomeDto;
 import lombok.Getter;
 import lombok.Setter;
 

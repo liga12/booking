@@ -54,14 +54,17 @@ interface EventSearchSpecification {
         return paramValue != null ? root.join(param).get("id").in(paramValue) : null;
     }
 
-     static Predicate toBetweenLongPredicate(Root<AbstractEvent> root, CriteriaBuilder criteriaBuilder, String param,
-                                                    Long paramValueFrom, Long paramValueTo) {
-        if (paramValueFrom == null && paramValueTo == null)
+    static Predicate toBetweenLongPredicate(Root<AbstractEvent> root, CriteriaBuilder criteriaBuilder, String param,
+                                            Long paramValueFrom, Long paramValueTo) {
+        if (paramValueFrom == null && paramValueTo == null) {
             return null;
-        if (null == paramValueFrom)
+        }
+        if (null == paramValueFrom) {
             paramValueFrom = 0L;
-        if (null == paramValueTo)
+        }
+        if (null == paramValueTo) {
             paramValueTo = Long.MAX_VALUE;
+        }
         return criteriaBuilder.between(root.get(param), paramValueFrom, paramValueTo);
     }
 }

@@ -9,19 +9,20 @@ import com.booking.event.transport.dto.place.PlaceUpdateDto;
 import lombok.Getter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 @Getter
 public abstract class PlaceMapper {
 
     @Autowired
-    AbstractEventMapper abstractEventMapper;
+    protected  AbstractEventMapper abstractEventMapper;
 
     @Autowired
-    PlaceService placeService;
+    protected  PlaceService placeService;
 
-    AbstractEventService abstractEventService;
+    protected AbstractEventService abstractEventService;
 
     @Autowired
     public void setPlaceService(AbstractEventService abstractEventService) {

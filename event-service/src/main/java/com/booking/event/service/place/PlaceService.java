@@ -33,7 +33,9 @@ public interface PlaceService {
 
     Set<Long> getIdFromEntity(Set<Place> places);
 
+    @Transactional(readOnly = true)
     boolean existActivePlace(Long id);
 
+    @Transactional(readOnly = true)
     boolean existBuyPlace(Long id);
 }

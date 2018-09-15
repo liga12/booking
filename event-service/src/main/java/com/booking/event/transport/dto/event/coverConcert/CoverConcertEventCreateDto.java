@@ -1,7 +1,7 @@
 package com.booking.event.transport.dto.event.coverConcert;
 
-import com.booking.event.type.EventType;
 import com.booking.event.transport.dto.event.AbstractEventCreateDto;
+import com.booking.event.type.EventType;
 import lombok.Getter;
 import lombok.Setter;
 

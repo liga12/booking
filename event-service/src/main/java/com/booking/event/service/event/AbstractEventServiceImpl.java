@@ -1,5 +1,6 @@
 package com.booking.event.service.event;
 
+import com.booking.event.dto.event.AbstractEventOutcomeDto;
 import com.booking.event.exception.AbstractEventNotFoundException;
 import com.booking.event.exception.EventNotActiveException;
 import com.booking.event.exception.NotCorrectDateException;
@@ -10,7 +11,6 @@ import com.booking.event.service.organization.OrganizationService;
 import com.booking.event.service.place.PlaceService;
 import com.booking.event.transport.dto.event.AbstractEventCreateDto;
 import com.booking.event.transport.dto.event.AbstractEventFindDto;
-import com.booking.event.dto.AbstractEventOutcomeDto;
 import com.booking.event.transport.dto.event.AbstractEventUpdateDto;
 import com.booking.event.transport.mapper.AbstractEventMapper;
 import com.booking.event.transport.mapper.OrganizationMapper;
@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -111,7 +110,6 @@ public class AbstractEventServiceImpl implements AbstractEventService {
     }
 
     @Override
-    @Transactional
     public void delete(Long id) {
         AbstractEvent abstractEvent = abstractEventMapper.toEntity(getById(id));
         for (Place place : abstractEvent.getPlaces()) {
@@ -143,9 +141,8 @@ public class AbstractEventServiceImpl implements AbstractEventService {
     }
 
     @Override
-    public boolean existById(Long id){
+    public boolean existById(Long id) {
         return abstractEventRepository.existsById(id);
-
     }
 
     private void validateExistById(Long id) {

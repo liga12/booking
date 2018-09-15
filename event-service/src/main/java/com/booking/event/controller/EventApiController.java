@@ -1,8 +1,8 @@
 package com.booking.event.controller;
 
 import com.booking.event.api.EventApi;
-import com.booking.event.dto.AbstractEventOutcomeDto;
 import com.booking.event.dto.PlaceOutcomeDto;
+import com.booking.event.dto.event.AbstractEventOutcomeDto;
 import com.booking.event.service.event.AbstractEventService;
 import com.booking.event.service.organization.OrganizationService;
 import com.booking.event.service.place.PlaceService;

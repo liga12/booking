@@ -1,6 +1,6 @@
 package com.booking.event.api;
 
-import com.booking.event.dto.AbstractEventOutcomeDto;
+import com.booking.event.dto.event.AbstractEventOutcomeDto;
 import com.booking.event.dto.PlaceOutcomeDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

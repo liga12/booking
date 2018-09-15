@@ -10,12 +10,12 @@ import javax.persistence.Entity;
 @Entity
 @Getter
 @Setter
-public abstract class AgeConstrainEvent extends AbstractEvent {
+abstract class AgeConstrainEvent extends AbstractEvent {
 
     @Column(nullable = false)
     private Integer minAge;
 
-    public AgeConstrainEvent(EventType type) {
+    AgeConstrainEvent(EventType type) {
         super(type);
     }
 }
