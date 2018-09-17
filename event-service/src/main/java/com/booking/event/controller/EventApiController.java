@@ -3,7 +3,7 @@ package com.booking.event.controller;
 import com.booking.event.api.EventApi;
 import com.booking.event.dto.PlaceOutcomeDto;
 import com.booking.event.dto.event.AbstractEventOutcomeDto;
-import com.booking.event.service.event.AbstractEventService;
+import com.booking.event.service.event.EventService;
 import com.booking.event.service.organization.OrganizationService;
 import com.booking.event.service.place.PlaceService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class EventApiController implements EventApi {
 
     private final PlaceService placeService;
 
-    private final AbstractEventService abstractEventService;
+    private final EventService eventService;
 
     private final OrganizationService organizationService;
 
@@ -47,12 +47,12 @@ public class EventApiController implements EventApi {
 
     @Override
     public boolean existsEvent(@PathVariable Long eventId) {
-        return abstractEventService.existById(eventId);
+        return eventService.existById(eventId);
     }
 
     @Override
     public AbstractEventOutcomeDto getEvent(@PathVariable Long eventId) {
-        return abstractEventService.getById(eventId);
+        return eventService.getById(eventId);
     }
 
     @Override

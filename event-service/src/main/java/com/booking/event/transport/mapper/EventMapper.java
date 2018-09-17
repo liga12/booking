@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 @Getter
-public abstract class AbstractEventMapper {
+public abstract class EventMapper {
 
     OrganizationMapper organizationMapper;
 

@@ -3,7 +3,7 @@ package com.booking.event.service.event;
 import com.booking.event.dto.event.AbstractEventOutcomeDto;
 import com.booking.event.persistence.entity.event.AbstractEvent;
 import com.booking.event.transport.dto.event.AbstractEventCreateDto;
-import com.booking.event.transport.dto.event.AbstractEventFindDto;
+import com.booking.event.transport.dto.event.EventFindDto;
 import com.booking.event.transport.dto.event.AbstractEventUpdateDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,10 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Set;
 
 @Transactional
-public interface AbstractEventService {
+public interface EventService {
 
     @Transactional(readOnly = true)
-    Page<AbstractEventOutcomeDto> getAll(AbstractEventFindDto dto, Pageable pageable);
+    Page<AbstractEventOutcomeDto> getAll(EventFindDto dto, Pageable pageable);
 
     @Transactional(readOnly = true)
     AbstractEventOutcomeDto getById(Long id);

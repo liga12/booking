@@ -32,7 +32,8 @@ public class OrderClientServiceImpl implements OrderClientService {
     public Page<OrderClientOutcomeDto> getAll(OrderClientFindDto dto, Pageable pageable) {
         return orderClientRepository.findAll(
                 OrderClientSearchSpecification.orderFilter(dto),
-                pageable).map(orderClientMapper::toDto);
+                pageable
+        ).map(orderClientMapper::toDto);
     }
 
     @Override

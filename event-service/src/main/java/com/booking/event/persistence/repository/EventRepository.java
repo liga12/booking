@@ -4,7 +4,7 @@ import com.booking.event.persistence.entity.event.AbstractEvent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface AbstractEventRepository extends
+public interface EventRepository extends
         JpaRepository<AbstractEvent, Long>,
         JpaSpecificationExecutor<AbstractEvent> {
 

@@ -7,8 +7,8 @@ import com.booking.event.exception.OrganizationNotFoundException;
 import com.booking.event.persistence.entity.Organization;
 import com.booking.event.persistence.entity.event.AbstractEvent;
 import com.booking.event.persistence.repository.OrganizationRepository;
+import com.booking.event.service.event.EventService;
 import com.booking.event.service.feign.UserService;
-import com.booking.event.service.event.AbstractEventService;
 import com.booking.event.transport.dto.organization.OrganizationCreateDto;
 import com.booking.event.transport.dto.organization.OrganizationFindDto;
 import com.booking.event.transport.dto.organization.OrganizationOutcomeDto;
@@ -27,11 +27,11 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private final OrganizationRepository organizationRepository;
 
-    private AbstractEventService abstractEventService;
+    private EventService eventService;
 
     @Autowired
-    private void setAbstractEventService(AbstractEventService abstractEventService) {
-        this.abstractEventService = abstractEventService;
+    private void setEventService(EventService eventService) {
+        this.eventService = eventService;
     }
 
     private final UserService userService;
@@ -84,7 +84,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         Organization organization = organizationMapper.toEntity(getById(id));
         organization.setVisible(false);
         for (AbstractEvent event : organization.getEvents()) {
-            abstractEventService.delete(event.getId());
+            eventService.delete(event.getId());
         }
         organizationRepository.save(organization);
     }

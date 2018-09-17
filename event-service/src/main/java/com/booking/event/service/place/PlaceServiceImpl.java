@@ -6,11 +6,11 @@ import com.booking.event.exception.PlaceNotFoundException;
 import com.booking.event.persistence.entity.event.AbstractEvent;
 import com.booking.event.persistence.entity.place.Place;
 import com.booking.event.persistence.repository.PlaceRepository;
-import com.booking.event.service.event.AbstractEventService;
+import com.booking.event.service.event.EventService;
 import com.booking.event.transport.dto.place.PlaceCreateDto;
 import com.booking.event.transport.dto.place.PlaceFindDto;
 import com.booking.event.transport.dto.place.PlaceUpdateDto;
-import com.booking.event.transport.mapper.AbstractEventMapper;
+import com.booking.event.transport.mapper.EventMapper;
 import com.booking.event.transport.mapper.PlaceMapper;
 import com.booking.event.type.PlaceStatusType;
 import com.booking.event.type.SectionType;
@@ -33,9 +33,9 @@ public class PlaceServiceImpl implements PlaceService {
 
     private PlaceMapper placeMapper;
 
-    private AbstractEventMapper abstractEventMapper;
+    private EventMapper eventMapper;
 
-    private AbstractEventService abstractEventService;
+    private EventService eventService;
 
     @Autowired
     public void setPlaceMapper(PlaceMapper placeMapper) {
@@ -43,13 +43,13 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Autowired
-    public void setAbstractEventMapper(AbstractEventMapper abstractEventMapper) {
-        this.abstractEventMapper = abstractEventMapper;
+    public void setEventMapper(EventMapper eventMapper) {
+        this.eventMapper = eventMapper;
     }
 
     @Autowired
-    public void setAbstractEventService(AbstractEventService abstractEventService) {
-        this.abstractEventService = abstractEventService;
+    public void setEventService(EventService eventService) {
+        this.eventService = eventService;
     }
 
     @Override
@@ -83,9 +83,9 @@ public class PlaceServiceImpl implements PlaceService {
                 dto.getNumber(),
                 dto.getRow(),
                 dto.getSectionType(),
-                abstractEventMapper.toEntity(abstractEventService.getById(dto.getEvent()))
+                eventMapper.toEntity(eventService.getById(dto.getEvent()))
         );
-        abstractEventService.validateEventByActive(dto.getEvent());
+        eventService.validateEventByActive(dto.getEvent());
         return placeRepository.save(
                 placeMapper.toEntity(dto)
         ).getId();
@@ -93,8 +93,8 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public Long update(PlaceUpdateDto dto) {
-        abstractEventService.validateEventByActive(
-                abstractEventService.getById(
+        eventService.validateEventByActive(
+                eventService.getById(
                         dto.getId()
                 ).getId()
         );

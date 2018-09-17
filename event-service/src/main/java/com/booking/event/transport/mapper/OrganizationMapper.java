@@ -1,7 +1,7 @@
 package com.booking.event.transport.mapper;
 
 import com.booking.event.persistence.entity.Organization;
-import com.booking.event.service.event.AbstractEventService;
+import com.booking.event.service.event.EventService;
 import com.booking.event.service.organization.OrganizationService;
 import com.booking.event.transport.dto.organization.OrganizationCreateDto;
 import com.booking.event.transport.dto.organization.OrganizationOutcomeDto;
@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Getter
 public abstract class OrganizationMapper {
 
-    AbstractEventService abstractEventService;
+    EventService eventService;
 
     OrganizationService organizationService;
 
@@ -29,19 +29,19 @@ public abstract class OrganizationMapper {
     }
 
     @Autowired
-    public void setAbstractEventService(AbstractEventService abstractEventService) {
-        this.abstractEventService = abstractEventService;
+    public void setEventService(EventService eventService) {
+        this.eventService = eventService;
     }
 
     @Mapping(target = "events",
-            expression = "java(abstractEventService.getIdFromEntity(organization.getEvents()))")
+            expression = "java(eventService.getIdFromEntity(organization.getEvents()))")
     public abstract OrganizationOutcomeDto toDto(Organization organization);
 
     public abstract Organization toEntity(OrganizationCreateDto dto);
 
     @Mappings({
             @Mapping(target = "events",
-                    expression = "java(abstractEventService.getById(organizationService.getById(dto.getId()).getEvents()))"),
+                    expression = "java(eventService.getById(organizationService.getById(dto.getId()).getEvents()))"),
             @Mapping(target = "customerId",
                     expression = "java( organizationService.getById(dto.getId()).getCustomerId())")
     })
@@ -49,7 +49,7 @@ public abstract class OrganizationMapper {
     public abstract Organization toEntity(OrganizationUpdateDto dto);
 
     @Mapping(target = "events",
-            expression = "java(abstractEventService.getById(dto.getEvents()))")
+            expression = "java(eventService.getById(dto.getEvents()))")
     public abstract Organization toEntity(OrganizationOutcomeDto dto);
 
 }

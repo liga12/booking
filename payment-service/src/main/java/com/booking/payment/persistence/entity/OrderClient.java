@@ -1,5 +1,6 @@
 package com.booking.payment.persistence.entity;
 
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@Builder
 @EqualsAndHashCode
 public class OrderClient {
 

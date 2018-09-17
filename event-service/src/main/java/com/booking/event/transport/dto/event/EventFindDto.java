@@ -1,6 +1,7 @@
 package com.booking.event.transport.dto.event;
 
 import com.booking.event.type.EventType;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +9,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class AbstractEventFindDto {
+public class EventFindDto {
 
     private Long id;
 
@@ -33,8 +34,4 @@ public class AbstractEventFindDto {
     private Set<Long> places;
 
     private Boolean visible;
-
-    public AbstractEventFindDto(EventType type) {
-        this.type = type;
-    }
 }

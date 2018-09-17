@@ -1,6 +1,7 @@
 package com.booking.event.persistence.entity;
 
 import com.booking.event.persistence.entity.event.AbstractEvent;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

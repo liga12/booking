@@ -1,7 +1,7 @@
 package com.booking.event.service.event;
 
 import com.booking.event.persistence.entity.event.AbstractEvent;
-import com.booking.event.transport.dto.event.AbstractEventFindDto;
+import com.booking.event.transport.dto.event.EventFindDto;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,7 +10,7 @@ import javax.persistence.criteria.Root;
 import java.util.*;
 
 interface EventSearchSpecification {
-    static Specification<AbstractEvent> eventFilter(AbstractEventFindDto dto) {
+    static Specification<AbstractEvent> eventFilter(EventFindDto dto) {
         return (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             predicates.add(toEqualsPredicate(root, criteriaBuilder, "id", dto.getId()));

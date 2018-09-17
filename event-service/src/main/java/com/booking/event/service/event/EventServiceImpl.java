@@ -6,13 +6,13 @@ import com.booking.event.exception.EventNotActiveException;
 import com.booking.event.exception.NotCorrectDateException;
 import com.booking.event.persistence.entity.event.AbstractEvent;
 import com.booking.event.persistence.entity.place.Place;
-import com.booking.event.persistence.repository.AbstractEventRepository;
+import com.booking.event.persistence.repository.EventRepository;
 import com.booking.event.service.organization.OrganizationService;
 import com.booking.event.service.place.PlaceService;
 import com.booking.event.transport.dto.event.AbstractEventCreateDto;
-import com.booking.event.transport.dto.event.AbstractEventFindDto;
+import com.booking.event.transport.dto.event.EventFindDto;
 import com.booking.event.transport.dto.event.AbstractEventUpdateDto;
-import com.booking.event.transport.mapper.AbstractEventMapper;
+import com.booking.event.transport.mapper.EventMapper;
 import com.booking.event.transport.mapper.OrganizationMapper;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -28,11 +28,11 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 @Getter
-public class AbstractEventServiceImpl implements AbstractEventService {
+public class EventServiceImpl implements EventService {
 
-    private final AbstractEventRepository abstractEventRepository;
+    private final EventRepository eventRepository;
 
-    private AbstractEventMapper abstractEventMapper;
+    private EventMapper eventMapper;
 
     private OrganizationService organizationService;
 
@@ -46,8 +46,8 @@ public class AbstractEventServiceImpl implements AbstractEventService {
     }
 
     @Autowired
-    public void setAbstractEventMapper(AbstractEventMapper abstractEventMapper) {
-        this.abstractEventMapper = abstractEventMapper;
+    public void setEventMapper(EventMapper eventMapper) {
+        this.eventMapper = eventMapper;
     }
 
     @Autowired
@@ -61,18 +61,18 @@ public class AbstractEventServiceImpl implements AbstractEventService {
     }
 
     @Override
-    public Page<AbstractEventOutcomeDto> getAll(AbstractEventFindDto dto, Pageable pageable) {
-        Page<AbstractEvent> result = abstractEventRepository.findAll(
+    public Page<AbstractEventOutcomeDto> getAll(EventFindDto dto, Pageable pageable) {
+        Page<AbstractEvent> result = eventRepository.findAll(
                 EventSearchSpecification.eventFilter(dto),
                 pageable
         );
-        return result.map(abstractEventMapper::toDto);
+        return result.map(eventMapper::toDto);
     }
 
     @Override
     public AbstractEventOutcomeDto getById(Long id) {
-        return abstractEventMapper.toDto(
-                abstractEventRepository
+        return eventMapper.toDto(
+                eventRepository
                         .findById(id)
                         .orElseThrow(AbstractEventNotFoundException::new)
         );
@@ -80,7 +80,7 @@ public class AbstractEventServiceImpl implements AbstractEventService {
 
     @Override
     public Set<AbstractEvent> getById(Set<Long> ids) {
-        List<AbstractEvent> events = abstractEventRepository.findAllById(ids);
+        List<AbstractEvent> events = eventRepository.findAllById(ids);
         if (events.size() != ids.size()) {
             throw new AbstractEventNotFoundException();
         }
@@ -93,8 +93,8 @@ public class AbstractEventServiceImpl implements AbstractEventService {
         organizationService.validateOrganizationByActive(
                 dto.getOrganization()
         );
-        return abstractEventRepository.save(
-                abstractEventMapper.toEntity(dto)).getId();
+        return eventRepository.save(
+                eventMapper.toEntity(dto)).getId();
     }
 
     @Override
@@ -104,19 +104,19 @@ public class AbstractEventServiceImpl implements AbstractEventService {
         organizationService.validateOrganizationByActive(
                 dto.getOrganization()
         );
-        return abstractEventRepository.save(
-                abstractEventMapper.toEntity(dto)
+        return eventRepository.save(
+                eventMapper.toEntity(dto)
         ).getId();
     }
 
     @Override
     public void delete(Long id) {
-        AbstractEvent abstractEvent = abstractEventMapper.toEntity(getById(id));
+        AbstractEvent abstractEvent = eventMapper.toEntity(getById(id));
         for (Place place : abstractEvent.getPlaces()) {
             placeService.delete(place.getId());
         }
         abstractEvent.setVisible(false);
-        abstractEventRepository.save(abstractEvent);
+        eventRepository.save(abstractEvent);
     }
 
     @Override
@@ -142,11 +142,11 @@ public class AbstractEventServiceImpl implements AbstractEventService {
 
     @Override
     public boolean existById(Long id) {
-        return abstractEventRepository.existsById(id);
+        return eventRepository.existsById(id);
     }
 
     private void validateExistById(Long id) {
-        if (id == null || !abstractEventRepository.existsById(id)) {
+        if (id == null || !eventRepository.existsById(id)) {
             throw new AbstractEventNotFoundException();
         }
     }

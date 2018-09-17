@@ -39,13 +39,13 @@ public class TicketServiceImpl implements TicketService {
 
     private final EventService eventService;
 
-    @Value("${fileName}")
+    @Value("${pdf.folder}")
     private String pdfFolder;
 
-    @Value("${qaImage}")
+    @Value("${pdf.image.qa}")
     private String qaImage;
 
-//    @Value("${footer}")
+//    @Value("${pdf.imege.footer}")
 //    private String footer;
 
     @Value("${rules}")
