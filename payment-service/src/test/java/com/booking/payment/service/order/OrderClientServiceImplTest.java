@@ -49,26 +49,12 @@ public class OrderClientServiceImplTest {
 
     @Test
     public void testGetAll() {
-        Payment client = Payment.builder()
-                .id(1L)
-                .build();
-        Payment customer = Payment.builder()
-                .id(2L)
-                .build();
-        OrderClient orderClient = OrderClient.builder()
-                .id(1L)
-                .amount(10d)
-                .paymentClient(client)
-                .paymentCustomer(customer)
-                .placeId(1L)
-                .build();
-        OrderClientOutcomeDto dto = OrderClientOutcomeDto.builder()
-                .id(1L)
-                .amount(10d)
-                .paymentClient(client.getId())
-                .paymentCustomer(customer.getId())
-                .placeId(1L)
-                .build();
+        Payment client = new Payment(1L);
+        Payment customer = new Payment(2L);
+        OrderClient orderClient = new OrderClient
+                (1L, 1L, client, customer, 10d);
+        OrderClientOutcomeDto dto = new OrderClientOutcomeDto
+                (1L, 1L, client.getId(), customer.getId(), 10d);
         PageImpl<OrderClient> page = new PageImpl(Lists.newArrayList(orderClient));
         when(orderClientRepository.findAll(
                 any(Specification.class),
@@ -80,6 +66,7 @@ public class OrderClientServiceImplTest {
         Page<OrderClientOutcomeDto> result = orderClientService.getAll(
                 new OrderClientFindDto(),
                 PageRequest.of(0, 100)
+
         );
 
         verify(orderClientRepository, times(1)).findAll(
@@ -92,24 +79,10 @@ public class OrderClientServiceImplTest {
 
     @Test
     public void testCreate() {
-        Payment client = Payment.builder()
-                .id(1L)
-                .build();
-        Payment customer = Payment.builder()
-                .id(2L)
-                .build();
-        OrderClient orderClient = OrderClient.builder()
-                .id(1L)
-                .amount(10d)
-                .paymentClient(client)
-                .paymentCustomer(customer)
-                .placeId(1L)
-                .build();
-        OrderClientCreateDto orderClientCreateDto = OrderClientCreateDto.builder()
-                .paymentClient(client.getId())
-                .paymentCustomer(customer.getId())
-                .placeId(1L)
-                .build();
+        Payment client = new Payment(1L);
+        Payment customer = new Payment(2L);
+        OrderClient orderClient = new OrderClient(1L, 1L, client, customer, 10d);
+        OrderClientCreateDto orderClientCreateDto = new OrderClientCreateDto(1L, client.getId(), customer.getId());
         when(eventService.existsActivePlace(orderClientCreateDto.getPlaceId())).thenReturn(true);
         when(userService.existCustomerByPaymentId(orderClientCreateDto.getPaymentCustomer())).thenReturn(true);
         when(userService.existClientByPaymentId(orderClientCreateDto.getPaymentClient())).thenReturn(true);
@@ -127,7 +100,7 @@ public class OrderClientServiceImplTest {
         verify(eventService, times(1)).getAmount(orderClientCreateDto.getPlaceId());
         verify(eventService, times(1)).buyPlace(orderClientCreateDto.getPlaceId());
         verify(orderClientRepository, times(1)).save(orderClient);
-        assertEquals(orderClient.getId(),result);
+        assertEquals(orderClient.getId(), result);
     }
 
 }

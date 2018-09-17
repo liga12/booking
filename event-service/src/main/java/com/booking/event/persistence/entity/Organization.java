@@ -1,10 +1,7 @@
 package com.booking.event.persistence.entity;
 
 import com.booking.event.persistence.entity.event.AbstractEvent;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,6 +10,7 @@ import java.util.Set;
 @Getter
 @Setter
 @EqualsAndHashCode
+@NoArgsConstructor
 public class Organization {
 
     @Id
@@ -39,4 +37,8 @@ public class Organization {
 
     @Column(nullable = false)
     private String customerId;
+
+    public Organization(Long id) {
+        this.id = id;
+    }
 }

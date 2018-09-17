@@ -2,6 +2,7 @@ package com.booking.user.transpor.dto;
 
 import com.booking.user.persistence.entity.UserType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.Email;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class UserCreateDto {
 
     @NotBlank
@@ -29,4 +31,9 @@ public class UserCreateDto {
 
     @NotNull
     private Long paymentId;
+
+    public UserCreateDto(@Email String email, @NotNull Long paymentId) {
+        this.email = email;
+        this.paymentId = paymentId;
+    }
 }

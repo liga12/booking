@@ -89,9 +89,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserOutcomeDto getUserByPaymentId(Long paymentClientId) {
-        UserFindDto dto = UserFindDto.builder().paymentId(paymentClientId).build();
+        UserFindDto dto = new UserFindDto();
+        dto.setPaymentId(paymentClientId);
         List<UserOutcomeDto> users = getAll(dto, PageRequest.of(0, 1));
-        if (getAll(dto, PageRequest.of(0, 1)).isEmpty()) {
+        if (users.isEmpty()) {
             throw new UserNotFoundException();
         }
         return users.get(0);

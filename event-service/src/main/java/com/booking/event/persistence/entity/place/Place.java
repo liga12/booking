@@ -35,4 +35,6 @@ public class Place {
 
     @Enumerated(EnumType.STRING)
     private SectionType sectionType;
+
+
 }

@@ -45,8 +45,8 @@ public class TicketServiceImpl implements TicketService {
     @Value("${pdf.image.qa}")
     private String qaImage;
 
-//    @Value("${pdf.imege.footer}")
-//    private String footer;
+    @Value("${pdf.image.footer}")
+    private String footer;
 
     @Value("${rules}")
     private String rules;
@@ -76,7 +76,8 @@ public class TicketServiceImpl implements TicketService {
         return hostAndPort + controllerMethod + createPdf(ticket);
     }
 
-    private String createPdf(Ticket ticket) {
+    @Override
+    public String createPdf(Ticket ticket) {
         String path = pdfFolder + createFileName(ticket);
         Document document = new Document();
         try {
@@ -97,11 +98,11 @@ public class TicketServiceImpl implements TicketService {
             Image img = Image.getInstance(qaImage);
             img.setAbsolutePosition(350, 630);
             img.scaleToFit(200, 200);
-//            Image img2 = Image.getInstance(footer);
-//            img2.setAbsolutePosition(0, 150);
-//            img2.scaleToFit(600, 200);
+            Image img2 = Image.getInstance(footer);
+            img2.setAbsolutePosition(0, 150);
+            img2.scaleToFit(600, 200);
             document.add(img);
-//            document.add(img2);
+            document.add(img2);
             document.close();
         } catch (DocumentException | IOException e) {
             e.printStackTrace();

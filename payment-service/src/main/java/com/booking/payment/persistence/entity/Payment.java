@@ -1,9 +1,6 @@
 package com.booking.payment.persistence.entity;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -11,8 +8,9 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@Builder
 @EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 public class Payment {
 
     @Id
@@ -27,4 +25,8 @@ public class Payment {
 
     @OneToMany(mappedBy = "paymentClient")
     private Set<OrderClient> customer;
+
+    public Payment(Long id) {
+        this.id = id;
+    }
 }

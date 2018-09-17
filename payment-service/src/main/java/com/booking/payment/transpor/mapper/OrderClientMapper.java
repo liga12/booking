@@ -18,7 +18,7 @@ public abstract class OrderClientMapper {
     PaymentService paymentService;
 
     @Autowired
-    public void setPayment(PaymentService paymentService) {
+    public void setPaymentService(PaymentService paymentService) {
         this.paymentService = paymentService;
     }
 

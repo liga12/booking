@@ -22,22 +22,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
+@Getter
 public class OrganizationServiceImpl implements OrganizationService {
 
-    private final OrganizationRepository organizationRepository;
+    @Autowired
+    private  OrganizationRepository organizationRepository;
+
+    @Autowired
+    private   UserService userService;
 
     private EventService eventService;
+
+    private OrganizationMapper organizationMapper;
 
     @Autowired
     private void setEventService(EventService eventService) {
         this.eventService = eventService;
     }
-
-    private final UserService userService;
-
-    @Getter
-    private OrganizationMapper organizationMapper;
 
     @Autowired
     public void setOrganizationMapper(OrganizationMapper organizationMapper) {

@@ -1,14 +1,16 @@
 package com.booking.payment.transpor.dto;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
 
 @Getter
 @Setter
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PaymentOutcomeDto {
 
     private Long id;
@@ -18,4 +20,6 @@ public class PaymentOutcomeDto {
     private Set<Long> client;
 
     private Set<Long> customer;
+
+
 }

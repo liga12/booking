@@ -15,7 +15,6 @@ import com.booking.event.transport.mapper.PlaceMapper;
 import com.booking.event.type.PlaceStatusType;
 import com.booking.event.type.SectionType;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,11 +24,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-@RequiredArgsConstructor
 @Getter
 public class PlaceServiceImpl implements PlaceService {
 
-    private final PlaceRepository placeRepository;
+    @Autowired
+    private PlaceRepository placeRepository;
 
     private PlaceMapper placeMapper;
 

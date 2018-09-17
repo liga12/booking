@@ -15,6 +15,7 @@ import com.booking.event.transport.dto.event.AbstractEventUpdateDto;
 import com.booking.event.transport.mapper.EventMapper;
 import com.booking.event.transport.mapper.OrganizationMapper;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,11 +27,12 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-@RequiredArgsConstructor
 @Getter
+@NoArgsConstructor
 public class EventServiceImpl implements EventService {
 
-    private final EventRepository eventRepository;
+    @Autowired
+    private  EventRepository eventRepository;
 
     private EventMapper eventMapper;
 
