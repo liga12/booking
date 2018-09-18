@@ -1,12 +1,16 @@
 package com.booking.event.transport.dto.organization;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrganizationOutcomeDto {
 
     private Long id;
@@ -24,4 +28,8 @@ public class OrganizationOutcomeDto {
     private Set<Long> events;
 
     private String customerId;
+
+    public OrganizationOutcomeDto(Long id) {
+        this.id = id;
+    }
 }

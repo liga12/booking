@@ -11,6 +11,7 @@ import java.util.Set;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
 public class Organization {
 
     @Id

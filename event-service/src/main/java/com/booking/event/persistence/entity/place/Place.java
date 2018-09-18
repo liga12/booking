@@ -3,13 +3,16 @@ package com.booking.event.persistence.entity.place;
 import com.booking.event.persistence.entity.event.AbstractEvent;
 import com.booking.event.type.PlaceStatusType;
 import com.booking.event.type.SectionType;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Place {
 
     @Id
@@ -36,5 +39,7 @@ public class Place {
     @Enumerated(EnumType.STRING)
     private SectionType sectionType;
 
-
+    public Place(Long id) {
+        this.id = id;
+    }
 }

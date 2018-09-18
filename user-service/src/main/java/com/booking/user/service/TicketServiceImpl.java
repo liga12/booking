@@ -111,7 +111,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     private String createFileName(Ticket ticket) {
-        return System.currentTimeMillis() + ticket.getName() + ticket.getSurname() + ".pdf";
+        return System.currentTimeMillis()/1000 + ticket.getName() + ticket.getSurname() + ".pdf";
     }
 
     private PlaceOutcomeDto getPlace(Long placeId) {
