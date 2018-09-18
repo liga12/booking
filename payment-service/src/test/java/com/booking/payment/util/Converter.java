@@ -1,4 +1,4 @@
-package util;
+package com.booking.payment.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

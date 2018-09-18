@@ -27,7 +27,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static util.Converter.mapToJson;
+import static com.booking.event.util.Converter.mapToJson;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OrganizationControllerTest {
