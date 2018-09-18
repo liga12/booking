@@ -1,10 +1,7 @@
 package com.booking.event.transport.dto.place;
 
 import com.booking.event.type.SectionType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -12,6 +9,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class PlaceCreateDto {
 
     @NotNull

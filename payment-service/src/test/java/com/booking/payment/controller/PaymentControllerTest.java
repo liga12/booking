@@ -75,7 +75,7 @@ public class PaymentControllerTest {
     public void testCreate() throws Exception {
         Long id = 1L;
         PaymentCreateDto createDto = new PaymentCreateDto("111111");
-        when(paymentService.create(any(PaymentCreateDto.class))).thenReturn(id);
+        when(paymentService.create(createDto)).thenReturn(id);
 
         mockMvc.perform(put("/payments")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -84,7 +84,7 @@ public class PaymentControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").value(id));
 
-        verify(paymentService, times(1)).create(any(PaymentCreateDto.class));
+        verify(paymentService, times(1)).create(createDto);
     }
 
 }

@@ -3,7 +3,6 @@ package com.booking.user.controller;
 import com.booking.user.service.TicketService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -14,6 +13,9 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.FileInputStream;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -33,31 +35,26 @@ public class TicketControllerTest {
         Long paymentClientId = 2L;
         Double cost = 10D;
         String url = "url";
-        Mockito.when(ticketService.getTicketUrl(placeId, paymentClientId, cost)).thenReturn(url);
+        when(ticketService.getTicketUrl(placeId, paymentClientId, cost)).thenReturn(url);
 
-        mockMvc.perform(get("/tickets//{placeId}/{paymentClientId}/{cost}", placeId, paymentClientId, cost)
+        mockMvc.perform(get("/tickets/{placeId}/{paymentClientId}/{cost}", placeId, paymentClientId, cost)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").value(url));
+
+        verify(ticketService, times(1)).getTicketUrl(placeId, paymentClientId, cost);
     }
 
     @Test
     public void testGetPdf() throws Exception {
         String path = "path";
-        InputStreamResource inputStreamResource = new InputStreamResource(new FileInputStream("/home/user/11111/ticket.pdf");
-        inputStreamResource.getInputStream().read();
-        Mockito.when(ticketService.getFile(path)).thenReturn(new InputStreamResource(new FileInputStream("/home/user/11111/ticket.pdf")));
+        when(ticketService.getFile(path)).thenReturn(new InputStreamResource(new FileInputStream("/home/user/11111/ticket.pdf")));
 
-        int i;
-        while ((i = inputStreamResource.getInputStream().read()) != -1) {
-            System.out.print(i);
+        mockMvc.perform(get("/tickets/getPdf?path=path")
+                .accept(MediaType.APPLICATION_PDF))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_PDF));
 
-
-            mockMvc.perform(get("/tickets/getPdf?path=path")
-                    .accept(MediaType.APPLICATION_PDF))
-                    .andExpect(status().isOk())
-                    .andExpect(content().contentType(MediaType.APPLICATION_PDF))
-                    .andExpect(content().bytes()).value(url));
-        }
-
+        verify(ticketService, times(1)).getFile(path);
     }
+}

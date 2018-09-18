@@ -120,7 +120,7 @@ public class OrganizationControllerTest {
                 "email@gmail.com",
                 "1"
         );
-        when(organizationService.create(any(OrganizationCreateDto.class))).thenReturn(id);
+        when(organizationService.create(createDto)).thenReturn(id);
 
         mockMvc.perform(put("/organizations")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -129,7 +129,7 @@ public class OrganizationControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").value(id));
 
-        verify(organizationService, times(1)).create(any(OrganizationCreateDto.class));
+        verify(organizationService, times(1)).create(createDto);
     }
 
     @Test

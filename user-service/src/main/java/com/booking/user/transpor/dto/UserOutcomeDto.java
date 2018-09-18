@@ -1,13 +1,12 @@
 package com.booking.user.transpor.dto;
 
 import com.booking.user.persistence.entity.UserType;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserOutcomeDto {
 
     private String id;

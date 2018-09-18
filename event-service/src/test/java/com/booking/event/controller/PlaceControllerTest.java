@@ -113,7 +113,7 @@ public class PlaceControllerTest {
                 1L,
                 SectionType.FIRST_ROW
         );
-        when(placeService.create(any(PlaceCreateDto.class))).thenReturn(id);
+        when(placeService.create(createDto)).thenReturn(id);
 
         mockMvc.perform(put("/places")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -122,7 +122,7 @@ public class PlaceControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").value(id));
 
-        verify(placeService, times(1)).create(any(PlaceCreateDto.class));
+        verify(placeService, times(1)).create(createDto);
     }
 
     @Test
@@ -132,7 +132,7 @@ public class PlaceControllerTest {
                 10D,
                 PlaceStatusType.ACTIVE
         );
-        when(placeService.update(any(PlaceUpdateDto.class))).thenReturn(dto.getId());
+        when(placeService.update(dto)).thenReturn(dto.getId());
 
         mockMvc.perform(post("/places")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -141,7 +141,7 @@ public class PlaceControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").value(dto.getId()));
 
-        verify(placeService, times(1)).update(any(PlaceUpdateDto.class));
+        verify(placeService, times(1)).update(dto);
     }
 
     @Test

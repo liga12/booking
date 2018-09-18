@@ -1,12 +1,13 @@
 package com.booking.user.transpor.dto;
 
 import com.booking.user.persistence.entity.UserType;
-import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 public class UserFindDto {
 
     private String id;

@@ -75,7 +75,7 @@ public class OrderClientControllerTest {
                 2L,
                 1L
         );
-        when(orderClientService.create(any(OrderClientCreateDto.class))).thenReturn(id);
+        when(orderClientService.create(createDto)).thenReturn(id);
 
         mockMvc.perform(put("/orders")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -84,6 +84,6 @@ public class OrderClientControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").value(id));
 
-        verify(orderClientService, times(1)).create(any(OrderClientCreateDto.class));
+        verify(orderClientService, times(1)).create(createDto);
     }
 }

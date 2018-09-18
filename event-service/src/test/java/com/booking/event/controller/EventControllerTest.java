@@ -124,7 +124,7 @@ public class EventControllerTest {
         createDto.setArtists("artist");
         createDto.setOrganization(1L);
         createDto.setMinAge(12);
-        when(eventService.create(any(CinemaEventCreateDto.class))).thenReturn(id);
+        when(eventService.create(createDto)).thenReturn(id);
 
         mockMvc.perform(put("/events")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -133,7 +133,7 @@ public class EventControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").value(id));
 
-        verify(eventService, times(1)).create(any(CinemaEventCreateDto.class));
+        verify(eventService, times(1)).create(createDto);
     }
 
     @Test
@@ -148,7 +148,7 @@ public class EventControllerTest {
         dto.setArtists("artist");
         dto.setOrganization(1L);
         dto.setMinAge(12);
-        when(eventService.update(any(CinemaEventUpdateDto.class))).thenReturn(dto.getId());
+        when(eventService.update(dto)).thenReturn(dto.getId());
 
         mockMvc.perform(post("/events")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -157,7 +157,7 @@ public class EventControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").value(dto.getId()));
 
-        verify(eventService, times(1)).update(any(CinemaEventUpdateDto.class));
+        verify(eventService, times(1)).update(dto);
     }
 
     @Test
