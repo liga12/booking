@@ -98,7 +98,7 @@ public class PlaceMapperTest {
         );
         AbstractEventOutcomeDto cinemaEventOutcomeDto = new CinemaEventOutcomeDto();
         cinemaEventOutcomeDto.setId(1L);
-        PlaceOutcomeDto placeOutcomeDto = new PlaceOutcomeDto(1, 1,1L);
+        PlaceOutcomeDto placeOutcomeDto = new PlaceOutcomeDto(1, 1, 1L);
         CinemaEvent event = new CinemaEvent();
         event.setId(1L);
         when(placeService.getById(dto.getId())).thenReturn(placeOutcomeDto);
@@ -114,12 +114,12 @@ public class PlaceMapperTest {
     }
 
     @Test
-    public void testToDto(){
+    public void testToDto() {
         CinemaEvent event = new CinemaEvent();
         event.setId(1L);
         Place place = new Place(
-               1L,
-               1D,
+                1L,
+                1D,
                 1,
                 1,
                 PlaceStatusType.ACTIVE,
