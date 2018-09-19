@@ -98,7 +98,7 @@ public class TicketServiceImplTest {
         String result = ticketService.createPdf(ticket);
 
         assertEquals(pdfFolder
-                        + System.currentTimeMillis() / 1000
+                        + System.currentTimeMillis() / 10000
                         + ticket.getName()
                         + ticket.getSurname()
                         + ".pdf",

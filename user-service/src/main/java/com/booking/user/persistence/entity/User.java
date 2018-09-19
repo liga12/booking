@@ -28,4 +28,13 @@ public class User {
     private String email;
 
     private String phone;
+
+    public User(Long paymentId, String name, String surname, UserType type, String email, String phone) {
+        this.paymentId = paymentId;
+        this.name = name;
+        this.surname = surname;
+        this.type = type;
+        this.email = email;
+        this.phone = phone;
+    }
 }

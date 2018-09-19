@@ -19,11 +19,10 @@ interface EventSearchSpecification {
             predicates.add(toBetweenLongPredicate(root, criteriaBuilder, "date", dto.getStarDate(), dto.getEndDate()));
             predicates.add(toLikePredicate(root, criteriaBuilder, "description", dto.getDescription()));
             predicates.add(toLikePredicate(root, criteriaBuilder, "location", dto.getLocation()));
-            predicates.add(toLikePredicate(root, criteriaBuilder, "photoUrl", dto.getPhotoUrl()));
-            predicates.add(toLikePredicate(root, criteriaBuilder, "organization", dto.getOrganization()));
+            predicates.add(toEqualsPredicateId(root, criteriaBuilder, "organization", dto.getOrganization()));
             predicates.add(toLikePredicate(root, criteriaBuilder, "artists", dto.getArtists()));
             predicates.add(toEqualsPredicate(root, criteriaBuilder, "visible", dto.getVisible()));
-            predicates.add(toEqualsPredicate(root, "places", dto.getPlaces()));
+            predicates.add(toEqualsPredicateIds(root, "places", dto.getPlaces()));
             Object[] rawPredicates = predicates.stream().filter(Objects::nonNull).toArray();
             return criteriaBuilder.and(Arrays.copyOf(rawPredicates, rawPredicates.length, Predicate[].class));
         };
@@ -43,14 +42,14 @@ interface EventSearchSpecification {
         return paramValue != null ? criteriaBuilder.like(root.get(param), "%" + paramValue + "%") : null;
     }
 
-    static Predicate toEqualsPredicate(Root<AbstractEvent> root,
+    static Predicate toEqualsPredicateId(Root<AbstractEvent> root,
                                        CriteriaBuilder criteriaBuilder,
                                        String param,
                                        Long paramValue) {
         return paramValue != null ? criteriaBuilder.equal(root.get(param).get("id"), paramValue) : null;
     }
 
-    static Predicate toEqualsPredicate(Root<AbstractEvent> root, String param, Set<Long> paramValue) {
+    static Predicate toEqualsPredicateIds(Root<AbstractEvent> root, String param, Set<Long> paramValue) {
         return paramValue != null ? root.join(param).get("id").in(paramValue) : null;
     }
 

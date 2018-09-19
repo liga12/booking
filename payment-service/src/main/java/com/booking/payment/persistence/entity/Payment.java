@@ -29,4 +29,8 @@ public class Payment {
     public Payment(Long id) {
         this.id = id;
     }
+
+    public Payment(String token) {
+        this.token = token;
+    }
 }

@@ -43,4 +43,9 @@ public class RestExceptionHandler {
     private String fileNotFoundException(FileNotFoundException e) {
         return String.format("{\"error\":\"%s\"}", e.getMessage());
     }
+
+    @ExceptionHandler(value = NotCorrectTicketDateException.class)
+    private String notCorrectTicketDateException(NotCorrectTicketDateException e) {
+        return String.format("{\"error\":\"%s\"}", e.getMessage());
+    }
 }

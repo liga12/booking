@@ -11,7 +11,6 @@ import com.booking.payment.transpor.dto.PaymentOutcomeDto;
 import com.booking.payment.transpor.mapper.PaymentMapper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,12 +21,12 @@ import java.util.Set;
 
 @Service
 @NoArgsConstructor
-@Getter
 public class PaymentServiceImpl implements PaymentService {
 
     @Autowired
-    private  PaymentRepository paymentRepository;
+    private PaymentRepository paymentRepository;
 
+    @Getter
     private PaymentMapper paymentMapper;
 
     @Autowired
@@ -37,7 +36,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Page<PaymentOutcomeDto> getAll(PaymentFindDto dto, Pageable pageable) {
-        return  paymentRepository.findAll(
+        return paymentRepository.findAll(
                 PaymentSearchSpecification.paymentFilter(dto),
                 pageable
         ).map(paymentMapper::toDto);

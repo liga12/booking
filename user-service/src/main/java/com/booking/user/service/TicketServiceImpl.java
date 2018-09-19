@@ -2,6 +2,8 @@ package com.booking.user.service;
 
 import com.booking.event.dto.PlaceOutcomeDto;
 import com.booking.event.dto.event.AbstractEventOutcomeDto;
+import com.booking.user.exception.EventNotFoundException;
+import com.booking.user.exception.NotCorrectTicketDateException;
 import com.booking.user.exception.OrganizationNotFoundException;
 import com.booking.user.exception.PlaceNotFoundException;
 import com.booking.user.service.feign.EventService;
@@ -78,6 +80,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public String createPdf(Ticket ticket) {
+        if (ticket==null){
+            throw new NotCorrectTicketDateException();
+        }
         String path = pdfFolder + createFileName(ticket);
         Document document = new Document();
         try {
@@ -111,7 +116,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     private String createFileName(Ticket ticket) {
-        return System.currentTimeMillis()/1000 + ticket.getName() + ticket.getSurname() + ".pdf";
+        return System.currentTimeMillis()/10000 + ticket.getName() + ticket.getSurname() + ".pdf";
     }
 
     private PlaceOutcomeDto getPlace(Long placeId) {
@@ -123,7 +128,7 @@ public class TicketServiceImpl implements TicketService {
 
     private AbstractEventOutcomeDto getEvent(Long eventId) {
         if (eventId == null || !eventService.existsEvent(eventId)) {
-            throw new PlaceNotFoundException();
+            throw new EventNotFoundException();
         }
         return eventService.getEvent(eventId);
     }
