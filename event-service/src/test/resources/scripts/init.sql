@@ -11,7 +11,10 @@ insert into organization (id, customer_id, email, location, name, phone, visible
 values (4, '4', 'email56','loc14535','namre', '1131',true );
 
 insert into organization (id, customer_id, email, location, name, phone, visible)
-values (5, '5', 'email22341','loc1435','nertame', '11134',true );
+values (5, '5', 'email22341','loc1435','nertame', '11134',false );
+
+insert into organization (id, customer_id, email, location, name, phone, visible)
+values (6, '6', 'e','l','name4546', '11134',false );
 
 
 

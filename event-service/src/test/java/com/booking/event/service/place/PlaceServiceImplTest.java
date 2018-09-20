@@ -147,9 +147,12 @@ public class PlaceServiceImplTest {
     public void testUpdate() {
         PlaceUpdateDto placeUpdateDto = new PlaceUpdateDto();
         CinemaEventOutcomeDto eventOutcomeDto = new CinemaEventOutcomeDto();
+        CinemaEvent event = new CinemaEvent();
+        event.setId(1L);
         placeUpdateDto.setId(1L);
         Place place = new Place();
         place.setId(1L);
+        place.setEvent(event);
         when(eventService.getById(placeUpdateDto.getId())).thenReturn(eventOutcomeDto);
         doNothing().when(eventService).validateEventByActive(eventOutcomeDto.getId());
         when(placeMapper.toEntity(placeUpdateDto)).thenReturn(place);
@@ -187,12 +190,14 @@ public class PlaceServiceImplTest {
         doReturn(placeOutcomeDto).when(placeService).getById(id);
         when(placeMapper.toEntity(placeOutcomeDto)).thenReturn(place);
         when(placeRepository.save(place)).thenReturn(place);
+        when(placeRepository.existsById(id)).thenReturn(true);
 
         placeService.delete(id);
 
         verify(placeService, times(1)).getById(id);
         verify(placeMapper, times(1)).toEntity(placeOutcomeDto);
         verify(placeRepository, times(1)).save(place);
+        verify(placeRepository, times(1)).existsById(id);
     }
 
     @Test

@@ -56,6 +56,9 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     public OrganizationOutcomeDto getById(Long id) {
+        if (id==null){
+            throw new OrganizationNotFoundException();
+        }
         return organizationMapper.toDto(
                 organizationRepository
                         .findById(id)
@@ -74,6 +77,9 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     public Long update(OrganizationUpdateDto dto) {
+        if (dto.getId()==null){
+            throw new OrganizationNotFoundException();
+        }
         validateExistNameAndId(dto.getName(), dto.getId());
         return organizationRepository.save(
                 organizationMapper.toEntity(dto)
@@ -98,13 +104,13 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     public void validateOrganizationByActive(Long id) {
-        if (id == null || !getById(id).getVisible()) {
+        if (id == null ||!getById(id).getVisible()) {
             throw new OrganizationNotActiveException();
         }
     }
 
     private void validateExistNameAndId(String name, Long id) {
-        if (id == null || organizationRepository.existsByNameAndIdIsNot(name, id)) {
+        if (id == null||name==null || organizationRepository.existsByNameAndIdIsNot(name, id)) {
             throw new OrganizationNameExistException();
         }
     }

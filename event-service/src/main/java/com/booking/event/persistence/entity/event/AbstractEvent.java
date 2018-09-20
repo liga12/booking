@@ -3,7 +3,9 @@ package com.booking.event.persistence.entity.event;
 import com.booking.event.persistence.entity.Organization;
 import com.booking.event.persistence.entity.place.Place;
 import com.booking.event.type.EventType;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -11,7 +13,6 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "typeDiscrimination")
 public abstract class AbstractEvent {

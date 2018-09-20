@@ -17,8 +17,8 @@ public class RestExceptionHandler {
         return String.format("{\"error\":\"%s\"}", e.getMessage());
     }
 
-    @ExceptionHandler(value = AbstractEventNotFoundException.class)
-    private String abstractEventnNotFound(AbstractEventNotFoundException e) {
+    @ExceptionHandler(value = EventNotFoundException.class)
+    private String abstractEventnNotFound(EventNotFoundException e) {
         return String.format("{\"error\":\"%s\"}", e.getMessage());
     }
 

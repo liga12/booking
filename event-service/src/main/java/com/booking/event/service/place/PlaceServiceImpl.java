@@ -21,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -62,6 +63,9 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public PlaceOutcomeDto getById(Long id) {
+        if (id == null) {
+            throw new PlaceNotFoundException();
+        }
         return placeMapper.toDto(
                 placeRepository
                         .findById(id)
@@ -70,15 +74,20 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public Set<Place> getById(Set<Long> id) {
-        return new HashSet<>(
-                placeRepository.findAllById(id)
-        );
+    public Set<Place> getById(Set<Long> ids) {
+        if (ids == null) {
+            return null;
+        }
+        List<Place> places = placeRepository.findAllById(ids);
+        if (places.size() != ids.size()) {
+            throw new PlaceNotFoundException();
+        }
+        return new HashSet<>(places);
     }
 
     @Override
     public Long create(PlaceCreateDto dto) {
-        validatePlace(
+        validateCreatePlace(
                 dto.getNumber(),
                 dto.getRow(),
                 dto.getSectionType(),
@@ -92,25 +101,28 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public Long update(PlaceUpdateDto dto) {
+        Place place = placeMapper.toEntity(dto);
         eventService.validateEventByActive(
                 eventService.getById(
-                        dto.getId()
+                        place.getEvent().getId()
                 ).getId()
         );
-        return placeRepository.save(
-                placeMapper.toEntity(dto)
-        ).getId();
+        return placeRepository.save(place).getId();
     }
 
     @Override
     public void buyPlace(Long id) {
         Place place = placeMapper.toEntity(getById(id));
+        if (!place.getStatus().equals(PlaceStatusType.ACTIVE)) {
+            throw new PlaceNotFoundException();
+        }
         place.setStatus(PlaceStatusType.BYU);
         placeRepository.save(place);
     }
 
     @Override
     public void delete(Long id) {
+        validatePlace(id);
         PlaceOutcomeDto placeOutcomeDto = getById(id);
         placeOutcomeDto.setStatus(PlaceStatusType.NOT_ACTIVE);
         placeRepository.save(placeMapper.toEntity(placeOutcomeDto));
@@ -118,6 +130,9 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public Set<Long> getIdFromEntity(Set<Place> places) {
+        if (places == null) {
+            return null;
+        }
         Set<Long> ids = new HashSet<>();
         for (Place place : places) {
             ids.add(place.getId());
@@ -125,10 +140,10 @@ public class PlaceServiceImpl implements PlaceService {
         return ids;
     }
 
+
     @Override
     public boolean existActivePlace(Long id) {
         return id != null && placeRepository.existsByIdAndStatus(id, PlaceStatusType.ACTIVE);
-
     }
 
     @Override
@@ -137,7 +152,7 @@ public class PlaceServiceImpl implements PlaceService {
 
     }
 
-    private void validatePlace(Integer number, Integer row, SectionType type, AbstractEvent event) {
+    private void validateCreatePlace(Integer number, Integer row, SectionType type, AbstractEvent event) {
         if (number == null || row == null || type == null || placeRepository.existsAllByNumberAndAndRowAndSectionTypeAndEvent(
                 number,
                 row,
@@ -145,6 +160,12 @@ public class PlaceServiceImpl implements PlaceService {
                 event)) {
             throw new PlaceExistException();
 
+        }
+    }
+
+    private void validatePlace(Long id){
+        if (id==null || !placeRepository.existsById(id)){
+           throw new  PlaceNotFoundException();
         }
     }
 }

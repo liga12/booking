@@ -1,8 +1,8 @@
 package com.booking.event.service.event;
 
 import com.booking.event.dto.event.AbstractEventOutcomeDto;
-import com.booking.event.exception.AbstractEventNotFoundException;
 import com.booking.event.exception.EventNotActiveException;
+import com.booking.event.exception.EventNotFoundException;
 import com.booking.event.exception.NotCorrectDateException;
 import com.booking.event.persistence.entity.event.AbstractEvent;
 import com.booking.event.persistence.entity.place.Place;
@@ -10,19 +10,19 @@ import com.booking.event.persistence.repository.EventRepository;
 import com.booking.event.service.organization.OrganizationService;
 import com.booking.event.service.place.PlaceService;
 import com.booking.event.transport.dto.event.AbstractEventCreateDto;
-import com.booking.event.transport.dto.event.EventFindDto;
 import com.booking.event.transport.dto.event.AbstractEventUpdateDto;
+import com.booking.event.transport.dto.event.EventFindDto;
 import com.booking.event.transport.mapper.EventMapper;
 import com.booking.event.transport.mapper.OrganizationMapper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -32,7 +32,7 @@ import java.util.Set;
 public class EventServiceImpl implements EventService {
 
     @Autowired
-    private  EventRepository eventRepository;
+    private EventRepository eventRepository;
 
     private EventMapper eventMapper;
 
@@ -73,20 +73,27 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public AbstractEventOutcomeDto getById(Long id) {
+        if (id==null){
+            throw new EventNotFoundException();
+        }
         return eventMapper.toDto(
                 eventRepository
                         .findById(id)
-                        .orElseThrow(AbstractEventNotFoundException::new)
+                        .orElseThrow(EventNotFoundException::new)
         );
     }
 
     @Override
     public Set<AbstractEvent> getById(Set<Long> ids) {
+        if (ids == null) {
+            return null;
+        }
+
         List<AbstractEvent> events = eventRepository.findAllById(ids);
         if (events.size() != ids.size()) {
-            throw new AbstractEventNotFoundException();
+            throw new EventNotFoundException();
         }
-        return new HashSet<>(events);
+        return new LinkedHashSet<>(events);
     }
 
     @Override
@@ -115,7 +122,9 @@ public class EventServiceImpl implements EventService {
     public void delete(Long id) {
         AbstractEvent abstractEvent = eventMapper.toEntity(getById(id));
         for (Place place : abstractEvent.getPlaces()) {
-            placeService.delete(place.getId());
+            if (place != null) {
+                placeService.delete(place.getId());
+            }
         }
         abstractEvent.setVisible(false);
         eventRepository.save(abstractEvent);
@@ -123,6 +132,9 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Set<Long> getIdFromEntity(Set<AbstractEvent> abstractEvents) {
+        if (abstractEvents == null) {
+            return null;
+        }
         Set<Long> eventIds = new HashSet<>();
         for (AbstractEvent abstractEvent : abstractEvents) {
             eventIds.add(abstractEvent.getId());
@@ -137,23 +149,29 @@ public class EventServiceImpl implements EventService {
         if (abstractEventOutcomeDto.getDate() <= timestamp) {
             delete(id);
         }
-        if (!abstractEventOutcomeDto.getVisible()) {
+        if (!abstractEventOutcomeDto.getVisible()){
             throw new EventNotActiveException();
         }
     }
 
     @Override
     public boolean existById(Long id) {
+        if (id==null){
+            throw new EventNotFoundException();
+        }
         return eventRepository.existsById(id);
     }
 
     private void validateExistById(Long id) {
         if (id == null || !eventRepository.existsById(id)) {
-            throw new AbstractEventNotFoundException();
+            throw new EventNotFoundException();
         }
     }
 
     private void validateDate(Long date) {
+        if (date == null) {
+            throw new NotCorrectDateException();
+        }
         long timestamp = System.currentTimeMillis() / 1000;
         if (date <= timestamp) {
             throw new NotCorrectDateException();
