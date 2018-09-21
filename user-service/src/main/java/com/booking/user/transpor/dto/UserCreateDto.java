@@ -24,6 +24,7 @@ public class UserCreateDto {
     private UserType type;
 
     @Email
+    @NotBlank
     private String email;
 
     @NotBlank

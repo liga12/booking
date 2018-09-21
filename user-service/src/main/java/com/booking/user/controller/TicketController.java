@@ -1,12 +1,14 @@
 package com.booking.user.controller;
 
 import com.booking.user.service.TicketService;
+import com.itextpdf.text.DocumentException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("tickets")
@@ -26,7 +28,7 @@ public class TicketController {
     @GetMapping("/{placeId}/{paymentClientId}/{cost}")
     public String getTicket(@PathVariable("placeId") Long placeId,
                             @PathVariable("paymentClientId") Long paymentClientId,
-                            @PathVariable("cost") Double cost) {
+                            @PathVariable("cost") Double cost) throws IOException, DocumentException {
         return ticketService.getTicketUrl(placeId, paymentClientId, cost);
     }
 }

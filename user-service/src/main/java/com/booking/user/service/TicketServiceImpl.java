@@ -110,7 +110,7 @@ public class TicketServiceImpl implements TicketService {
             document.add(img2);
             document.close();
         } catch (DocumentException | IOException e) {
-            e.printStackTrace();
+           throw new NotCorrectTicketDateException();
         }
         return path;
     }

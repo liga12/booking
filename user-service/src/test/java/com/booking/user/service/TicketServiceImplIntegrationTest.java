@@ -254,11 +254,11 @@ public class TicketServiceImplIntegrationTest {
                 10,
                 "11"
         );
-        String path = pdfFolder+System.currentTimeMillis()/10000 + ticket.getName() + ticket.getSurname() + ".pdf";
+        String path = pdfFolder + System.currentTimeMillis() / 10000 + ticket.getName() + ticket.getSurname() + ".pdf";
 
         String result = ticketService.createPdf(ticket);
 
-        assertEquals(path,result);
+        assertEquals(path, result);
     }
 
     @Test
@@ -273,11 +273,11 @@ public class TicketServiceImplIntegrationTest {
                 10,
                 "11"
         );
-        String path = pdfFolder+System.currentTimeMillis()/10000 + ticket.getName() + ticket.getSurname() + ".pdf";
+        String path = pdfFolder + System.currentTimeMillis() / 10000 + ticket.getName() + ticket.getSurname() + ".pdf";
 
         String result = ticketService.createPdf(ticket);
 
-        assertEquals(path,result);
+        assertEquals(path, result);
     }
 
     @Test
@@ -292,11 +292,11 @@ public class TicketServiceImplIntegrationTest {
                 10,
                 "11"
         );
-        String path = pdfFolder+System.currentTimeMillis()/10000 + ticket.getName() + ticket.getSurname() + ".pdf";
+        String path = pdfFolder + System.currentTimeMillis() / 10000 + ticket.getName() + ticket.getSurname() + ".pdf";
 
         String result = ticketService.createPdf(ticket);
 
-        assertEquals(path,result);
+        assertEquals(path, result);
     }
 
     @Test
@@ -311,11 +311,11 @@ public class TicketServiceImplIntegrationTest {
                 10,
                 "11"
         );
-        String path = pdfFolder+System.currentTimeMillis()/10000 + ticket.getName() + ticket.getSurname() + ".pdf";
+        String path = pdfFolder + System.currentTimeMillis() / 10000 + ticket.getName() + ticket.getSurname() + ".pdf";
 
         String result = ticketService.createPdf(ticket);
 
-        assertEquals(path,result);
+        assertEquals(path, result);
     }
 
     @Test
@@ -330,11 +330,11 @@ public class TicketServiceImplIntegrationTest {
                 10,
                 "11"
         );
-        String path = pdfFolder+System.currentTimeMillis()/10000 + ticket.getName() + ticket.getSurname() + ".pdf";
+        String path = pdfFolder + System.currentTimeMillis() / 10000 + ticket.getName() + ticket.getSurname() + ".pdf";
 
         String result = ticketService.createPdf(ticket);
 
-        assertEquals(path,result);
+        assertEquals(path, result);
     }
 
     @Test
@@ -349,11 +349,16 @@ public class TicketServiceImplIntegrationTest {
                 10,
                 "11"
         );
-        String path = pdfFolder+System.currentTimeMillis()/10000 + ticket.getName() + ticket.getSurname() + ".pdf";
+        String path = pdfFolder + System.currentTimeMillis() / 10000 + ticket.getName() + ticket.getSurname() + ".pdf";
 
         String result = ticketService.createPdf(ticket);
 
-        assertEquals(path,result);
+        assertEquals(path, result);
+    }
+
+    @Test(expected = NotCorrectTicketDateException.class)
+    public void testCreatePdfWithNotCorrectTicketDateException() {
+        ticketService.createPdf(null);
     }
 
     @Test
@@ -368,17 +373,17 @@ public class TicketServiceImplIntegrationTest {
                 10,
                 null
         );
-        String path = pdfFolder+System.currentTimeMillis()/10000 + ticket.getName() + ticket.getSurname() + ".pdf";
+        String path = pdfFolder + System.currentTimeMillis() / 10000 + ticket.getName() + ticket.getSurname() + ".pdf";
 
         String result = ticketService.createPdf(ticket);
 
-        assertEquals(path,result);
+        assertEquals(path, result);
     }
 
     @Test(expected = NotCorrectTicketDateException.class)
     public void testCreatePdfTicketNull() {
         Ticket ticket = null;
 
-       ticketService.createPdf(ticket);
+        ticketService.createPdf(ticket);
     }
 }
