@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/orders")
 @RequiredArgsConstructor
@@ -22,8 +24,7 @@ public class OrderClientController {
     }
 
     @PutMapping
-    public Long buy(@RequestBody OrderClientCreateDto dto) {
+    public Long buy(@RequestBody @Valid OrderClientCreateDto dto) {
         return orderClientService.create(dto);
-
     }
 }

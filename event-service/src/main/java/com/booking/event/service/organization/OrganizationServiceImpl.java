@@ -15,7 +15,6 @@ import com.booking.event.transport.dto.organization.OrganizationOutcomeDto;
 import com.booking.event.transport.dto.organization.OrganizationUpdateDto;
 import com.booking.event.transport.mapper.OrganizationMapper;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,10 +25,10 @@ import org.springframework.stereotype.Service;
 public class OrganizationServiceImpl implements OrganizationService {
 
     @Autowired
-    private  OrganizationRepository organizationRepository;
+    private OrganizationRepository organizationRepository;
 
     @Autowired
-    private   UserService userService;
+    private UserService userService;
 
     private EventService eventService;
 
@@ -56,7 +55,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     public OrganizationOutcomeDto getById(Long id) {
-        if (id==null){
+        if (id == null) {
             throw new OrganizationNotFoundException();
         }
         return organizationMapper.toDto(
@@ -77,7 +76,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     public Long update(OrganizationUpdateDto dto) {
-        if (dto.getId()==null){
+        if (dto == null || dto.getId() == null) {
             throw new OrganizationNotFoundException();
         }
         validateExistNameAndId(dto.getName(), dto.getId());
@@ -104,13 +103,13 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     public void validateOrganizationByActive(Long id) {
-        if (id == null ||!getById(id).getVisible()) {
+        if (id == null || !getById(id).getVisible()) {
             throw new OrganizationNotActiveException();
         }
     }
 
     private void validateExistNameAndId(String name, Long id) {
-        if (id == null||name==null || organizationRepository.existsByNameAndIdIsNot(name, id)) {
+        if (id == null || name == null || organizationRepository.existsByNameAndIdIsNot(name, id)) {
             throw new OrganizationNameExistException();
         }
     }

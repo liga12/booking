@@ -1,10 +1,12 @@
 package com.booking.event.service.organization;
 
+import com.booking.event.exception.OrganizationNotFoundException;
 import com.booking.event.persistence.entity.Organization;
 import com.booking.event.persistence.entity.event.CinemaEvent;
 import com.booking.event.persistence.repository.OrganizationRepository;
 import com.booking.event.service.event.EventService;
 import com.booking.event.service.feign.UserService;
+import com.booking.event.transport.dto.event.ageConstrain.cinema.CinemaEventUpdateDto;
 import com.booking.event.transport.dto.organization.OrganizationCreateDto;
 import com.booking.event.transport.dto.organization.OrganizationFindDto;
 import com.booking.event.transport.dto.organization.OrganizationOutcomeDto;
@@ -93,6 +95,12 @@ public class OrganizationServiceImplTest {
         assertEquals(dto, result);
     }
 
+    @Test(expected = OrganizationNotFoundException.class)
+    public void testGetByIdNull() {
+        organizationService.getById(null);
+
+    }
+
     @Test
     public void testCreate() {
         OrganizationCreateDto dto = new OrganizationCreateDto();
@@ -126,6 +134,17 @@ public class OrganizationServiceImplTest {
         verify(organizationMapper, times(1)).toEntity(dto);
         when(organizationRepository.save(organization)).thenReturn(organization);
         assertEquals(organization.getId(), result);
+    }
+
+    @Test(expected = OrganizationNotFoundException.class)
+    public void testUpdateWithDtoNull() {
+        organizationService.update(null);
+    }
+
+    @Test(expected = OrganizationNotFoundException.class)
+    public void testUpdateWithIdNull() {
+        OrganizationUpdateDto dto = new OrganizationUpdateDto();
+        organizationService.update(dto);
     }
 
     @Test

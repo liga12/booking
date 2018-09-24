@@ -27,6 +27,7 @@ import java.util.Set;
 
 import static java.util.Optional.of;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -122,5 +123,13 @@ public class PaymentServiceImplTest {
         Set<Long> result = paymentService.entityToId(orderClients);
 
         assertEquals(Sets.newLinkedHashSet(orderClient.getId(), orderClientSecond.getId()), result);
+    }
+
+    @Test
+    public void testEntityToIdNull(){
+
+        Set<Long> result = paymentService.entityToId(null);
+
+        assertNull(result);
     }
 }

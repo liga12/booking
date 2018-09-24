@@ -2,6 +2,7 @@ package com.booking.payment.transpor.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -12,5 +13,6 @@ import javax.validation.constraints.Size;
 public class PaymentCreateDto {
 
     @Size(min = 6, max = 6)
+    @NotBlank
     private String token;
 }

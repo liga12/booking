@@ -63,6 +63,9 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Set<Long> entityToId(Set<OrderClient> clients) {
+        if (clients==null){
+            return null;
+        }
         Set<Long> ids = new HashSet<>();
         for (OrderClient client : clients) {
             ids.add(client.getId());

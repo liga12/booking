@@ -2,6 +2,7 @@ package com.booking.event.service.place;
 
 import com.booking.event.dto.PlaceOutcomeDto;
 import com.booking.event.dto.event.CinemaEventOutcomeDto;
+import com.booking.event.exception.PlaceNotFoundException;
 import com.booking.event.persistence.entity.event.CinemaEvent;
 import com.booking.event.persistence.entity.place.Place;
 import com.booking.event.persistence.repository.PlaceRepository;
@@ -31,8 +32,7 @@ import org.springframework.data.jpa.domain.Specification;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -111,6 +111,12 @@ public class PlaceServiceImplTest {
     }
 
     @Test
+    public void testGetByIdsNull() {
+        Set<Long> ids = null;
+        assertNull(placeService.getById(ids));
+    }
+
+    @Test
     public void testCreate() {
         PlaceCreateDto placeCreateDto = new PlaceCreateDto(1, 1, 1L, SectionType.FIRST_ROW);
         CinemaEventOutcomeDto eventOutcomeDto = new CinemaEventOutcomeDto();
@@ -166,8 +172,19 @@ public class PlaceServiceImplTest {
         assertEquals(place.getId(), result);
     }
 
+    @Test(expected = PlaceNotFoundException.class)
+    public void testUpdateWithDtoNull() {
+        placeService.update(null);
+    }
+
+    @Test(expected = PlaceNotFoundException.class)
+    public void testUpdateWithIdNull() {
+        PlaceUpdateDto placeUpdateDto = new PlaceUpdateDto();
+        placeService.update(placeUpdateDto);
+    }
+
     @Test
-    public void testBuyPlace(){
+    public void testBuyPlace() {
         Long id = 1L;
         PlaceOutcomeDto placeOutcomeDto = new PlaceOutcomeDto();
         Place place = new Place();
@@ -183,7 +200,7 @@ public class PlaceServiceImplTest {
     }
 
     @Test
-    public void testDelete(){
+    public void testDelete() {
         Long id = 1L;
         PlaceOutcomeDto placeOutcomeDto = new PlaceOutcomeDto();
         Place place = new Place();
@@ -201,7 +218,7 @@ public class PlaceServiceImplTest {
     }
 
     @Test
-    public void testGetIdFromEntity(){
+    public void testGetIdFromEntity() {
         Place place = new Place();
         place.setId(1L);
         Set<Place> places = Sets.newHashSet(place);
@@ -212,7 +229,12 @@ public class PlaceServiceImplTest {
     }
 
     @Test
-    public void testExistActivePlace(){
+    public void testGetIdFromEntityNull() {
+        assertNull(placeService.getIdFromEntity(null));
+    }
+
+    @Test
+    public void testExistActivePlace() {
         Long id = 1L;
         when(placeRepository.existsByIdAndStatus(id, PlaceStatusType.ACTIVE)).thenReturn(true);
 
@@ -223,7 +245,12 @@ public class PlaceServiceImplTest {
     }
 
     @Test
-    public void testExistBuyPlace(){
+    public void testExistActivePlaceNull() {
+        assertFalse(placeService.existActivePlace(null));
+    }
+
+    @Test
+    public void testExistBuyPlace() {
         Long id = 1L;
         when(placeRepository.existsByIdAndStatus(id, PlaceStatusType.BYU)).thenReturn(true);
 
@@ -231,5 +258,10 @@ public class PlaceServiceImplTest {
 
         verify(placeRepository, times(1)).existsByIdAndStatus(id, PlaceStatusType.BYU);
         assertTrue(result);
+    }
+
+    @Test
+    public void testExistBuyPlaceNull() {
+        assertFalse(placeService.existBuyPlace(null));
     }
 }

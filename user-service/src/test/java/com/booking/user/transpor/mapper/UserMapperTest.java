@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
@@ -45,6 +46,13 @@ public class UserMapperTest {
     }
 
     @Test
+    public void testToEntityNull() {
+        User result = userMapper.toEntity(null);
+
+        assertNull(result);
+    }
+
+    @Test
     public void testToUserOutcomeDto() {
         User user = new User(
                 "1",
@@ -64,6 +72,15 @@ public class UserMapperTest {
         assertEquals(user.getType(), result.getType());
         assertEquals(user.getEmail(), result.getEmail());
         assertEquals(user.getPhone(), result.getPhone());
+    }
+
+    @Test
+    public void testToUserOutcomeDtoNull() {
+        User user = null;
+
+        UserOutcomeDto result = userMapper.toDto(user);
+
+        assertNull(result);
     }
 
     @Test
@@ -88,5 +105,14 @@ public class UserMapperTest {
         assertEquals(users.get(0).getType(), result.get(0).getType());
         assertEquals(users.get(0).getEmail(), result.get(0).getEmail());
         assertEquals(users.get(0).getPhone(), result.get(0).getPhone());
+    }
+
+    @Test
+    public void testToListUserOutcomeDtoNull() {
+        List<User> users = null;
+
+        List<UserOutcomeDto> result = userMapper.toDto(users);
+
+        assertNull(result);
     }
 }

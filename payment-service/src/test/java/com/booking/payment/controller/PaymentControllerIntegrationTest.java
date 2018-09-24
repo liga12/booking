@@ -1,31 +1,25 @@
 package com.booking.payment.controller;
 
-import com.booking.payment.persistence.entity.OrderClient;
-import com.booking.payment.persistence.entity.Payment;
 import com.booking.payment.persistence.repository.PaymentRepository;
 import com.booking.payment.service.payment.PaymentService;
 import com.booking.payment.transpor.dto.PaymentCreateDto;
 import com.booking.payment.transpor.dto.PaymentFindDto;
 import com.booking.payment.transpor.dto.PaymentOutcomeDto;
 import com.booking.payment.transpor.mapper.PaymentMapper;
-import org.assertj.core.util.Sets;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Iterator;
-import java.util.List;
 
 import static com.booking.payment.util.Converter.mapToJson;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -153,17 +147,73 @@ public class PaymentControllerIntegrationTest {
     }
 
     @Test
-    @Sql("/scripts/order/init.sql")
     public void testCreate() throws Exception {
-        PaymentCreateDto createDto = new PaymentCreateDto("111111");
+        PaymentCreateDto createDto = new PaymentCreateDto("1ggggg");
+        PaymentFindDto paymentFindDto = new PaymentFindDto();
+        paymentFindDto.setToken("1ggggg");
 
-        mockMvc.perform(put("/payments?page=0&size=5&id=2&token=11tr11")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+
+        mockMvc.perform(put("/payments")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content[0].id").value(payments.getId()))
-                .andExpect(jsonPath("$.content[0].token").value(payments.getToken()))
-                .andExpect(jsonPath("$.content[0].client[0]").value(clientIterator.next()))
-                .andExpect(jsonPath("$.content[0].customer[0]").value(customerIterator.next()));
+                .andExpect(jsonPath("$").value(paymentService.getAll(
+                        paymentFindDto,
+                        PageRequest.of(0, 10)
+                ).getContent()
+                        .get(0)
+                        .getId()));
+    }
+
+    @Test
+    public void testCreateWithTokenNull() throws Exception {
+        PaymentCreateDto createDto = new PaymentCreateDto();
+        createDto.setToken(null);
+
+        mockMvc.perform(put("/payments")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testCreateWithTokenSizeMore6() throws Exception {
+        PaymentCreateDto createDto = new PaymentCreateDto();
+        createDto.setToken("1111111");
+
+        mockMvc.perform(put("/payments")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testCreateWithTokenSizLess6() throws Exception {
+        PaymentCreateDto createDto = new PaymentCreateDto();
+        createDto.setToken("11111");
+
+        mockMvc.perform(put("/payments")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testCreateWithExistTokenException() throws Exception {
+        PaymentCreateDto createDto = new PaymentCreateDto();
+        createDto.setToken("111111");
+        paymentService.create(createDto);
+
+        mockMvc.perform(put("/payments")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.error").value("Token exist"));
     }
 
 }

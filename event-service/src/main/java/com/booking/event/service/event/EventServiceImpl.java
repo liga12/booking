@@ -108,6 +108,9 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Long update(AbstractEventUpdateDto dto) {
+        if (dto==null){
+            throw new EventNotFoundException();
+        }
         validateDate(dto.getDate());
         validateExistById(dto.getId());
         organizationService.validateOrganizationByActive(

@@ -2,6 +2,7 @@ package com.booking.event.service.event;
 
 import com.booking.event.dto.event.AbstractEventOutcomeDto;
 import com.booking.event.dto.event.CinemaEventOutcomeDto;
+import com.booking.event.exception.EventNotFoundException;
 import com.booking.event.persistence.entity.Organization;
 import com.booking.event.persistence.entity.event.AbstractEvent;
 import com.booking.event.persistence.entity.event.CinemaEvent;
@@ -32,8 +33,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -146,6 +146,13 @@ public class EventServiceImplTest {
         assertEquals(dto, result);
     }
 
+    @Test(expected = EventNotFoundException.class)
+    public void GetByIdNull() {
+        Long id = null;
+
+       eventService.getById(id);
+    }
+
     @Test
     public void testGetByIds() {
         Organization organization = new Organization();
@@ -172,6 +179,14 @@ public class EventServiceImplTest {
         verify(eventRepository, times(1)).findAllById(ids);
         assertEquals(Sets.newLinkedHashSet(event), result);
     }
+
+    @Test
+    public void GetByIdsNull() {
+        Set<Long> events = null;
+
+        assertNull(eventService.getById(events));
+    }
+
 
     @Test
     public void testCreate() {
@@ -210,6 +225,11 @@ public class EventServiceImplTest {
         assertEquals(event.getId(), result);
     }
 
+    @Test(expected = EventNotFoundException.class)
+    public void testUpdateWithDtoNull(){
+        eventService.update(null);
+    }
+
     @Test
     public void testDelete() {
         Long id = 1L;
@@ -242,7 +262,12 @@ public class EventServiceImplTest {
     }
 
     @Test
-    public void testValidateEventByActive(){
+    public void testGetIdFromEntityNull() {
+        assertNull( eventService.getIdFromEntity(null));
+    }
+
+    @Test
+    public void testValidateEventByActive() {
         Long id = 1L;
         CinemaEventOutcomeDto dto = new CinemaEventOutcomeDto();
         dto.setDate(1L);
@@ -257,13 +282,18 @@ public class EventServiceImplTest {
     }
 
     @Test
-    public void testExistById(){
+    public void testExistById() {
         Long id = 1L;
         when(eventRepository.existsById(id)).thenReturn(true);
 
         boolean result = eventService.existById(id);
 
-        verify(eventRepository,times(1)).existsById(id);
+        verify(eventRepository, times(1)).existsById(id);
         assertTrue(result);
+    }
+
+    @Test(expected = EventNotFoundException.class)
+    public void testExistByIdNull() {
+        eventService.existById(null);
     }
 }

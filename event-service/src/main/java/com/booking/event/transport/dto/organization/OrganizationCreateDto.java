@@ -24,6 +24,7 @@ public class OrganizationCreateDto {
     private String phone;
 
     @Email
+    @NotBlank
     private String email;
 
     @NotBlank

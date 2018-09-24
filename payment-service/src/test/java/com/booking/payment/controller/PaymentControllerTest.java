@@ -87,4 +87,25 @@ public class PaymentControllerTest {
         verify(paymentService, times(1)).create(createDto);
     }
 
+    @Test
+    public void testCreateMore6() throws Exception {
+        PaymentCreateDto createDto = new PaymentCreateDto("1111111");
+
+        mockMvc.perform(put("/payments")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testCreateLess6() throws Exception {
+        PaymentCreateDto createDto = new PaymentCreateDto("11111");
+
+        mockMvc.perform(put("/payments")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
 }

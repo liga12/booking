@@ -12,7 +12,7 @@ insert into payment (id, token) values (10,'111119');
 
 insert into order_client (id, amount, place_id, payment_client_id, payment_customer_id)values (1, 10, 1, 1, 1);
 insert into order_client (id, amount, place_id, payment_client_id, payment_customer_id)values (2, 10, 2, 1, 1);
-insert into order_client (id, amount, place_id, payment_client_id, payment_customer_id)values (3, 10, 3, 2, 6);
+insert into order_client (id, amount, place_id, payment_client_id, payment_customer_id)values (3, 11, 3, 2, 6);
 insert into order_client (id, amount, place_id, payment_client_id, payment_customer_id)values (4, 4.1, 4, 3, 4);
 insert into order_client (id, amount, place_id, payment_client_id, payment_customer_id)values (5, 10, 5, 6, 8);
 insert into order_client (id, amount, place_id, payment_client_id, payment_customer_id)values (6, 4.1, 6, 7, 4);

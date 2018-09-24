@@ -30,6 +30,7 @@ public class OrganizationUpdateDto {
     private String phone;
 
     @Email
+    @NotBlank
     private String email;
 
     public OrganizationUpdateDto(@NotNull Long id) {

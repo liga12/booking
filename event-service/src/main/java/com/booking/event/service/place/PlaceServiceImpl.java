@@ -101,6 +101,9 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public Long update(PlaceUpdateDto dto) {
+        if (dto == null || dto.getId() == null) {
+            throw new PlaceNotFoundException();
+        }
         Place place = placeMapper.toEntity(dto);
         eventService.validateEventByActive(
                 eventService.getById(
@@ -163,9 +166,9 @@ public class PlaceServiceImpl implements PlaceService {
         }
     }
 
-    private void validatePlace(Long id){
-        if (id==null || !placeRepository.existsById(id)){
-           throw new  PlaceNotFoundException();
+    private void validatePlace(Long id) {
+        if (id == null || !placeRepository.existsById(id)) {
+            throw new PlaceNotFoundException();
         }
     }
 }

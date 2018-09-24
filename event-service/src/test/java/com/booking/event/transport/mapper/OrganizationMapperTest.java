@@ -19,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -70,6 +71,13 @@ public class OrganizationMapperTest {
         assertEquals(organization.getId(), result.getId());
     }
 
+    @Test
+    public void testToDtoNull() {
+        Organization organization = null;
+
+        assertNull(organizationMapper.toDto(organization));
+    }
+
 
     @Test
     public void testOrganizationCreateDtoToEntity() {
@@ -90,6 +98,12 @@ public class OrganizationMapperTest {
         assertEquals(dto.getCustomerId(), result.getCustomerId());
     }
 
+    @Test
+    public void testOrganizationCreateDtoToEntityNull() {
+        OrganizationCreateDto dto = null;
+
+        assertNull(organizationMapper.toEntity(dto));
+    }
 
     @Test
     public void testOrganizationUpdateDtoToEntity() {
@@ -126,6 +140,13 @@ public class OrganizationMapperTest {
     }
 
     @Test
+    public void testOrganizationUpdateDtoToEntityNull() {
+        OrganizationUpdateDto dto = null;
+
+        assertNull(organizationMapper.toEntity(dto));
+    }
+
+    @Test
     public void testOrganizationOutcomeDtoToEntity() {
         CinemaEvent event = new CinemaEvent();
         event.setId(1L);
@@ -159,5 +180,12 @@ public class OrganizationMapperTest {
                         .next().getId()
         );
         assertEquals(dto.getId(), result.getId());
+    }
+
+    @Test
+    public void testOrganizationOutcomeDtoToEntityNull() {
+        OrganizationOutcomeDto dto = null;
+
+       assertNull(organizationMapper.toEntity(dto));
     }
 }

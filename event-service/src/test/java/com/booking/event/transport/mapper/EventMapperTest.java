@@ -3,11 +3,17 @@ package com.booking.event.transport.mapper;
 import com.booking.event.dto.event.CinemaEventOutcomeDto;
 import com.booking.event.persistence.entity.Organization;
 import com.booking.event.persistence.entity.event.CinemaEvent;
+import com.booking.event.persistence.entity.event.CoverConcertEvent;
+import com.booking.event.persistence.entity.event.OriginalConcertEvent;
+import com.booking.event.persistence.entity.event.TheatreEvent;
 import com.booking.event.persistence.entity.place.Place;
 import com.booking.event.service.organization.OrganizationService;
 import com.booking.event.service.place.PlaceService;
 import com.booking.event.transport.dto.event.ageConstrain.cinema.CinemaEventCreateDto;
 import com.booking.event.transport.dto.event.ageConstrain.cinema.CinemaEventUpdateDto;
+import com.booking.event.transport.dto.event.ageConstrain.theatre.TheatreEventCreateDto;
+import com.booking.event.transport.dto.event.coverConcert.CoverConcertEventCreateDto;
+import com.booking.event.transport.dto.event.originalConcert.OriginalConcertEventCreateDto;
 import com.booking.event.transport.dto.organization.OrganizationOutcomeDto;
 import org.assertj.core.util.Sets;
 import org.junit.Test;
@@ -18,6 +24,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -37,7 +44,73 @@ public class EventMapperTest {
     private PlaceService placeService;
 
     @Test
-    public void testAbstractEventCreateDtoToEntity() {
+    public void testOriginalConcertEventCreateDtoToEntity() {
+        OriginalConcertEventCreateDto dto = new OriginalConcertEventCreateDto();
+        dto.setName("name");
+        dto.setDescription("desc");
+        dto.setDate(1L);
+        dto.setLocation("loc");
+        dto.setPhotoUrl("photo");
+        dto.setArtists("artist");
+        dto.setOrganization(1L);
+        OrganizationOutcomeDto organizationOutcomeDto = new OrganizationOutcomeDto(dto.getOrganization());
+        Organization organization = new Organization(dto.getOrganization());
+        when(organizationService.getById(dto.getOrganization())).thenReturn(organizationOutcomeDto);
+        when(organizationMapper.toEntity(organizationOutcomeDto)).thenReturn(organization);
+
+        OriginalConcertEvent result = eventMapper.toEntity(dto);
+
+        assertEquals(dto.getName(), result.getName());
+        assertEquals(dto.getDescription(), result.getDescription());
+        assertEquals(dto.getDate(), result.getDate());
+        assertEquals(dto.getLocation(), result.getLocation());
+        assertEquals(dto.getPhotoUrl(), result.getPhotoUrl());
+        assertEquals(dto.getArtists(), result.getArtists());
+        assertEquals(dto.getOrganization(), result.getOrganization().getId());
+    }
+
+    @Test
+    public void testOriginalConcertEventCreateDtoToEntityNull() {
+        OriginalConcertEventCreateDto dto = null;
+
+        assertNull(eventMapper.toEntity(dto));
+    }
+
+    @Test
+    public void testCoverConcertEventCreateDtoToEntity() {
+        CoverConcertEventCreateDto dto = new CoverConcertEventCreateDto();
+        dto.setName("name");
+        dto.setDescription("desc");
+        dto.setDate(1L);
+        dto.setLocation("loc");
+        dto.setPhotoUrl("photo");
+        dto.setArtists("artist");
+        dto.setOrganization(1L);
+        OrganizationOutcomeDto organizationOutcomeDto = new OrganizationOutcomeDto(dto.getOrganization());
+        Organization organization = new Organization(dto.getOrganization());
+        when(organizationService.getById(dto.getOrganization())).thenReturn(organizationOutcomeDto);
+        when(organizationMapper.toEntity(organizationOutcomeDto)).thenReturn(organization);
+
+        CoverConcertEvent result = eventMapper.toEntity(dto);
+
+        assertEquals(dto.getName(), result.getName());
+        assertEquals(dto.getDescription(), result.getDescription());
+        assertEquals(dto.getDate(), result.getDate());
+        assertEquals(dto.getLocation(), result.getLocation());
+        assertEquals(dto.getPhotoUrl(), result.getPhotoUrl());
+        assertEquals(dto.getArtists(), result.getArtists());
+        assertEquals(dto.getOrganization(), result.getOrganization().getId());
+    }
+
+    @Test
+    public void testCoverConcertEventCreateDtoToEntityNull() {
+        CoverConcertEventCreateDto dto = null;
+
+        assertNull(eventMapper.toEntity(dto));
+    }
+
+    @Test
+    public void testCinemaEventCreateDtoToEntity() {
         CinemaEventCreateDto dto = new CinemaEventCreateDto();
         dto.setName("name");
         dto.setDescription("desc");
@@ -63,6 +136,49 @@ public class EventMapperTest {
         assertEquals(dto.getOrganization(), result.getOrganization().getId());
         assertEquals(dto.getMinAge(), result.getMinAge());
     }
+
+    @Test
+    public void testCinemaEventCreateDtoToEntityNull() {
+        CinemaEventCreateDto dto = null;
+
+        assertNull(eventMapper.toEntity(dto));
+    }
+
+    @Test
+    public void testTheatreEventCreateDtoToEntity() {
+        TheatreEventCreateDto dto = new TheatreEventCreateDto();
+        dto.setName("name");
+        dto.setDescription("desc");
+        dto.setDate(1L);
+        dto.setLocation("loc");
+        dto.setPhotoUrl("photo");
+        dto.setArtists("artist");
+        dto.setOrganization(1L);
+        dto.setMinAge(12);
+        OrganizationOutcomeDto organizationOutcomeDto = new OrganizationOutcomeDto(dto.getOrganization());
+        Organization organization = new Organization(dto.getOrganization());
+        when(organizationService.getById(dto.getOrganization())).thenReturn(organizationOutcomeDto);
+        when(organizationMapper.toEntity(organizationOutcomeDto)).thenReturn(organization);
+
+        TheatreEvent result = eventMapper.toEntity(dto);
+
+        assertEquals(dto.getName(), result.getName());
+        assertEquals(dto.getDescription(), result.getDescription());
+        assertEquals(dto.getDate(), result.getDate());
+        assertEquals(dto.getLocation(), result.getLocation());
+        assertEquals(dto.getPhotoUrl(), result.getPhotoUrl());
+        assertEquals(dto.getArtists(), result.getArtists());
+        assertEquals(dto.getOrganization(), result.getOrganization().getId());
+        assertEquals(dto.getMinAge(), result.getMinAge());
+    }
+
+    @Test
+    public void testTheatreEventCreateDtoToEntityNull() {
+        TheatreEventCreateDto dto = null;
+
+        assertNull(eventMapper.toEntity(dto));
+    }
+
 
     @Test
     public void testAbstractEventOutcomeDtoToEntity() {
@@ -100,6 +216,13 @@ public class EventMapperTest {
     }
 
     @Test
+    public void testAbstractEventOutcomeDtoToEntityNull() {
+        CinemaEventOutcomeDto dto = null;
+
+        assertNull(eventMapper.toEntity(dto));
+    }
+
+    @Test
     public void testAbstractEventUpdateDtoToEntity() {
         CinemaEventUpdateDto dto = new CinemaEventUpdateDto();
         dto.setId(1L);
@@ -127,6 +250,13 @@ public class EventMapperTest {
         assertEquals(dto.getArtists(), result.getArtists());
         assertEquals(dto.getOrganization(), result.getOrganization().getId());
         assertEquals(dto.getMinAge(), result.getMinAge());
+    }
+
+    @Test
+    public void testAbstractEventUpdateDtoToEntityNull() {
+        CinemaEventUpdateDto dto = null;
+
+        assertNull(eventMapper.toEntity(dto));
     }
 
     @Test
@@ -167,5 +297,12 @@ public class EventMapperTest {
         assertEquals(event.getMinAge(), result.getMinAge());
         assertEquals(event.getPlaces().size(), result.getPlaces().size());
         assertEquals(event.getPlaces().iterator().next().getId(), result.getPlaces().iterator().next());
+    }
+
+    @Test
+    public void testToDtoNull() {
+        CinemaEvent event = null;
+
+        assertNull(eventMapper.toDto(event));
     }
 }

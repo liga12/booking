@@ -19,6 +19,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -62,6 +63,13 @@ public class PlaceMapperTest {
     }
 
     @Test
+    public void testPlaceCreateDtoToEntityNull() {
+        PlaceCreateDto dto = null;
+
+       assertNull(placeMapper.toEntity(dto));
+    }
+
+    @Test
     public void testPlaceOutcomeDtoToEntity() {
         PlaceOutcomeDto dto = new PlaceOutcomeDto(
                 1L,
@@ -90,6 +98,13 @@ public class PlaceMapperTest {
     }
 
     @Test
+    public void testPlaceOutcomeDtoToEntityNull() {
+        PlaceOutcomeDto dto = null;
+
+       assertNull(placeMapper.toEntity(dto));
+    }
+
+    @Test
     public void testPlaceUpdateDtoToEntity() {
         PlaceUpdateDto dto = new PlaceUpdateDto(
                 1L,
@@ -111,6 +126,13 @@ public class PlaceMapperTest {
         assertEquals(dto.getId(), result.getId());
         assertEquals(dto.getPrice(), result.getPrice());
         assertEquals(dto.getStatus(), result.getStatus());
+    }
+
+    @Test
+    public void testPlaceUpdateDtoToEntityNull() {
+        PlaceUpdateDto dto = null;
+
+      assertNull(placeMapper.toEntity(dto));
     }
 
     @Test
@@ -136,5 +158,12 @@ public class PlaceMapperTest {
         assertEquals(place.getStatus(), result.getStatus());
         assertEquals(place.getEvent().getId(), result.getEvent());
         assertEquals(place.getSectionType(), result.getSectionType());
+    }
+
+    @Test
+    public void testToDtoNull() {
+        Place place = null;
+
+        assertNull(placeMapper.toDto(place));
     }
 }

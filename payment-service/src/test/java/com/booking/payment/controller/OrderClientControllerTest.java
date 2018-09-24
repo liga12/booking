@@ -86,4 +86,51 @@ public class OrderClientControllerTest {
 
         verify(orderClientService, times(1)).create(createDto);
     }
+
+    @Test
+    public void testBuyWithPlaceIdNull() throws Exception {
+        OrderClientCreateDto createDto = new OrderClientCreateDto(
+                null,
+                2L,
+                1L
+        );
+
+        mockMvc.perform(put("/orders")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testBuyWithPaymentClientNull() throws Exception {
+        OrderClientCreateDto createDto = new OrderClientCreateDto(
+                1L,
+                null,
+                1L
+        );
+
+        mockMvc.perform(put("/orders")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testBuyWithPaymentCustomerNull() throws Exception {
+        OrderClientCreateDto createDto = new OrderClientCreateDto(
+                1L,
+                1L,
+                null
+        );
+
+        mockMvc.perform(put("/orders")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+
 }

@@ -97,4 +97,202 @@ public class UserControllerTest {
         verify(userService, times(1)).create(createDto);
     }
 
+    @Test
+    public void testRegistrationWithNameNull() throws Exception {
+        UserCreateDto createDto = new UserCreateDto(
+                null,
+                "surname",
+                UserType.CLIENT,
+                "email@gmail.com",
+                "1111",
+                1L
+        );
+
+        mockMvc.perform(put("/users/registration")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testRegistrationWithNameEmpty() throws Exception {
+        UserCreateDto createDto = new UserCreateDto(
+                "",
+                "surname",
+                UserType.CLIENT,
+                "email@gmail.com",
+                "1111",
+                1L
+        );
+
+        mockMvc.perform(put("/users/registration")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testRegistrationWithSurnameNull() throws Exception {
+        UserCreateDto createDto = new UserCreateDto(
+                "name",
+                null,
+                UserType.CLIENT,
+                "email@gmail.com",
+                "1111",
+                1L
+        );
+
+        mockMvc.perform(put("/users/registration")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testRegistrationWithSurnameEmpty() throws Exception {
+        UserCreateDto createDto = new UserCreateDto(
+                "name",
+                null,
+                UserType.CLIENT,
+                "email@gmail.com",
+                "1111",
+                1L
+        );
+
+        mockMvc.perform(put("/users/registration")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testRegistrationWithTypeNull() throws Exception {
+        UserCreateDto createDto = new UserCreateDto(
+                "name",
+                "surname",
+                null,
+                "email@gmail.com",
+                "1111",
+                1L
+        );
+
+        mockMvc.perform(put("/users/registration")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testRegistrationWithEmailNull() throws Exception {
+        UserCreateDto createDto = new UserCreateDto(
+                "name",
+                "surname",
+                UserType.CLIENT,
+                null,
+                "1111",
+                1L
+        );
+
+        mockMvc.perform(put("/users/registration")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testRegistrationWithEmailEmpty() throws Exception {
+        UserCreateDto createDto = new UserCreateDto(
+                "name",
+                "surname",
+                UserType.CLIENT,
+                "",
+                "1111",
+                1L
+        );
+
+        mockMvc.perform(put("/users/registration")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testRegistrationWithNotCorrectEmail() throws Exception {
+        UserCreateDto createDto = new UserCreateDto(
+                "name",
+                "surname",
+                UserType.CLIENT,
+                "e",
+                "1111",
+                1L
+        );
+
+        mockMvc.perform(put("/users/registration")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testRegistrationWitPhoneNull() throws Exception {
+        UserCreateDto createDto = new UserCreateDto(
+                "name",
+                "surname",
+                UserType.CLIENT,
+                "email@gmail.com",
+                null,
+                1L
+        );
+
+        mockMvc.perform(put("/users/registration")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testRegistrationWitPhoneEmpty() throws Exception {
+        UserCreateDto createDto = new UserCreateDto(
+                "name",
+                "surname",
+                UserType.CLIENT,
+                "email@gmail.com",
+                "",
+                1L
+        );
+
+        mockMvc.perform(put("/users/registration")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testRegistrationWitPaymentIdNull() throws Exception {
+        UserCreateDto createDto = new UserCreateDto(
+                "name",
+                "surname",
+                UserType.CLIENT,
+                "email@gmail.com",
+                "",
+                null
+        );
+
+        mockMvc.perform(put("/users/registration")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(createDto)))
+                .andExpect(status().isBadRequest());
+    }
+
 }

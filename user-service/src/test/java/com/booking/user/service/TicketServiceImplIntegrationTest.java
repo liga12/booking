@@ -2,10 +2,7 @@ package com.booking.user.service;
 
 import com.booking.event.dto.PlaceOutcomeDto;
 import com.booking.event.dto.event.CinemaEventOutcomeDto;
-import com.booking.user.exception.EventNotFoundException;
-import com.booking.user.exception.NotCorrectTicketDateException;
-import com.booking.user.exception.OrganizationNotFoundException;
-import com.booking.user.exception.PlaceNotFoundException;
+import com.booking.user.exception.*;
 import com.booking.user.persistence.entity.User;
 import com.booking.user.persistence.entity.UserType;
 import com.booking.user.persistence.repository.UserRepository;
@@ -22,6 +19,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -237,6 +235,27 @@ public class TicketServiceImplIntegrationTest {
         when(eventService.existsEvent(place.getEvent())).thenReturn(true);
         when(eventService.getEvent(place.getEvent())).thenReturn(event);
         when(eventService.existsOrganization(event.getOrganization())).thenReturn(false);
+        when(eventService.getOrganizationPhone(event.getOrganization())).thenReturn(organizationPhone);
+
+        ticketService.getTicketUrl(placeId, paymentClientId, cost);
+    }
+
+    @Test(expected = UserNotFoundException.class)
+    public void testGetTicketUrlWithUserNotFoundException() {
+        Long placeId = 1L;
+        Long paymentClientId = 1L;
+        Double cost = 10d;
+        PlaceOutcomeDto place = new PlaceOutcomeDto(1, 1, 1L);
+        CinemaEventOutcomeDto event = new CinemaEventOutcomeDto();
+        event.setName("name");
+        event.setDate(1L);
+        event.setOrganization(1L);
+        String organizationPhone = "111";
+        when(eventService.existsBuyPlace(placeId)).thenReturn(true);
+        when(eventService.getPlace(placeId)).thenReturn(place);
+        when(eventService.existsEvent(place.getEvent())).thenReturn(true);
+        when(eventService.getEvent(place.getEvent())).thenReturn(event);
+        when(eventService.existsOrganization(event.getOrganization())).thenReturn(true);
         when(eventService.getOrganizationPhone(event.getOrganization())).thenReturn(organizationPhone);
 
         ticketService.getTicketUrl(placeId, paymentClientId, cost);
