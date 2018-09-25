@@ -38,4 +38,4 @@ And 3 modules:
 
 5 Run [PaymentServiceApplication](https://github.com/liga12/booking/blob/master/payment-service/src/main/java/com/booking/payment/PaymentServiceApplication.java) default port 8081 and name payment-service [View setting](https://github.com/liga12/booking/blob/master/payment-service/src/main/resources/bootstrap.yml) 
 
-6 Run [UserServiceApplication](https://github.com/liga12/booking/blob/master/user-service/src/main/java/com/booking/user/UserServiceApplication.java) default port 8082 and name user-service [View setting] (https://github.com/liga12/booking/blob/master/user-service/src/main/resources/bootstrap.yml) 
+6 Run [UserServiceApplication](https://github.com/liga12/booking/blob/master/user-service/src/main/java/com/booking/user/UserServiceApplication.java) default port 8082 and name user-service [View setting](https://github.com/liga12/booking/blob/master/user-service/src/main/resources/bootstrap.yml) 
