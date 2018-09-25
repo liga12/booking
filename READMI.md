@@ -20,7 +20,22 @@ And 3 modules:
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+1 On [EventService](https://github.com/liga12/booking/tree/master/event-service)
 
-1 Create db event in [PostgresSql](https://www.postgresql.org/) on [EventService](https://github.com/liga12/booking/tree/master/event-service)
-and run script []
+1.1 Create db event in [PostgresSql](https://www.postgresql.org/) 
+
+1.2 Run script [createSchema.sql](https://github.com/liga12/booking/blob/master/event-service/src/main/resources/createSchema.sql)
+
+2 On [PaymentService](https://github.com/liga12/booking/tree/master/payment-service)
+
+2.2 Create db payment in [PostgresSql](https://www.postgresql.org/) 
+
+2.2 Run script [createSchema.sql](https://github.com/liga12/booking/blob/master/payment-service/src/main/resources/createSchema.sql)
+
+3 Run [DiscoveryServiceApplication](https://github.com/liga12/booking/tree/master/discovery-service/src/main/java/com/booking/server) default port 8761 [View setting](https://github.com/liga12/booking/blob/master/discovery-service/src/main/resources/bootstrap.yml) 
+
+4 Run [EventServiceApplication](https://github.com/liga12/booking/blob/master/event-service/src/main/java/com/booking/event/EventServiceApplication.java) default port 8080 and name event-service [View setting](https://github.com/liga12/booking/blob/master/event-service/src/main/resources/bootstrap.yml) 
+
+5 Run [PaymentServiceApplication](https://github.com/liga12/booking/blob/master/payment-service/src/main/java/com/booking/payment/PaymentServiceApplication.java) default port 8081 and name payment-service [View setting](https://github.com/liga12/booking/blob/master/payment-service/src/main/resources/bootstrap.yml) 
+
+6 Run [UserServiceApplication](https://github.com/liga12/booking/blob/master/user-service/src/main/java/com/booking/user/UserServiceApplication.java) default port 8082 and name user-service [View setting] (https://github.com/liga12/booking/blob/master/user-service/src/main/resources/bootstrap.yml) 
