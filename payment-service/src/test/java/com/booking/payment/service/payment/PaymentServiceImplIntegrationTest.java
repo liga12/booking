@@ -158,6 +158,6 @@ public class PaymentServiceImplIntegrationTest {
         for (OrderClient client : orders) {
             ids.add(client.getId());
         }
-        assertEquals(ids,result);
+        assertEquals(ids, result);
     }
 }

@@ -21,12 +21,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static com.booking.event.util.Converter.mapToJson;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static com.booking.event.util.Converter.mapToJson;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PlaceControllerTest {
@@ -154,5 +154,4 @@ public class PlaceControllerTest {
 
         verify(placeService).delete(id);
     }
-
 }

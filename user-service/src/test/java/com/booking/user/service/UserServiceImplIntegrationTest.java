@@ -20,14 +20,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static com.booking.user.asserts.Asserts.assertEqualUserAndDto;
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -449,11 +446,11 @@ public class UserServiceImplIntegrationTest {
 
     @Test(expected = UserNotFoundException.class)
     public void testGetUserByPaymentIdWithUserNotFoundException() {
-       userService.getUserByPaymentId(1L);
+        userService.getUserByPaymentId(1L);
     }
 
     @Test(expected = UserNotFoundException.class)
     public void testGetUserByPaymentIdNull() {
-      userService.getUserByPaymentId(null);
+        userService.getUserByPaymentId(null);
     }
 }

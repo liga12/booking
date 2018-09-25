@@ -20,7 +20,7 @@ public abstract class PlaceMapper {
     protected EventMapper eventMapper;
 
     @Autowired
-    protected  PlaceService placeService;
+    protected PlaceService placeService;
 
     protected EventService eventService;
 

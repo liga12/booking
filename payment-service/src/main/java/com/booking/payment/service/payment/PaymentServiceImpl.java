@@ -63,7 +63,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Set<Long> entityToId(Set<OrderClient> clients) {
-        if (clients==null){
+        if (clients == null) {
             return null;
         }
         Set<Long> ids = new HashSet<>();
@@ -78,6 +78,4 @@ public class PaymentServiceImpl implements PaymentService {
             throw new ExistTokenException();
         }
     }
-
-
 }

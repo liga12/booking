@@ -138,7 +138,6 @@ public class TicketServiceImplTest {
 
     @Test(expected = NotCorrectTicketDateException.class)
     public void testCreatePdfWithTicketNull() {
-       ticketService.createPdf(null);
+        ticketService.createPdf(null);
     }
-
 }

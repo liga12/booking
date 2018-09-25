@@ -1,7 +1,10 @@
 package com.booking.user.transpor.dto;
 
 import com.booking.user.persistence.entity.UserType;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter

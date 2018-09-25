@@ -12,8 +12,6 @@ import com.booking.event.transport.dto.organization.OrganizationCreateDto;
 import com.booking.event.transport.dto.organization.OrganizationFindDto;
 import com.booking.event.transport.dto.organization.OrganizationOutcomeDto;
 import com.booking.event.transport.dto.organization.OrganizationUpdateDto;
-import com.booking.event.transport.dto.place.PlaceCreateDto;
-import com.booking.event.type.SectionType;
 import org.assertj.core.util.Lists;
 import org.assertj.core.util.Sets;
 import org.junit.Test;
@@ -399,5 +397,4 @@ public class OrganizationServiceImplIntegrationTest {
     public void testValidateOrganizationByActiveWithOrganizationNotActive() {
         organizationService.validateOrganizationByActive(6L);
     }
-
 }

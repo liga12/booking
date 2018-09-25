@@ -1,6 +1,9 @@
 package com.booking.payment.persistence.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -29,7 +32,7 @@ public class OrderClient {
     @Column(nullable = false)
     private Double amount;
 
-    public OrderClient(Long id){
+    public OrderClient(Long id) {
         this.id = id;
     }
 }

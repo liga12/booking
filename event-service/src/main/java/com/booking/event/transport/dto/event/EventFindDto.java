@@ -1,7 +1,6 @@
 package com.booking.event.transport.dto.event;
 
 import com.booking.event.type.EventType;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

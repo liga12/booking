@@ -6,7 +6,6 @@ import com.booking.event.persistence.entity.event.CinemaEvent;
 import com.booking.event.persistence.repository.OrganizationRepository;
 import com.booking.event.service.event.EventService;
 import com.booking.event.service.feign.UserService;
-import com.booking.event.transport.dto.event.ageConstrain.cinema.CinemaEventUpdateDto;
 import com.booking.event.transport.dto.organization.OrganizationCreateDto;
 import com.booking.event.transport.dto.organization.OrganizationFindDto;
 import com.booking.event.transport.dto.organization.OrganizationOutcomeDto;

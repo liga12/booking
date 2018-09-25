@@ -13,9 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.FileInputStream;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -48,7 +46,10 @@ public class TicketControllerTest {
     @Test
     public void testGetPdf() throws Exception {
         String path = "path";
-        when(ticketService.getFile(path)).thenReturn(new InputStreamResource(new FileInputStream("/home/user/11111/ticket.pdf")));
+        when(ticketService.getFile(path)).thenReturn(
+                new InputStreamResource(new FileInputStream("/home/user/11111/ticket.pdf")
+                )
+        );
 
         mockMvc.perform(get("/tickets/getPdf?path=path")
                 .accept(MediaType.APPLICATION_PDF))

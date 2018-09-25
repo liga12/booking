@@ -73,7 +73,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public AbstractEventOutcomeDto getById(Long id) {
-        if (id==null){
+        if (id == null) {
             throw new EventNotFoundException();
         }
         return eventMapper.toDto(
@@ -108,7 +108,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Long update(AbstractEventUpdateDto dto) {
-        if (dto==null){
+        if (dto == null) {
             throw new EventNotFoundException();
         }
         validateDate(dto.getDate());
@@ -152,14 +152,14 @@ public class EventServiceImpl implements EventService {
         if (abstractEventOutcomeDto.getDate() <= timestamp) {
             delete(id);
         }
-        if (!abstractEventOutcomeDto.getVisible()){
+        if (!abstractEventOutcomeDto.getVisible()) {
             throw new EventNotActiveException();
         }
     }
 
     @Override
     public boolean existById(Long id) {
-        if (id==null){
+        if (id == null) {
             throw new EventNotFoundException();
         }
         return eventRepository.existsById(id);

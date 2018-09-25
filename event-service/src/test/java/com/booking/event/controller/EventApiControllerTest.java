@@ -192,6 +192,4 @@ public class EventApiControllerTest {
 
         verify(organizationService, times(1)).getById(organizationId);
     }
-
-
 }

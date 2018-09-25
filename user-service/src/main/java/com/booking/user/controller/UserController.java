@@ -27,5 +27,4 @@ public class UserController {
     public String registration(@RequestBody @Valid UserCreateDto dto) {
         return userService.create(dto);
     }
-
 }

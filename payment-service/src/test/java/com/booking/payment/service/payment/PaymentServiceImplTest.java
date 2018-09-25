@@ -16,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -26,9 +25,7 @@ import org.springframework.data.jpa.domain.Specification;
 import java.util.Set;
 
 import static java.util.Optional.of;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -104,7 +101,7 @@ public class PaymentServiceImplTest {
     }
 
     @Test
-    public void testExistTokenId(){
+    public void testExistTokenId() {
         Long id = 1L;
         when(paymentRepository.existsById(id)).thenReturn(true);
 
@@ -115,7 +112,7 @@ public class PaymentServiceImplTest {
     }
 
     @Test
-    public void testEntityToId(){
+    public void testEntityToId() {
         OrderClient orderClient = new OrderClient(1L);
         OrderClient orderClientSecond = new OrderClient(2L);
         Set<OrderClient> orderClients = Sets.newLinkedHashSet(orderClient, orderClientSecond);
@@ -126,7 +123,7 @@ public class PaymentServiceImplTest {
     }
 
     @Test
-    public void testEntityToIdNull(){
+    public void testEntityToIdNull() {
 
         Set<Long> result = paymentService.entityToId(null);
 

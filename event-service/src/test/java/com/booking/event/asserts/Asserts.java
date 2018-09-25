@@ -62,7 +62,7 @@ public interface Asserts {
         }
     }
 
-    static void assertEqualDtoAndDto(OrganizationUpdateDto firstDto,OrganizationOutcomeDto secondDto) {
+    static void assertEqualDtoAndDto(OrganizationUpdateDto firstDto, OrganizationOutcomeDto secondDto) {
         assertEquals(firstDto.getId(), secondDto.getId());
         assertEquals(firstDto.getName(), secondDto.getName());
         assertEquals(firstDto.getLocation(), secondDto.getLocation());
@@ -90,6 +90,5 @@ public interface Asserts {
         assertEquals(firstDto.getPrice(), secondDto.getPrice());
         assertEquals(firstDto.getStatus(), secondDto.getStatus());
     }
-
 }
 

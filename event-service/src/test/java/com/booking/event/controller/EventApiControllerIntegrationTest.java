@@ -308,6 +308,4 @@ public class EventApiControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.error").value("Organization not found"));
     }
-
-
 }

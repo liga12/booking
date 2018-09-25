@@ -1,7 +1,6 @@
 package com.booking.user.transpor.dto;
 
 import com.booking.user.persistence.entity.UserType;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 

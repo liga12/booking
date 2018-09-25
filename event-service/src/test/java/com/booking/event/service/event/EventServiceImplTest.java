@@ -150,7 +150,7 @@ public class EventServiceImplTest {
     public void GetByIdNull() {
         Long id = null;
 
-       eventService.getById(id);
+        eventService.getById(id);
     }
 
     @Test
@@ -186,7 +186,6 @@ public class EventServiceImplTest {
 
         assertNull(eventService.getById(events));
     }
-
 
     @Test
     public void testCreate() {
@@ -226,7 +225,7 @@ public class EventServiceImplTest {
     }
 
     @Test(expected = EventNotFoundException.class)
-    public void testUpdateWithDtoNull(){
+    public void testUpdateWithDtoNull() {
         eventService.update(null);
     }
 
@@ -263,7 +262,7 @@ public class EventServiceImplTest {
 
     @Test
     public void testGetIdFromEntityNull() {
-        assertNull( eventService.getIdFromEntity(null));
+        assertNull(eventService.getIdFromEntity(null));
     }
 
     @Test

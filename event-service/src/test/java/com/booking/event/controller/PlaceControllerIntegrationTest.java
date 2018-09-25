@@ -547,6 +547,4 @@ public class PlaceControllerIntegrationTest {
         mockMvc.perform(delete("/places/{id}", id))
                 .andExpect(status().isMethodNotAllowed());
     }
-
-
 }

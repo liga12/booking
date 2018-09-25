@@ -3,7 +3,6 @@ package com.booking.payment.controller;
 import com.booking.payment.api.PaymentApi;
 import com.booking.payment.service.payment.PaymentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 

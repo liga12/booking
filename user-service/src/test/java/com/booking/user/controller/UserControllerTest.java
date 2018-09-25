@@ -294,5 +294,4 @@ public class UserControllerTest {
                 .content(mapToJson(createDto)))
                 .andExpect(status().isBadRequest());
     }
-
 }

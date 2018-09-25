@@ -102,5 +102,4 @@ public class OrderClientServiceImplTest {
         verify(orderClientRepository, times(1)).save(orderClient);
         assertEquals(orderClient.getId(), result);
     }
-
 }

@@ -99,13 +99,13 @@ public class UserServiceImpl implements UserService {
     }
 
     private void validateEmail(String email) {
-        if (email==null||userRepository.existsByEmail(email)) {
+        if (email == null || userRepository.existsByEmail(email)) {
             throw new EmailExistException();
         }
     }
 
     private void validateTokenId(Long tokenId) {
-        if (tokenId==null||!paymentService.existTokenId(tokenId)) {
+        if (tokenId == null || !paymentService.existTokenId(tokenId)) {
             throw new TokenNotExistException();
         }
     }

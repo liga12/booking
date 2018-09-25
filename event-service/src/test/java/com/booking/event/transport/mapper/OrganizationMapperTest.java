@@ -186,6 +186,6 @@ public class OrganizationMapperTest {
     public void testOrganizationOutcomeDtoToEntityNull() {
         OrganizationOutcomeDto dto = null;
 
-       assertNull(organizationMapper.toEntity(dto));
+        assertNull(organizationMapper.toEntity(dto));
     }
 }

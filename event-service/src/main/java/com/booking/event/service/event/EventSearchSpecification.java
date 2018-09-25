@@ -43,9 +43,9 @@ interface EventSearchSpecification {
     }
 
     static Predicate toEqualsPredicateId(Root<AbstractEvent> root,
-                                       CriteriaBuilder criteriaBuilder,
-                                       String param,
-                                       Long paramValue) {
+                                         CriteriaBuilder criteriaBuilder,
+                                         String param,
+                                         Long paramValue) {
         return paramValue != null ? criteriaBuilder.equal(root.get(param).get("id"), paramValue) : null;
     }
 

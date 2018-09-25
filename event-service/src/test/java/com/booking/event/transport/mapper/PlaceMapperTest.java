@@ -66,7 +66,7 @@ public class PlaceMapperTest {
     public void testPlaceCreateDtoToEntityNull() {
         PlaceCreateDto dto = null;
 
-       assertNull(placeMapper.toEntity(dto));
+        assertNull(placeMapper.toEntity(dto));
     }
 
     @Test
@@ -101,7 +101,7 @@ public class PlaceMapperTest {
     public void testPlaceOutcomeDtoToEntityNull() {
         PlaceOutcomeDto dto = null;
 
-       assertNull(placeMapper.toEntity(dto));
+        assertNull(placeMapper.toEntity(dto));
     }
 
     @Test
@@ -132,7 +132,7 @@ public class PlaceMapperTest {
     public void testPlaceUpdateDtoToEntityNull() {
         PlaceUpdateDto dto = null;
 
-      assertNull(placeMapper.toEntity(dto));
+        assertNull(placeMapper.toEntity(dto));
     }
 
     @Test

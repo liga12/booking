@@ -60,6 +60,4 @@ public class OrderClientMapperTest {
         assertEquals(orderClient.getPaymentCustomer().getId(), result.getPaymentCustomer());
         assertEquals(orderClient.getAmount(), result.getAmount());
     }
-
-
 }
