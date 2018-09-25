@@ -19,11 +19,17 @@ And 3 Api for works with [FeingClient](https://cloud.spring.io/spring-cloud-netf
 3 [User-api](https://github.com/liga12/booking/tree/master/user-api) - Module consist from interface for  work with [UserService](https://github.com/liga12/booking/tree/master/user-service)
 
 ## Deployment
-1 Install [PostgresSql](https://www.postgresql.org/) 
+1 Install [PostgresSql](https://www.postgresql.org/) with
+
+ url =  localhost:5432 
+     
+ username = postgres 
+ 
+ password = root
 
 2 Install [JDK8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
-3 Run script [createSchema.sql](https://github.com/liga12/booking/blob/master/payment-service/src/main/resources/createSchema.sql)
+3 Run script [createSchema.sql](https://github.com/liga12/booking/blob/master/createSchema.sql)
 
 5 Run [DiscoveryServiceApplication](https://github.com/liga12/booking/tree/master/discovery-service/src/main/java/com/booking/server) default port 8761 [View setting](https://github.com/liga12/booking/blob/master/discovery-service/src/main/resources/bootstrap.yml) 
 
