@@ -16,7 +16,7 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(value = PlaceNotFoundException.class)
-    private String placeNotFound(PlaceNotFoundException e) {
+    private String placeNotFoundException(PlaceNotFoundException e) {
         return String.format("{\"error\":\"%s\"}", e.getMessage());
     }
 
