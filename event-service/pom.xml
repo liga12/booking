@@ -92,6 +92,7 @@
         </dependencies>
     </dependencyManagement>
     <build>
+        <finalName>event-service</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

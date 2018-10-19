@@ -18,10 +18,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Component;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -45,7 +44,7 @@ public class TicketServiceImpl implements TicketService {
     private String qaImage;
 
     @Value("${pdf.image.footer}")
-    private String footer;
+    private String footerImage;
 
     @Value("${rules}")
     private String rules;
@@ -69,7 +68,9 @@ public class TicketServiceImpl implements TicketService {
         ticket.setPlaceNumber(placeDto.getNumber());
         ticket.setPlaceRow(placeDto.getRow());
         ticket.setEvent(event.getName());
-        ticket.setDate(longToLocalDateTime(event.getDate()));
+        ticket.setDate(
+
+                longToLocalDateTime(event.getDate()));
         ticket.setCost(cost);
         ticket.setOrganizationPhone(organizationPhone);
         return hostAndPort + controllerMethod + createPdf(ticket);
@@ -80,7 +81,9 @@ public class TicketServiceImpl implements TicketService {
         if (ticket == null) {
             throw new NotCorrectTicketDateException();
         }
+        createPdfFolderAndFiles();
         String path = pdfFolder + createFileName(ticket);
+        System.out.println("pdf" + path);
         Document document = new Document();
         try {
             PdfWriter.getInstance(
@@ -100,13 +103,14 @@ public class TicketServiceImpl implements TicketService {
             Image img = Image.getInstance(qaImage);
             img.setAbsolutePosition(350, 630);
             img.scaleToFit(200, 200);
-            Image img2 = Image.getInstance(footer);
+            Image img2 = Image.getInstance(footerImage);
             img2.setAbsolutePosition(0, 150);
             img2.scaleToFit(600, 200);
             document.add(img);
             document.add(img2);
             document.close();
-        } catch (DocumentException | IOException e) {
+        } catch (DocumentException |
+                IOException e) {
             throw new PdfDirectoryNotFoundException();
         }
         return path;
@@ -144,12 +148,37 @@ public class TicketServiceImpl implements TicketService {
                         ZoneId.systemDefault()
                 )
         );
-
     }
 
     private String formatDate(LocalDateTime localDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return localDateTime.format(formatter);
+    }
+
+    private void createPdfFolderAndFiles() {
+        try {
+            Files.createDirectories(Paths.get("./pdf"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try (BufferedInputStream footerOriginal = new BufferedInputStream(getClass().getClassLoader().getResourceAsStream("pdf/2.png"));
+             BufferedInputStream qrOriginal = new BufferedInputStream(getClass().getClassLoader().getResourceAsStream("pdf/qr.png"));
+             BufferedOutputStream footerCopy = new BufferedOutputStream(new FileOutputStream(new File(footerImage)));
+             BufferedOutputStream qrCopy = new BufferedOutputStream(new FileOutputStream(new File(qaImage)))
+        ) {
+            int b = 0;
+            while (b != -1) {
+                b = footerOriginal.read();
+                footerCopy.write(b);
+            }
+            b = 0;
+            while (b != -1) {
+                b = qrOriginal.read();
+                qrCopy.write(b);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

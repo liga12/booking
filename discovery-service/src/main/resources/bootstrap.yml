@@ -4,3 +4,11 @@ eureka:
   client:
     registerWithEureka: false
     fetchRegistry: false
+  instance:
+    prefer-ip-address: true
+
+
+spring:
+  application:
+    name: discovery
+

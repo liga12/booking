@@ -1,0 +1,65 @@
+#version: '3'
+#
+#services:
+#
+##  db:
+##    image: postgres
+##    ports:
+##    - 5432:5432
+##    environment:
+##      POSTGRES_USER: "postgres"
+##      POSTGRES_PASSWORD: "root"
+##      POSTGRES_DB: "event"
+#
+##  mongodb:
+##    image: mongo:latest
+##    container_name: "mongodb"
+##    environment:
+##    - MONGO_DATA_DIR=/data/db
+##    - MONGO_LOG_DIR=/dev/null
+##    volumes:
+##    - ./data/db:/data/db
+##    ports:
+##    - 27018:27018
+##    command: mongod --smallfiles --logpath=/dev/null # --quie
+#
+#
+#  mongodb-entity:
+#    image: mongo:3.6
+#    container_name: mongodb-entity
+#    environment:
+#    - MONGO_DATA_DIR=/data/db
+#    - MONGO_LOG_DIR=/dev/null
+#    command: ["mongod", "-port", "27018"]
+#    volumes:
+#    - /home/user/Documents/data/mongodb-entity:/data/db
+#    ports:
+#    - 27018:27018
+#    networks:
+#    - jBoardNetwork_default
+#
+#  user-service:
+#    build: ./
+#    image: user-service
+#    container_name: user-service
+#    restart: always
+#    ports:
+#      - 8082:8082
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "10"
+#    external_links:
+#      - srpNetwork_default
+#    networks:
+#    - jBoardNetwork_default
+#    links:
+#    - mongodb-entity
+#    depends_on:
+#    - mongodb-entity
+#
+#networks:
+#  jBoardNetwork_default:
+#    external: true

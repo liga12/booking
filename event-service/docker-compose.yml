@@ -1,0 +1,40 @@
+#version: '3'
+#
+#services:
+#
+#  db:
+#    image: postgres
+#    ports:
+#    - 5432:5432
+#    environment:
+#      POSTGRES_USER: "postgres"
+#      POSTGRES_PASSWORD: "root"
+#      POSTGRES_DB: "event"
+#
+#  event-service:
+#    build: ./
+#    image: srp-event-service
+#    container_name: srp-event-service
+#    restart: always
+#    ports:
+#      - 8080:8080
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "10"
+#    depends_on:
+#    - "db"
+##    external_links:
+##      - srpNetwork_default
+##    networks:
+##      #- default
+##      - srpNetwork_default
+#
+#
+#
+#networks:
+#  srpNetwork_default:
+#    external: true
+#

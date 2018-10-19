@@ -82,7 +82,7 @@ public class TicketServiceImplTest {
 
     @Test
     public void testCreatePdf() {
-        String pdfFolder = "/home/user/11111/";
+        String pdfFolder = "pdf/";
         Ticket ticket = new Ticket(
                 "name",
                 "surname",
@@ -94,8 +94,8 @@ public class TicketServiceImplTest {
                 "11111");
 
         ReflectionTestUtils.setField(ticketService, "pdfFolder", pdfFolder);
-        ReflectionTestUtils.setField(ticketService, "qaImage", "/home/user/11111/qr.png");
-        ReflectionTestUtils.setField(ticketService, "footer", "/home/user/11111/2.png");
+        ReflectionTestUtils.setField(ticketService, "qaImage", "pdf/qr.png");
+        ReflectionTestUtils.setField(ticketService, "footerImage", "pdf/2.png");
 
         String result = ticketService.createPdf(ticket);
 
@@ -122,8 +122,8 @@ public class TicketServiceImplTest {
                 "11111");
 
         ReflectionTestUtils.setField(ticketService, "pdfFolder", "/243234/234234");
-        ReflectionTestUtils.setField(ticketService, "qaImage", "/home/user/11111/qr.png");
-        ReflectionTestUtils.setField(ticketService, "footer", "/home/user/11111/2.png");
+        ReflectionTestUtils.setField(ticketService, "qaImage", "pdf/qr.png");
+        ReflectionTestUtils.setField(ticketService, "footerImage", "pdf/2.png");
 
         String result = ticketService.createPdf(ticket);
 

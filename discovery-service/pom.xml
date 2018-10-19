@@ -38,6 +38,7 @@
         </dependencies>
     </dependencyManagement>
     <build>
+        <finalName>discovery</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

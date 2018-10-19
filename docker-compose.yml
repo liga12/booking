@@ -1,0 +1,100 @@
+version: '3'
+
+services:
+  discovery-service:
+    image: discovery-service
+    container_name: discovery-service
+    build: ./discovery-service
+    ports:
+    - 8761:8761
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+    - jBoardNetwork_default
+
+  mongodb-entity:
+    image: mongo:3.6
+    container_name: mongodb-entity
+    environment:
+    - MONGO_DATA_DIR=/data/db
+    - MONGO_LOG_DIR=/dev/null
+    command: ["mongod", "-port", "27016"]
+    volumes:
+    - /home/user/Documents/data/mongodb-entity:/data/db
+    ports:
+    - 27018:27018
+    networks:
+    - jBoardNetwork_default
+
+  user-service:
+    image: user-service
+    container_name: user-service
+    build: ./user-service
+    restart: on-failure
+    environment:
+      CONFIG_SERVICE_PASSWORD: configpass
+      MONGO_SERVER_HOST: mongodb-entity
+      MONGO_SERVER_PORT: 27018
+    ports:
+    - 8082:8082
+    networks:
+    - jBoardNetwork_default
+    links:
+    - mongodb-entity
+    depends_on:
+    - mongodb-entity
+    - discovery-service
+
+  db:
+    container_name: postgres-entity
+    image: postgres:10
+    restart: on-failure
+    environment:
+      POSTGRES_DB: payment
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d
+      - /home/user/Documents/data/dbss:/data/db
+    ports:
+    - 5432:5432
+    networks:
+    - jBoardNetwork_default
+
+  event-service:
+    build: ./event-service
+    image: event-service
+    container_name: event-service
+    restart: on-failure
+    ports:
+    - 8080:8080
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+    - jBoardNetwork_default
+    links:
+    - db
+    depends_on:
+    - db
+    - discovery-service
+
+  payment-service:
+    build: ./payment-service
+    image: payment-service
+    container_name: payment-service
+    restart: on-failure
+    ports:
+    - 8081:8081
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+    - jBoardNetwork_default
+    links:
+    - db
+    depends_on:
+    - db
+    - discovery-service
+
+networks:
+  jBoardNetwork_default:
+    external: true
