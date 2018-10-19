@@ -22,25 +22,19 @@ And 3 Api for works with [FeingClient](https://cloud.spring.io/spring-cloud-netf
 
 ## Deployment
 
-1 Install [PostgresSql](https://www.postgresql.org/) with
+1 Install [Install Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 
- url =  localhost:5432 
-     
- username = postgres 
- 
- password = root
+2 Install [Install Docker Compose](https://docs.docker.com/compose/install/#install-compose)
 
-2 Install [JDK8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+3 Go to project main folder on terminal
 
-3 Run script [createSchema.sql](https://github.com/liga12/booking/blob/master/createSchema.sql)
+4 Run on terminal 
+    
+    sudo docker network create jBoardNetwork_default
 
-5 Run [DiscoveryServiceApplication](https://github.com/liga12/booking/tree/master/discovery-service/src/main/java/com/booking/server) default port 8761 [View setting](https://github.com/liga12/booking/blob/master/discovery-service/src/main/resources/bootstrap.yml) 
+5 Run on terminal 
 
-6 Run [EventServiceApplication](https://github.com/liga12/booking/blob/master/event-service/src/main/java/com/booking/event/EventServiceApplication.java) default port 8080 and name event-service [View setting](https://github.com/liga12/booking/blob/master/event-service/src/main/resources/bootstrap.yml) 
-
-7 Run [PaymentServiceApplication](https://github.com/liga12/booking/blob/master/payment-service/src/main/java/com/booking/payment/PaymentServiceApplication.java) default port 8081 and name payment-service [View setting](https://github.com/liga12/booking/blob/master/payment-service/src/main/resources/bootstrap.yml) 
-
-8 Run [UserServiceApplication](https://github.com/liga12/booking/blob/master/user-service/src/main/java/com/booking/user/UserServiceApplication.java) default port 8082 and name user-service [View setting](https://github.com/liga12/booking/blob/master/user-service/src/main/resources/bootstrap.yml) 
+    sudo docker-compose up --build
 
 ## Example
 
