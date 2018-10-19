@@ -26,13 +26,17 @@ And 3 Api for works with [FeingClient](https://cloud.spring.io/spring-cloud-netf
 
 2 Install [Install Docker Compose](https://docs.docker.com/compose/install/#install-compose)
 
-3 Go to project main folder on terminal
+3 Run maven command from root-module
+        
+        mvn clean install
 
-4 Run on terminal 
+4 Go to project main folder on terminal
+
+5 Run on terminal 
     
     sudo docker network create jBoardNetwork_default
 
-5 Run on terminal 
+6 Run on terminal 
 
     sudo docker-compose up --build
 
