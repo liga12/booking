@@ -83,7 +83,6 @@ public class TicketServiceImpl implements TicketService {
         }
         createPdfFolderAndFiles();
         String path = pdfFolder + createFileName(ticket);
-        System.out.println("pdf" + path);
         Document document = new Document();
         try {
             PdfWriter.getInstance(

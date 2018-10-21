@@ -179,9 +179,9 @@ And 3 Api for works with [FeingClient](https://cloud.spring.io/spring-cloud-netf
                   "number": 0
               }
             
-9 Get all palace by event
+9 Get all free palace by event
 
-    url: http://localhost:8080/places?event=1
+    url: http://localhost:8080/places?event=1&status=ACTIVE
     method: get  
     response: {
                   "content": [
